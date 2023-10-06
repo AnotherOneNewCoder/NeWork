@@ -45,3 +45,4 @@ captures/
 *.json
 ### Gradle ###
 !/gradle/wrapper/gradle-wrapper.jar
+maps.properties

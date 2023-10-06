@@ -9,7 +9,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#805FBA"
+        android:background="@color/purple"
         app:labelVisibilityMode="labeled"
         style="@style/Widget.App.BottomNavigationView"
         app:layout_constraintBottom_toBottomOf="parent"

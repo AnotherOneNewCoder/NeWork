@@ -15,6 +15,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        Properties properties = new Properties()
+        if (rootProject.file("maps.properties").exists()) {
+            properties.load(rootProject.file("maps.properties").newDataInputStream())
+        }
+
+        buildConfigField "String", "MAPS_API_KEY", "${properties.getProperty("MAPS_API_KEY", "")}"
     }
 
     buildTypes {
@@ -28,7 +34,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
+        buildConfig true
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -54,4 +61,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation 'com.yandex.android:maps.mobile:4.3.1-full'
 }

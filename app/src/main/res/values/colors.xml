@@ -7,5 +7,8 @@
     <color name="white">#FFFFFF</color>
     <color name="news">#3E4EA6</color>
     <color name="black">#000000</color>
+    <color name="purple">#805FBA</color>
+    <color name="text_grey">#999999</color>
+    <color name="text_content">#272626</color>
 
 </resources>

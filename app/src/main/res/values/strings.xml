@@ -4,4 +4,7 @@
     <string name="posts">Posts</string>
     <string name="users">Users</string>
     <string name="profile">Profile</string>
+    <string name="media">Media</string>
+    <string name="author_current_job_place">Author current job place</string>
+    <string name="event_author_name">Event author name</string>
 </resources>
