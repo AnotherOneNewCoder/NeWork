@@ -5,4 +5,7 @@
     <dimen name="icon_button_padding">12dp</dimen>
     <dimen name="icon_button_min_size">48dp</dimen>
     <dimen name="margin_divider">10dp</dimen>
+    <dimen name="end_margin_btn">16dp</dimen>
+    <dimen name="end_margin_btn_post">22dp</dimen>
+    <dimen name="large_icon">48dp</dimen>
 </resources>

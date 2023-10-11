@@ -1,16 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
+    android:background="@drawable/fone2"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/wall_avatar_cv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PROFILE"
-        android:textSize="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/wall_avatar_cv_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/wall_user_avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/no_avatar" />
+
+            <TextView
+                android:id="@+id/id_or_count"
+                style="@style/id_text_wall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/wall_user_avatar"
+                app:layout_constraintEnd_toEndOf="@+id/wall_user_avatar"
+                tools:text="32" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/wall_user_name"
+        style="@style/text_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        app:layout_constraintBottom_toBottomOf="@+id/wall_avatar_cv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toEndOf="@+id/wall_avatar_cv"
+        app:layout_constraintTop_toTopOf="@+id/wall_avatar_cv"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_tab_layout_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="80dp"
+        app:cardCornerRadius="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/wall_avatar_cv">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/profile_tab_layout"
+            style="@style/TextAppearance.Widget.TabWidget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:elevation="80dp">
+
+            <com.google.android.material.tabs.TabItem
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_ic_calendar" />
+
+            <com.google.android.material.tabs.TabItem
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_s_events" />
+
+            <com.google.android.material.tabs.TabItem
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_s_posts" />
+
+            <com.google.android.material.tabs.TabItem
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_s_jobs" />
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/card_view_tab_layout_profile"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:contentDescription="Add button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/btn_plus" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:text="@string/event"
+        android:contentDescription="@string/add_button_event"
+        app:layout_constraintBottom_toTopOf="@id/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/btn_plus" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:text="POST"
+        android:contentDescription="Add button post"
+        app:layout_constraintBottom_toTopOf="@id/add_event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/btn_plus" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:text="JOB"
+        android:contentDescription="Add button job"
+        app:layout_constraintBottom_toTopOf="@id/add_post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/btn_plus" />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="add_event,add_job,add_post"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

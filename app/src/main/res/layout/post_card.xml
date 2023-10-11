@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,43 +12,43 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/event_author_avatar"
+            android:id="@+id/post_author_avatar"
             android:layout_width="@dimen/event_avatar_size"
             android:layout_height="@dimen/event_avatar_size"
             app:srcCompat="@drawable/no_avatar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
-            android:id="@+id/event_author_name"
+            android:id="@+id/post_author_name"
             android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/event_author_name"
             android:layout_marginStart="@dimen/margin_start_text"
-            app:layout_constraintStart_toEndOf="@id/event_author_avatar"
+            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
             app:layout_constraintTop_toTopOf="parent"
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <TextView
-            android:id="@+id/event_author_job"
+            android:id="@+id/post_author_job"
             android:layout_marginStart="@dimen/margin_start_text"
             android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="@string/author_current_job_place"
-            app:layout_constraintStart_toEndOf="@id/event_author_avatar"
-            app:layout_constraintTop_toBottomOf="@id/event_author_name"
+            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
+            app:layout_constraintTop_toBottomOf="@id/post_author_name"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
         <TextView
-            android:id="@+id/event_published_time"
+            android:id="@+id/post_published_time"
             android:layout_marginStart="@dimen/margin_start_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="05.10.2023 21:44"
-            app:layout_constraintStart_toEndOf="@id/event_author_avatar"
-            app:layout_constraintTop_toBottomOf="@id/event_author_job"
+            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
+            app:layout_constraintTop_toBottomOf="@id/post_author_job"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
         <com.google.android.material.divider.MaterialDivider
@@ -55,13 +56,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/margin_divider"
-            app:layout_constraintTop_toBottomOf="@id/event_author_avatar"
+            app:layout_constraintTop_toBottomOf="@id/post_author_avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
 
         <TextView
-            android:id="@+id/event_content"
+            android:id="@+id/post_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="6"
@@ -73,65 +74,32 @@
             style="@style/text_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_top"/>
+
         <TextView
-            android:id="@+id/shapka_event_date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_content"
-            android:layout_marginTop="@dimen/margin_start_text"
-            android:text="Date and time: "
-            style="@style/text_date_time"/>
-        <TextView
-            android:id="@+id/event_date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/shapka_event_date_time"
-            app:layout_constraintTop_toTopOf="@id/shapka_event_date_time"
-            app:layout_constraintBottom_toBottomOf="@id/shapka_event_date_time"
-            android:layout_marginStart="@dimen/margin_start_text"
-            android:text="06.10.2023 at 19:00"
-            style="@style/text_date_time"/>
-        <TextView
-            android:id="@+id/shapka_event_format"
-            android:text="Format: "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/text_date_time"/>
-        <TextView
-            android:id="@+id/event_format"
-            android:text="Offline"
-            app:layout_constraintStart_toEndOf="@id/shapka_event_format"
-            app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_start_text"
-            style="@style/text_date_time"/>
-        <TextView
-            android:id="@+id/shapka_event_link"
+            android:id="@+id/shapka_post_link"
             android:text="Link: "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shapka_event_format"
+            app:layout_constraintTop_toBottomOf="@id/post_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             style="@style/text_date_time"/>
         <TextView
-            android:id="@+id/event_link"
+            android:id="@+id/post_link"
             android:text="https://stackoverflow.com/"
-            app:layout_constraintStart_toEndOf="@id/shapka_event_link"
-            app:layout_constraintTop_toBottomOf="@id/shapka_event_format"
+            app:layout_constraintStart_toEndOf="@id/shapka_post_link"
+            app:layout_constraintTop_toBottomOf="@id/post_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoLink="web"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="@dimen/margin_start_text"
             style="@style/text_date_time"/>
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/link"
-            app:constraint_referenced_ids="shapka_event_link, event_link"
+            app:constraint_referenced_ids="shapka_post_link, post_link"
             android:visibility="visible"/>
 
         <com.google.android.material.button.MaterialButton
@@ -141,42 +109,131 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:icon="@drawable/show_selector"
-            app:layout_constraintBottom_toBottomOf="@id/shapka_event_format"
+            app:layout_constraintTop_toBottomOf="@id/post_content"
             android:textColor="@color/notSaved"
-             />
+            />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_min"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="22dp"
-            app:layout_constraintTop_toBottomOf="@id/shapka_event_format"
+
+            app:layout_constraintTop_toBottomOf="@id/btn_show_hide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:id="@+id/full_content"
-            app:constraint_referenced_ids="event_media_space, bottoms_space"
+            app:constraint_referenced_ids="post_media_space, bottoms_space"
             android:visibility="gone"/>
 
-        <LinearLayout
-            android:id="@+id/event_media_space"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/post_media_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/divider_min">
+            app:layout_constraintTop_toBottomOf="@id/divider_min"
+            tools:layout_editor_absoluteX="-27dp">
             <!-- Media -->
             <ImageView
-                android:id="@+id/event_media"
+                android:id="@+id/post_image_media"
                 android:layout_width="match_parent"
-
                 android:layout_height="200dp"
                 android:contentDescription="@string/media"
                 android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/media" />
-        </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/play_stop_music_btn"
+                style="@style/Widget.App.Play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
+                app:icon="@drawable/music_play_pause_selector"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_image_media"
+
+                />
+
+            <SeekBar
+                android:id="@+id/music_progress_bar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progress="50"
+                android:progressDrawable="@drawable/track"
+                android:splitTrack="false"
+                android:thumb="@drawable/thumb"
+                app:layout_constraintBottom_toBottomOf="@id/play_stop_music_btn"
+                app:layout_constraintStart_toEndOf="@id/play_stop_music_btn"
+                app:layout_constraintTop_toTopOf="@id/play_stop_music_btn" />
+
+            <TextView
+                android:id="@+id/estimated_music_time"
+                style="@style/text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:12"
+                app:layout_constraintBottom_toBottomOf="@id/play_stop_music_btn"
+                app:layout_constraintStart_toEndOf="@id/music_progress_bar"
+                app:layout_constraintTop_toTopOf="@id/play_stop_music_btn" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/music_elements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="play_stop_music_btn, music_progress_bar, estimated_music_time" />
+
+            <VideoView
+                android:id="@+id/video_player"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/play_stop_music_btn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/play_stop_video_btn"
+                style="@style/Widget.App.Play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
+                app:icon="@drawable/video_play_pause_selector"
+                app:layout_constraintStart_toStartOf="@id/video_player"
+                app:layout_constraintTop_toBottomOf="@id/video_player"
+
+                />
+
+            <SeekBar
+                android:id="@+id/video_progress_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progress="50"
+                android:progressDrawable="@drawable/track"
+                android:splitTrack="false"
+                android:thumb="@drawable/thumb"
+                app:layout_constraintBottom_toBottomOf="@id/play_stop_video_btn"
+                app:layout_constraintEnd_toEndOf="@id/video_player"
+                app:layout_constraintStart_toEndOf="@id/play_stop_video_btn"
+                app:layout_constraintTop_toTopOf="@id/play_stop_video_btn" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/video_elements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="video_player, play_stop_video_btn, video_progress_bar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/bottoms_space"
@@ -185,7 +242,7 @@
             android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_media_space"
+            app:layout_constraintTop_toBottomOf="@id/post_media_space"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -193,36 +250,29 @@
                 android:id="@+id/btn_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn"
+                android:layout_marginStart="@dimen/end_margin_btn_post"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
                 app:icon="@drawable/like_selector"
                 android:textColor="@color/notSaved"
                 android:text="100" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.AppTheme.LikeCheckBox"
-                android:id="@+id/btn_participate"
+                android:id="@+id/btn_mention"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn"
-                app:icon="@drawable/participate_selector"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
+                app:icon="@drawable/mention_selector"
                 android:textColor="@color/notSaved"
-                android:text="100" />
+                android:text="40" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppTheme.LikeCheckBox"
-                android:id="@+id/btn_speakers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn"
-                app:icon="@drawable/speakers_selector"
-                android:textColor="@color/notSaved"
-                android:text="4" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_share"
                 style="@style/Widget.AppTheme.LikeCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
                 app:icon="@drawable/share_selector"
                 android:textColor="@color/notSaved"
                 />
@@ -231,7 +281,7 @@
                 style="@style/Widget.AppTheme.LikeCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn"
+                android:layout_marginEnd="@dimen/end_margin_btn_post"
                 app:icon="@drawable/coords_selector"
                 android:textColor="@color/notSaved"
                 />

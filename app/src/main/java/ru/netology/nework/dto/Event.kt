@@ -3,12 +3,13 @@ package ru.netology.nework.dto
 data class Event(
     val id: Long,
     val authorId: Long,
+    val author: String,
     val authorAvatar: String?,
     val authorJob: String?,
     val content: String,
     val datetime: String,
     val published: String,
-    val cords: Coordinates?,
+    val coords: Coordinates?,
     val type: TypeEvent,
     val likeOwnerIds: Set<Long> = emptySet(),
     val likedByMe: Boolean = false,
@@ -20,7 +21,7 @@ data class Event(
     val ownedByMe: Boolean = false,
 
 
-)
+    )
 
 
 

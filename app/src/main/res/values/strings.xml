@@ -7,4 +7,16 @@
     <string name="media">Media</string>
     <string name="author_current_job_place">Author current job place</string>
     <string name="event_author_name">Event author name</string>
+    <string name="job_place">Job place</string>
+    <string name="search">Search</string>
+    <string name="add_button_event">Add button event</string>
+    <string name="event">event</string>
+    <string name="tab_ic_calendar">Calendar</string>
+    <string name="user_s_events">user\'s events</string>
+    <string name="user_s_posts">user\'s posts</string>
+    <string name="user_s_jobs">user\'s jobs</string>
+    <string name="company">Company:</string>
+    <string name="position">Position: </string>
+    <string name="started">Started:</string>
+    <string name="finished">Finished:</string>
 </resources>
