@@ -20,4 +20,8 @@
         android:id="@+id/profileFragment"
         android:name="ru.netology.nework.activities.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/newJobFragment"
+        android:name="ru.netology.nework.activities.NewJobFragment"
+        android:label="NewJobFragment" />
 </navigation>

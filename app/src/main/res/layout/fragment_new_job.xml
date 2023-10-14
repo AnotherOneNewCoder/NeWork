@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_name_fragment_new_job"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|top"
+        android:hint="@string/company"
+        android:inputType="text"
+        android:padding="8dp"
+        app:boxStrokeColor="@color/news"
+        app:hintTextColor="@color/news"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_name_fragment_new_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:text="@tools:sample/lorem[5]" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_position_fragment_new_job"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|top"
+        android:hint="@string/position"
+        android:inputType="text"
+        android:padding="8dp"
+        app:boxStrokeColor="@color/news"
+        app:hintTextColor="@color/news"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_position_fragment_new_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:text="@tools:sample/lorem[1]" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_started_fragment_new_job"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|top"
+        android:hint="@string/started"
+        android:inputType="text"
+        android:padding="8dp"
+        app:boxStrokeColor="@color/news"
+        app:hintTextColor="@color/news"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_started_fragment_new_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:text="@tools:sample/lorem[1]" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_finished_fragment_new_job"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|top"
+        android:hint="@string/finished"
+        android:inputType="text"
+        android:padding="8dp"
+        app:boxStrokeColor="@color/news"
+        app:hintTextColor="@color/news"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_finished_fragment_new_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:text="@tools:sample/lorem[1]" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_link_fragment_new_job"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|top"
+        android:hint="@string/link"
+        android:inputType="text"
+        android:padding="8dp"
+        app:boxStrokeColor="@color/news"
+        app:hintTextColor="@color/news"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_link_fragment_new_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:text="@tools:sample/lorem[1]" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save_fragment_new_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/news"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp" />
+
+</LinearLayout>

@@ -1,145 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:anroid="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
-    android:id="@+id/job_card"
-
-
-    anroid:cardCornerRadius="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:anroid="http://schemas.android.com/tools"
+    android:id="@+id/card"
     android:layout_width="match_parent"
-    android:backgroundTint="@color/white"
     android:layout_height="wrap_content"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false"
-    android:layout_margin="4dp">
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/news"
+    app:cardCornerRadius="20dp"
+    app:strokeColor="@color/black"
+    app:strokeWidth="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
-        >
-
-        <TextView
-            android:id="@+id/shapka_job_name"
-            style="@style/text_job_shapka"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/company"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="12dp"
-            anroid:layout_constraintStart_toStartOf="parent"
-            anroid:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/shapka_job_position"
-            style="@style/text_job_shapka"
-            android:layout_marginStart="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/position"
-            android:layout_marginTop="8dp"
-            anroid:layout_constraintStart_toStartOf="parent"
-            anroid:layout_constraintTop_toBottomOf="@id/shapka_job_name"  />
-        <TextView
-            android:id="@+id/shapka_job_started"
-            style="@style/text_job_shapka"
-            android:layout_marginStart="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/started"
-            android:layout_marginTop="8dp"
-            anroid:layout_constraintStart_toStartOf="parent"
-            anroid:layout_constraintTop_toBottomOf="@id/shapka_job_position"/>
-        <TextView
-            android:id="@+id/shapka_job_finished"
-            style="@style/text_job_shapka"
-            android:layout_marginStart="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/finished"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            anroid:layout_constraintBottom_toTopOf="@id/shapka_job_link"
-            anroid:layout_constraintStart_toStartOf="parent"
-            anroid:layout_constraintTop_toBottomOf="@id/shapka_job_started"/>
+            android:layout_margin="8dp">
 
-        <TextView
-            android:id="@+id/shapka_job_link"
-            style="@style/text_job_shapka"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            <TextView
+                android:id="@+id/shapka_job_name"
+                style="@style/text_job_shapka"
 
-            android:text="@string/link"
-            anroid:layout_constraintBottom_toBottomOf="parent"
-            anroid:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="8dp"
-            anroid:layout_constraintTop_toBottomOf="@id/shapka_job_finished" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/company"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/job_name"
-            style="@style/text_job_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Ltd Google"
-            anroid:layout_constraintStart_toEndOf="@id/shapka_job_name"
-            anroid:layout_constraintTop_toTopOf="@+id/shapka_job_name" />
-        <TextView
-            android:id="@+id/job_position"
-            style="@style/text_job_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Android developer"
-            anroid:layout_constraintStart_toEndOf="@id/shapka_job_position"
-            anroid:layout_constraintTop_toTopOf="@id/shapka_job_position" />
-        <TextView
-        android:id="@+id/job_started"
-        style="@style/text_job_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/_11_10_2015"
-        anroid:layout_constraintStart_toEndOf="@id/shapka_job_started"
-        anroid:layout_constraintTop_toTopOf="@id/shapka_job_started" />
-        <TextView
-            android:id="@+id/job_finished"
-            style="@style/text_job_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="22.02.2022"
-            anroid:layout_constraintStart_toEndOf="@id/shapka_job_finished"
-            anroid:layout_constraintTop_toTopOf="@id/shapka_job_finished" />
-        <TextView
-            android:id="@+id/job_link"
-            style="@style/text_job_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:autoLink="web"
-            android:text="https://www.google.com/"
-            anroid:layout_constraintStart_toEndOf="@id/shapka_job_link"
-            anroid:layout_constraintTop_toTopOf="@id/shapka_job_link" />
+            <TextView
+                android:id="@+id/shapka_job_position"
+                style="@style/text_job_shapka"
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppTheme.LikeCheckBox"
-            android:id="@+id/button_menu_card_job"
-            anroid:icon="@drawable/ic_editor_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:checkable="true"
-            anroid:layout_constraintTop_toTopOf="parent"
-            anroid:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/position"
+                app:layout_constraintStart_toStartOf="@+id/shapka_job_name"
+                app:layout_constraintTop_toBottomOf="@+id/shapka_job_name" />
+
+            <TextView
+                android:id="@+id/shapka_job_started"
+                style="@style/text_job_shapka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/started"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapka_job_position" />
+
+            <TextView
+                android:id="@+id/shapka_job_finished"
+                style="@style/text_job_shapka"
+                app:layout_constraintBottom_toTopOf="@id/shapka_job_link"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shapka_job_started"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/finished" />
+
+            <TextView
+                android:id="@+id/shapka_job_link"
+                style="@style/text_job_shapka"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shapka_job_finished"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/link" />
+
+            <TextView
+                android:id="@+id/job_name"
+                style="@style/text_job_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Ltd Google"
+                app:layout_constraintBottom_toBottomOf="@+id/shapka_job_name"
+                app:layout_constraintStart_toEndOf="@+id/shapka_job_name"
+                app:layout_constraintTop_toTopOf="@+id/shapka_job_name" />
+
+            <TextView
+                android:id="@+id/job_position"
+                style="@style/text_job_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Android developer"
+                app:layout_constraintBottom_toBottomOf="@+id/shapka_job_position"
+                app:layout_constraintStart_toEndOf="@+id/shapka_job_position"
+                app:layout_constraintTop_toTopOf="@+id/shapka_job_position" />
+
+            <TextView
+                android:id="@+id/job_started"
+                style="@style/text_job_name"
+                app:layout_constraintStart_toEndOf="@id/shapka_job_started"
+                app:layout_constraintTop_toTopOf="@id/shapka_job_started"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/_11_10_2015" />
+
+            <TextView
+                android:id="@+id/job_finished"
+                style="@style/text_job_name"
+                app:layout_constraintStart_toEndOf="@id/shapka_job_finished"
+                app:layout_constraintTop_toTopOf="@id/shapka_job_finished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="22.02.2022" />
+
+            <TextView
+                android:id="@+id/job_link"
+                style="@style/text_job_name"
+                app:layout_constraintStart_toEndOf="@id/shapka_job_link"
+                app:layout_constraintTop_toTopOf="@id/shapka_job_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:autoLink="web"
+                android:text="https://www.google.com/" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_menu_card_job"
+                style="@style/Widget.AppTheme.LikeCheckBox"
+                anroid:icon="@drawable/ic_editor_24"
+                anroid:layout_constraintEnd_toEndOf="parent"
+                anroid:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </com.google.android.material.card.MaterialCardView>
 
 </com.google.android.material.card.MaterialCardView>

@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.netology.nework.R
 import ru.netology.nework.adapters.TabAdapter
 import ru.netology.nework.databinding.FragmentProfileBinding
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     private val tabTitles = arrayOf(
         R.string.tab_ic_calendar,
@@ -18,6 +19,7 @@ class ProfileFragment: Fragment() {
         R.string.user_s_posts,
         R.string.user_s_jobs,
     )
+    private var addGroupVisible = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,9 +30,28 @@ class ProfileFragment: Fragment() {
         val viewPager = binding.viewPagerProfile
         val tabLayout = binding.profileTabLayout
         viewPager.adapter = TabAdapter(this)
-        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getString(tabTitles[position])
         }.attach()
+        binding.apply {
+            add.setOnClickListener {
+                addGroupVisible = !addGroupVisible
+                when (addGroupVisible) {
+                    true -> {
+                        groupAdd.visibility = View.VISIBLE
+                        add.setImageResource(R.drawable.minus)
+                        addJob.setOnClickListener {
+                            findNavController().navigate(R.id.newJobFragment)
+                        }
+                    }
+
+                    false -> {
+                        groupAdd.visibility = View.GONE
+                        add.setImageResource(R.drawable.plus)
+                    }
+                }
+            }
+        }
 
 
         return binding.root
