@@ -6,6 +6,17 @@
 
     android:layout_height="match_parent">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_log_out"
+        style="@style/Widget.AppTheme.LikeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_log_out"
+        app:iconTint="@color/news"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/wall_avatar_cv"
         android:layout_width="wrap_content"

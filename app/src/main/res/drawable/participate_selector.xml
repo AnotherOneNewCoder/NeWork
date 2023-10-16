@@ -2,11 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- бывший ic_liked -->
     <item
-        android:drawable="@drawable/ic_pariticipate_filled_24"
+        android:drawable="@drawable/ic_participate"
         android:state_checked="true"
         />
     <!-- fallback для всех остальных состояний -->
     <item
-        android:drawable="@drawable/ic_participate_outline_24"
+        android:drawable="@drawable/ic_participate"
         />
 </selector>

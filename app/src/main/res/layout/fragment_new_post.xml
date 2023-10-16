@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_content_fragment_new_post"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_top_horizontal_field_fragment_new_post"
+                android:layout_marginTop="@dimen/margin_top_text_field_fragment_new_post"
+                android:gravity="start|top"
+                android:hint="@string/post_content"
+                android:inputType="text"
+                android:padding="@dimen/padding_field_fragment_new_post"
+
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/news"
+                app:hintTextColor="@color/news">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_name_fragment_new_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/lorem[5]" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_link_fragment_new_post"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_top_horizontal_field_fragment_new_post"
+                android:layout_marginTop="@dimen/margin_top_text_field_fragment_new_post"
+                android:gravity="start|top"
+                android:hint="@string/link"
+                android:inputType="text"
+                android:padding="@dimen/padding_field_fragment_new_post"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/news"
+                app:hintTextColor="@color/news">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_link_fragment_new_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+
+                    tools:text="www.ya.ru" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/button_take_photo_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_post"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
+                    app:tint="@color/text_grey"
+                    android:src="@drawable/ic_take_photo_62" />
+
+                <ImageView
+                    android:id="@+id/button_video_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_post"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
+                    android:src="@drawable/ic_video_62" />
+                <ImageView
+                    android:id="@+id/button_choose_photo_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_post"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
+                    android:src="@drawable/ic_choose_from_gallery_62" />
+                <ImageView
+                    android:id="@+id/button_choose_audio_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_post"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
+                    android:src="@drawable/ic_audio_62" />
+
+
+                <ImageView
+                    android:id="@+id/button_coords_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_post"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
+                    android:src="@drawable/ic_coords_62" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/post_media_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:srcCompat="@drawable/no_avatar" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_remove_photo_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/news"
+                    android:text="@string/clear"
+                    android:textAllCaps="false"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/post_media_image_view" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_done_fragment_new_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/add_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_done_62" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

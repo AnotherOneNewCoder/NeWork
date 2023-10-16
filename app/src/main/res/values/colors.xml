@@ -11,5 +11,7 @@
     <color name="text_grey">#999999</color>
     <color name="text_content">#272626</color>
     <color name="transparent">#00000000</color>
+    <color name="test">#DD477A</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#000000</color>
 
 </resources>

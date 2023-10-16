@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_start_text"
         android:maxLines="1"
+        android:textColor="@color/news"
         android:text="User name"
         android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
@@ -41,7 +42,7 @@
     <View
         android:id="@+id/stroke"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@color/news"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

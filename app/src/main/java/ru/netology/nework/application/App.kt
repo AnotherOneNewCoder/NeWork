@@ -8,6 +8,7 @@ import ru.netology.nework.BuildConfig
 class App: Application() {
     override fun onCreate() {
         MapKitFactory.setApiKey(BuildConfig.MAPS_API_KEY)
+
         super.onCreate()
     }
 }

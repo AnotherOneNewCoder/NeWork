@@ -8,4 +8,18 @@
     <dimen name="end_margin_btn">16dp</dimen>
     <dimen name="end_margin_btn_post">22dp</dimen>
     <dimen name="large_icon">48dp</dimen>
+    <dimen name="margin_top_text_field_fragment_new_event">10dp</dimen>
+    <dimen name="margin_top_horizontal_field_fragment_new_event">4dp</dimen>
+    <dimen name="padding_field_fragment_new_event">8dp</dimen>
+    <dimen name="margin_vertical_bottom_icons_fragment_new_event">12dp</dimen>
+    <dimen name="margin_horizontal_bottom_icons_fragment_new_event">24dp</dimen>
+    <dimen name="margin_horizontal_switcher_fragment_new_event">24dp</dimen>
+    <dimen name="margin_top_text_field_fragment_new_post">10dp</dimen>
+    <dimen name="margin_top_horizontal_field_fragment_new_post">4dp</dimen>
+    <dimen name="padding_field_fragment_new_post">8dp</dimen>
+    <dimen name="margin_vertical_bottom_icons_fragment_new_post">12dp</dimen>
+    <dimen name="margin_horizontal_bottom_icons_fragment_new_post">24dp</dimen>
+    <dimen name="margin_horizontal_switcher_fragment_new_post">24dp</dimen>
+    <dimen name="margin_top_text_container_fragment_sing_in">24dp</dimen>
+    <dimen name="margin_top_text_container_fragment_sing_up">18dp</dimen>
 </resources>

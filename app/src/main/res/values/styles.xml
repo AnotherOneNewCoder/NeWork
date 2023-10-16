@@ -8,6 +8,10 @@
 
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+
+
+
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
         <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -59,6 +63,12 @@
         <item name="android:textColor">@color/text_content</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="text_user_name">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/text_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="id_text">
         <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/small_border</item>
@@ -71,9 +81,11 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:padding">8sp</item>
     </style>
-    <style name="text_user_name">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/black</item>
+
+    <style name="text_autorization">
+        <item name="android:textSize">28sp</item>
+        <item name="android:background">@drawable/small_border_auth</item>
+        <item name="android:textColor">@color/news</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="text_job_name">
@@ -102,6 +114,19 @@
         <item name="boxStrokeColor">@color/black</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">@color/notSaved</item>
+
+        <item name="colorAccent">@color/news</item>
+        <item name="android:textColor">@color/news</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
 
 
 

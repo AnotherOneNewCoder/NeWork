@@ -29,4 +29,18 @@
     <string name="type">Type:</string>
     <string name="link">Link:</string>
     <string name="_11_10_2015">11.10.2015</string>
+    <string name="event_content">Event content:</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="online_event">ONLINE event</string>
+    <string name="clear">Clear</string>
+    <string name="add_button">Add button</string>
+    <string name="post_content">Post content:</string>
+    <string name="login">Login:</string>
+    <string name="password">Password:</string>
+    <string name="sing_in">SING IN</string>
+    <string name="sing_up">SING UP</string>
+    <string name="confirm_password">Confirm password:</string>
+    <string name="user_name">User name:</string>
+    <string name="registration">REGISTRATION</string>
 </resources>

@@ -42,6 +42,15 @@ class ProfileFragment : Fragment() {
                         add.setImageResource(R.drawable.minus)
                         addJob.setOnClickListener {
                             findNavController().navigate(R.id.newJobFragment)
+                            addGroupVisible = !addGroupVisible
+                        }
+                        addEvent.setOnClickListener {
+                            findNavController().navigate(R.id.newEventFragment)
+                            addGroupVisible = !addGroupVisible
+                        }
+                        addPost.setOnClickListener {
+                            findNavController().navigate(R.id.newPostFragment)
+                            addGroupVisible = !addGroupVisible
                         }
                     }
 
