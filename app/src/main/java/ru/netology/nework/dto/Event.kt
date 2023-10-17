@@ -4,12 +4,12 @@ data class Event(
     val id: Long,
     val authorId: Long,
     val author: String,
-    val authorAvatar: String?,
+    val authorAvatar: String? = null,
     val authorJob: String?,
     val content: String,
     val datetime: String,
     val published: String,
-    val coords: Coordinates?,
+    val coords: Coordinates? = null,
     val type: TypeEvent,
     val likeOwnerIds: Set<Long> = emptySet(),
     val likedByMe: Boolean = false,
@@ -17,7 +17,7 @@ data class Event(
     val participantsIds: Set<Long> = emptySet(),
     val participatedByMe: Boolean = false,
     val attachment: Attachment? = null,
-    val link: String?,
+    val link: String? = null,
     val ownedByMe: Boolean = false,
 
 

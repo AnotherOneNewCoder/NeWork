@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:backgroundTint="@color/white"
+
         app:cardCornerRadius="20dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
@@ -142,12 +142,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_menu_card_job"
                 style="@style/Widget.AppTheme.LikeCheckBox"
-                anroid:icon="@drawable/ic_editor_24"
-                anroid:layout_constraintEnd_toEndOf="parent"
-                anroid:layout_constraintTop_toTopOf="parent"
+                app:icon="@drawable/ic_editor_24"
+                app:iconTint="@color/news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+
                 android:checkable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
