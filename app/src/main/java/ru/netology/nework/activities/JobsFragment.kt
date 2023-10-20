@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ru.netology.nework.adapters.JobAdapter
 import ru.netology.nework.adapters.OnJobInteractionListener
@@ -14,6 +16,9 @@ import ru.netology.nework.databinding.FragmentJobBinding
 import ru.netology.nework.dto.Job
 import ru.netology.nework.viewmodel.JobsViewModel
 
+
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class JobsFragment: Fragment() {
     private val viewModel by activityViewModels<JobsViewModel>()
 

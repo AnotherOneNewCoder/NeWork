@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
@@ -14,6 +16,11 @@ import ru.netology.nework.databinding.FragmentPostsBinding
 import ru.netology.nework.dto.Post
 import ru.netology.nework.viewmodel.PostsViewModel
 
+
+
+
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class PostsFragment: Fragment() {
     private val postViewModel by activityViewModels<PostsViewModel>()
     override fun onCreateView(

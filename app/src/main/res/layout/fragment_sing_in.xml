@@ -1,91 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_marginTop="70dp"
-        style="@style/text_autorization"
+    android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/progress_bar_fragment_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="AUTHENTICATION" />
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/container_text_login_fragment_sing_in"
 
-        style="@style/TextInputLayoutStyle"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
-        android:gravity="start|top"
-        android:hint="@string/login"
-        android:inputType="text"
-        android:padding="@dimen/padding_field_fragment_new_event"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/news"
-        app:hintTextColor="@color/news">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_login_fragment_sing_in"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/text_autorization"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            tools:text="@tools:sample/lorem[5]" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="AUTHENTICATION" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_content_fragment_new_event"
-        style="@style/TextInputLayoutStyle"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        app:endIconMode="password_toggle"
-        app:endIconTint="@color/news"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
-        android:gravity="start|top"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:padding="@dimen/padding_field_fragment_new_event"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/news"
-        app:hintTextColor="@color/news">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/container_text_login_fragment_sing_in"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_password_fragment_sing_in"
-            android:layout_width="match_parent"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            tools:text="@tools:sample/lorem[5]" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sing_in_fragment_sing_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
-        android:backgroundTint="@color/news"
-        android:layout_gravity="center"
-        android:text="@string/sing_in"
-        android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sing_un_fragment_sing_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
-        android:backgroundTint="@color/white"
-        android:layout_gravity="center"
-        android:text="@string/sing_up"
-        android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        android:textColor="@color/news"
-        />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
+            android:gravity="start|top"
+            android:hint="@string/login"
+            android:inputType="text"
+            android:padding="@dimen/padding_field_fragment_new_event"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/news"
+            app:hintTextColor="@color/news">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_login_fragment_sing_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/lorem[5]" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/container_text_passwd_fragment_sing_in"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
+            android:gravity="start|top"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="@dimen/padding_field_fragment_new_event"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/news"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/news"
+            app:hintTextColor="@color/news">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_password_fragment_sing_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/lorem[5]" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_sing_in_fragment_sing_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
+            android:backgroundTint="@color/news"
+            android:text="@string/sing_in"
+            android:textAllCaps="false"
+            app:cornerRadius="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_sing_un_fragment_sing_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top_text_container_fragment_sing_in"
+            android:backgroundTint="@color/white"
+            android:text="@string/sing_up"
+            android:textAllCaps="false"
+            android:textColor="@color/news"
+            app:cornerRadius="20dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>

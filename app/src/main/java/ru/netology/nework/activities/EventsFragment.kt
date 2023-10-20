@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ru.netology.nework.adapters.EventsAdapter
 import ru.netology.nework.adapters.OnEventInteractionListener
 import ru.netology.nework.databinding.FragmentEventsBinding
 import ru.netology.nework.dto.Event
 import ru.netology.nework.viewmodel.EventsViewModel
+
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+
 
 class EventsFragment: Fragment() {
     private val eventViewModel by activityViewModels<EventsViewModel>()

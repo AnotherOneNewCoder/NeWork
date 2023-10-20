@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
 import ru.netology.nework.adapters.TabAdapter
 import ru.netology.nework.databinding.FragmentProfileBinding
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private val tabTitles = arrayOf(

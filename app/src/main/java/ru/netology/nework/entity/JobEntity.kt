@@ -1,9 +1,11 @@
 package ru.netology.nework.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import ru.netology.nework.dto.Job
 @Entity
 data class JobEntity(
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
     val position: String,
