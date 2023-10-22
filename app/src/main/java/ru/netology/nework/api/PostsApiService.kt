@@ -8,31 +8,31 @@ import ru.netology.nework.dto.Post
 
 interface PostsApiService {
 
-    @GET("api/posts")
+    @GET("posts")
     suspend fun getAllPosts(): Response<List<Post>>
 
-    @POST("api/posts")
+    @POST("posts")
     suspend fun addPost(@Body post: Post): Response<Post>
 
-    @GET("api/posts/latest")
+    @GET("posts/latest")
     suspend fun getLatestPosts(@Query("count") count: Int): Response<List<Post>>
 
-    @GET("api/posts/{post_id}")
+    @GET("posts/{post_id}")
     suspend fun getPostById(@Path("id") id: Long): Response<Post>
 
-    @DELETE("api/posts/{post_id}")
+    @DELETE("posts/{post_id}")
     suspend fun deletePostById(@Path("id") id: Long): Response<Unit>
 
-    @GET("api/posts/{post_id}/after")
+    @GET("posts/{post_id}/after")
     suspend fun getPostsAfter(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
-    @GET("api/posts/{post_id}/before")
+    @GET("posts/{post_id}/before")
     suspend fun getPostsBefore(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("api/posts/{post_id}/newer")
+    @GET("posts/{post_id}/newer")
     suspend fun getNewerPosts(@Path("id") id: Long): Response<List<Post>>
-    @DELETE("api/posts/{post_id}/likes")
+    @DELETE("posts/{post_id}/likes")
     suspend fun unlikePostById(@Path("id") id: Long): Response<Post>
-    @POST("api/posts/{post_id}/likes")
+    @POST("posts/{post_id}/likes")
     suspend fun likePostById(@Path("id") id: Long): Response<Post>
     @Multipart
     @POST("media")

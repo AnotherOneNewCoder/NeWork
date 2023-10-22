@@ -8,18 +8,18 @@ import ru.netology.nework.dto.Post
 
 interface WallApiService {
 
-    @GET("api/{user_id}/wall")
+    @GET("{user_id}/wall")
     suspend fun getUserPosts(@Path("id") id: Long): Response<List<Post>>
-    @GET("api/{user_id}/wall/latest")
+    @GET("{user_id}/wall/latest")
     suspend fun getLatestUserPosts(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
 
 
-    @GET("api/{user_id}/wall/{post_id}/after")
+    @GET("{user_id}/wall/{post_id}/after")
     suspend fun getUserPostsAfter(@Path("id") userId: Long,@Path("id") postId: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("api/{user_id}/wall/{post_id}/before")
+    @GET("{user_id}/wall/{post_id}/before")
     suspend fun getUserPostsBefore(@Path("id") userId: Long,@Path("id") postId: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("api/{user_id}/wall/{post_id}/newer")
+    @GET("{user_id}/wall/{post_id}/newer")
     suspend fun getUserPostsNewer(@Path("id") userId: Long,@Path("id") postId: Long): Response<List<Post>>
 }

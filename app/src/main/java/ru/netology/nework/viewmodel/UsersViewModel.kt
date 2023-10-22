@@ -1,10 +1,52 @@
 package ru.netology.nework.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import ru.netology.nework.api.UsersApiService
+import ru.netology.nework.dto.User
+import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.UsersRepository
 import ru.netology.nework.repository.UsersRepositoryImpl
+import javax.inject.Inject
 
-class UsersViewModel: ViewModel() {
-    private val repository: UsersRepository = UsersRepositoryImpl()
-    val data = repository.getAll()
+@HiltViewModel
+class UsersViewModel @Inject constructor(
+    private val usersRepository: UsersRepository,
+    private val usersApiService: UsersApiService
+): ViewModel() {
+    val data: LiveData<List<User>> = usersRepository.data
+        .asLiveData(Dispatchers.Default)
+
+    private val _state = MutableLiveData<StateModel>()
+    val state: LiveData<StateModel>
+        get() = _state
+
+    private val _users = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _users
+
+    private val _usersIds = MutableLiveData<Set<Long>>()
+    val usersIds: LiveData<Set<Long>>
+        get() = _usersIds
+
+    init {
+        getAllUsers()
+    }
+
+
+    private fun getAllUsers() = viewModelScope.launch {
+        _state.postValue(StateModel(loading = true))
+        try {
+            usersRepository.getAll()
+            _state.postValue(StateModel())
+        } catch (e: Exception) {
+            _state.postValue(StateModel(error = true))
+        }
+    }
 }

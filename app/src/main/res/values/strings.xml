@@ -43,4 +43,7 @@
     <string name="confirm_password">Confirm password:</string>
     <string name="user_name">User name:</string>
     <string name="registration">REGISTRATION</string>
+    <string name="all_fields_must_be_filled">All fields must be filled!</string>
+    <string name="mismatch_password">Mismatch password!</string>
+    <string name="check_network_connection">Check network connection!</string>
 </resources>

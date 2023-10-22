@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'ru.netology.nework'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "ru.netology.nework"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -58,8 +58,8 @@ dependencies {
     def imagepicker_version = "2.1"
     def glide_version = "4.15.1"
     def yandexmapslite_version = "4.1.0-lite"
-    def room_version = "2.5.2"
-    def hilt_version = "2.44.2"
+    def room_version = "2.6.0"
+    def hilt_version = "2.48"
     def retrofit_version = "2.9.0"
     def retrofitgson_version = "2.9.0"
     def okhttplogging_version = "4.11.0"

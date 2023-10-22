@@ -27,9 +27,9 @@ data class EventEntity(
     val ownedByMe: Boolean = false,
     val participatedByMe: Boolean = false,
     @Embedded
-    val coords: CoordsEmbedded? = null,
+    val coords: CoordsEmbedded?,
     @Embedded
-    val attachment: AttachmentEmbedded? = null,
+    val attachment: AttachmentEmbedded?,
 
 ) {
     fun toDto() = Event(

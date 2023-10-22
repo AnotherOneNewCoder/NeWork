@@ -10,36 +10,36 @@ import ru.netology.nework.dto.Media
 
 interface EventsApiService {
 
-    @GET("api/events")
+    @GET("events")
     suspend fun getAllEvents(): Response<List<Event>>
-    @GET("api/events/latest")
+    @GET("events/latest")
     suspend fun getLatestEvents(@Query("count") count: Int): Response<List<Event>>
-    @GET("api/events/{event_id}/after")
+    @GET("events/{event_id}/after")
     suspend fun getEventsAfter(@Path("id") id: Long, @Query("count") count: Int): Response<List<Event>>
-    @GET("api/events/{event_id}/before")
+    @GET("events/{event_id}/before")
     suspend fun getEventsBefore(@Path("id") id: Long, @Query("count") count: Int): Response<List<Event>>
-    @GET("api/events/{event_id}")
+    @GET("events/{event_id}")
     suspend fun getEventById(@Path("id") id: Long): Response<Event>
 
-    @GET("api/events/{event_id}/newer")
+    @GET("events/{event_id}/newer")
     suspend fun getNewerEvent(@Path("id") id: Long): Response<List<Event>>
 
 
-    @POST("api/events")
+    @POST("events")
     suspend fun saveEvent(@Body event: Event): Response<Event>
 
-    @POST("api/events/{event_id}/likes")
+    @POST("events/{event_id}/likes")
     suspend fun likeEventById(@Path("id") id: Long): Response<Event>
-    @POST("api/events/{event_id}/participants")
+    @POST("events/{event_id}/participants")
     suspend fun participateEventById(@Path("id") id: Long): Response<Event>
 
-    @DELETE("api/events/{event_id}/participants")
+    @DELETE("events/{event_id}/participants")
     suspend fun dontParticipateEventById(@Path("id") id: Long): Response<Event>
 
-    @DELETE("api/events/{event_id}")
+    @DELETE("events/{event_id}")
     suspend fun removeEventById(@Path("id") id: Long): Response<Unit>
 
-    @DELETE("api/events/{event_id}/likes")
+    @DELETE("events/{event_id}/likes")
     suspend fun unlikeEventById(@Path("id") id: Long): Response<Event>
 
 

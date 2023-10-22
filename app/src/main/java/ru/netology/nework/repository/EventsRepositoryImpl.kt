@@ -37,7 +37,7 @@ class EventsRepositoryImpl: EventsRepository {
                 "https://anekdoty.ru/",
         published = "07.10.2023 15:27",
         datetime = "10.11.2023",
-        coords = Coordinates("55.746440", "38.009043"),
+        coords = Coordinates(55.746440, 38.009043),
         type = TypeEvent.OFFLINE,
         speakersIds = speakers,
         link = "https://kudamoscow.ru/event/auto-tuning-show-2023/",

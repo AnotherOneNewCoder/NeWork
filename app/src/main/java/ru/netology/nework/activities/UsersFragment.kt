@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import ru.netology.nework.R
+
 import ru.netology.nework.adapters.OnUserInteractionListener
 import ru.netology.nework.adapters.UsersAdapter
 import ru.netology.nework.databinding.FragmentUsersBinding
@@ -22,7 +25,7 @@ import ru.netology.nework.viewmodel.UsersViewModel
 @AndroidEntryPoint
 class UsersFragment: Fragment() {
 
-    private val userModel by activityViewModels<UsersViewModel>()
+    private val userModel by viewModels<UsersViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,19 +38,23 @@ class UsersFragment: Fragment() {
             }
 
         } )
-//        val userTest = User(
-//            id = 33L,
-//            login = "33",
-//            name = "Sveta",
-//            avatar = null
-//        )
 
         binding.rwUsers.adapter = adapter
-        lifecycleScope.launchWhenCreated {
-            userModel.data.collectLatest {
-                adapter.submitList(it)
-            }
+
+
+        userModel.data.observe(viewLifecycleOwner){
+            adapter.submitList(it)
         }
+        userModel.state.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context,
+                        getString(R.string.check_network_connection), Toast.LENGTH_SHORT).show()
+                }
+            }
+            binding.progressBarFragmentUsers.isVisible = it.loading
+        }
+
 
 //        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
 //            override fun onQueryTextSubmit(query: String?): Boolean {

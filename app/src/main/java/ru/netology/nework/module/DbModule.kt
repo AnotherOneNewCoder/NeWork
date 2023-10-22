@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import ru.netology.nework.dao.EventDao
 import ru.netology.nework.dao.JobDao
 import ru.netology.nework.dao.PostDao
@@ -14,7 +15,7 @@ import ru.netology.nework.dao.UserDao
 import ru.netology.nework.db.AppDb
 import javax.inject.Singleton
 
-@InstallIn(Singleton::class)
+@InstallIn(SingletonComponent::class)
 @Module
 object DbModule {
     @Singleton

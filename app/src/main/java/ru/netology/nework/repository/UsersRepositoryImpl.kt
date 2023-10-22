@@ -1,36 +1,42 @@
 package ru.netology.nework.repository
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asFlow
+
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import ru.netology.nework.api.UsersApiService
+import ru.netology.nework.dao.UserDao
 import ru.netology.nework.dto.User
+import ru.netology.nework.entity.toUser
+import ru.netology.nework.entity.toUserEntity
+import ru.netology.nework.errors.ApiError
+import ru.netology.nework.errors.NetworkError
+import java.io.IOException
 
-class UsersRepositoryImpl : UsersRepository {
+import javax.inject.Inject
 
-    var usersList = listOf(
-        User(
-            id = 11L,
-            login = "111",
-            name = "Mark",
-        ), User(
-            id = 16L,
-            login = "111",
-            name = "Kostya",
-            avatar = "https://yandex.ru/images/search?text=negjt+kbwj&pos=4&rpt=simage&img_url=https%3A%2F%2Fkartinkof.club%2Fuploads%2Fposts%2F2022-04%2F1649845723_1-kartinkof-club-p-rzhachnie-kartinki-glaza-1.jpg&from=tabbar&lr=213",
-        ),
-        User(
-            id = 13L,
-            login = "111",
-            name = "Vera",
-        ),
-        User(
-            id = 1112L,
-            login = "111",
-            name = "Nadya",
-        ),
-    )
+class UsersRepositoryImpl @Inject constructor(
+    private val userDao: UserDao,
+    private val usersApiService: UsersApiService,
+) : UsersRepository {
+    override val data: Flow<List<User>> = userDao.getAllUsers().map {
+        it.toUser()
+    }.flowOn(Dispatchers.Default)
 
-    private val data = MutableLiveData(usersList)
-
-    override fun getAll(): Flow<List<User>> = data.asFlow()
+    override suspend fun getAll() {
+        try {
+            userDao.getAllUsers()
+            val  response = usersApiService.getAllUsers()
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+            userDao.insertListUsers(body.toUserEntity())
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
 }

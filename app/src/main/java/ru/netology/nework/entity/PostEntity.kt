@@ -22,9 +22,9 @@ data class PostEntity(
     val likedByMe: Boolean = false,
     val ownedByMe: Boolean = false,
     @Embedded
-    val attachment: AttachmentEmbedded? = null,
+    val attachment: AttachmentEmbedded?,
     @Embedded
-    val coords: CoordsEmbedded? = null,
+    val coords: CoordsEmbedded?,
 
 ) {
     fun toDto() = Post(

@@ -9,7 +9,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import ru.netology.nework.BuildConfig
+import ru.netology.nework.api.EventsApiService
+import ru.netology.nework.api.JobsApiService
+import ru.netology.nework.api.MyWallApiService
+import ru.netology.nework.api.PostsApiService
+import ru.netology.nework.api.UsersApiService
+import ru.netology.nework.api.WallApiService
 import ru.netology.nework.auth.AppAuth
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -19,7 +26,7 @@ import javax.inject.Singleton
 class ApiModule {
 
     companion object {
-        private const val BASE_URL = "${BuildConfig.BASE_URL}/api"
+        private const val BASE_URL = "${BuildConfig.BASE_URL}/api/"
     }
 
     @Singleton
@@ -63,6 +70,40 @@ class ApiModule {
         .client(okHttpClient)
         .baseUrl(BASE_URL)
         .build()
+
+
+    @Provides
+    @Singleton
+    fun provideEventsApiService(
+        retrofit: Retrofit,
+    ): EventsApiService = retrofit.create()
+    @Provides
+    @Singleton
+    fun provideJobsApiService(
+        retrofit: Retrofit,
+    ): JobsApiService = retrofit.create()
+    @Provides
+    @Singleton
+    fun provideMyWallApiService(
+        retrofit: Retrofit,
+    ): MyWallApiService = retrofit.create()
+    @Provides
+    @Singleton
+    fun providePostsApiService(
+        retrofit: Retrofit,
+    ): PostsApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideUsersApiService(
+        retrofit: Retrofit,
+    ): UsersApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideWallApiService(
+        retrofit: Retrofit,
+    ): WallApiService = retrofit.create()
 
 
 
