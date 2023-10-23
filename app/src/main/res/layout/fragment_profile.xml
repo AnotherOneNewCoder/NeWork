@@ -54,7 +54,7 @@
                 android:backgroundTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/wall_user_avatar"
                 app:layout_constraintEnd_toEndOf="@+id/wall_user_avatar"
-                android:text="32" />
+                tools:text="32" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -65,7 +65,7 @@
         style="@style/text_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        tools:text="User Name"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"

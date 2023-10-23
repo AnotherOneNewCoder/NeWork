@@ -14,32 +14,32 @@ interface EventsApiService {
     suspend fun getAllEvents(): Response<List<Event>>
     @GET("events/latest")
     suspend fun getLatestEvents(@Query("count") count: Int): Response<List<Event>>
-    @GET("events/{event_id}/after")
+    @GET("events/{id}/after")
     suspend fun getEventsAfter(@Path("id") id: Long, @Query("count") count: Int): Response<List<Event>>
-    @GET("events/{event_id}/before")
+    @GET("events/{id}/before")
     suspend fun getEventsBefore(@Path("id") id: Long, @Query("count") count: Int): Response<List<Event>>
-    @GET("events/{event_id}")
+    @GET("events/{id}")
     suspend fun getEventById(@Path("id") id: Long): Response<Event>
 
-    @GET("events/{event_id}/newer")
+    @GET("events/{id}/newer")
     suspend fun getNewerEvent(@Path("id") id: Long): Response<List<Event>>
 
 
     @POST("events")
     suspend fun saveEvent(@Body event: Event): Response<Event>
 
-    @POST("events/{event_id}/likes")
+    @POST("events/{id}/likes")
     suspend fun likeEventById(@Path("id") id: Long): Response<Event>
-    @POST("events/{event_id}/participants")
+    @POST("events/{id}/participants")
     suspend fun participateEventById(@Path("id") id: Long): Response<Event>
 
-    @DELETE("events/{event_id}/participants")
+    @DELETE("events/{id}/participants")
     suspend fun dontParticipateEventById(@Path("id") id: Long): Response<Event>
 
-    @DELETE("events/{event_id}")
+    @DELETE("events/{id}")
     suspend fun removeEventById(@Path("id") id: Long): Response<Unit>
 
-    @DELETE("events/{event_id}/likes")
+    @DELETE("events/{id}/likes")
     suspend fun unlikeEventById(@Path("id") id: Long): Response<Event>
 
 

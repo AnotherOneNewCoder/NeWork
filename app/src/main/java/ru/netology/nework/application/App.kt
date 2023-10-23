@@ -19,9 +19,11 @@ class App: Application() {
     lateinit var auth: AppAuth
     override fun onCreate() {
         MapKitFactory.setApiKey(BuildConfig.MAPS_API_KEY)
-//        auth.notifyAll()
+
         super.onCreate()
     }
+
+
 }
 
 

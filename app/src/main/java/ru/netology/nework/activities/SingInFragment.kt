@@ -61,6 +61,7 @@ class SingInFragment : Fragment() {
             singInModel.data.observe(viewLifecycleOwner) {
                 appAuth.setAuth(id = it.id, token = it.token)
                 findNavController().navigate(R.id.nav_main)
+
             }
 
             buttonSingUnFragmentSingIn.setOnClickListener {

@@ -11,12 +11,7 @@ class AppAuth @Inject constructor(
     @ApplicationContext
     private val  context: Context,
 ) {
-    companion object {
 
-        private const val ID_KEY = "ID_KEY"
-        private const val TOKEN_KEY = "TOKEN_KEY"
-
-    }
     private val pref = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
     private val _authStateFlow: MutableStateFlow<AuthState>
 
@@ -48,7 +43,7 @@ class AppAuth @Inject constructor(
     }
 
     @Synchronized
-    fun removeAuth(){
+    fun removeAuth() {
         _authStateFlow.value = AuthState()
         with(pref.edit()) {
             clear()
@@ -56,8 +51,24 @@ class AppAuth @Inject constructor(
         }
     }
 
-}
+    companion object {
 
+        private const val ID_KEY = "ID_KEY"
+        private const val TOKEN_KEY = "TOKEN_KEY"
+        private var INSTANCE: AppAuth? = null
+
+        //2
+        fun getInstance(): AppAuth = requireNotNull(INSTANCE)
+
+        // 1
+        fun initApp(context: Context) {
+            INSTANCE = AppAuth(context)
+
+        }
+
+    }
+
+}
 
 data class AuthState(
     val id: Long = 0,

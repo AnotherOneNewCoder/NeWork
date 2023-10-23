@@ -15,13 +15,13 @@ interface MyWallApiService {
     suspend fun getLatestOwnPosts(@Query("count") count: Int): Response<List<Post>>
 
 
-    @GET("my/wall/{post_id}/after")
+    @GET("my/wall/{id}/after")
     suspend fun getOwnPostsAfter(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("my/wall/{post_id}/before")
+    @GET("my/wall/{id}/before")
     suspend fun getOwnPostsBefore(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("my/wall/{post_id}/newer")
+    @GET("my/wall/{id}/newer")
     suspend fun getOwnPostsNewer(@Path("id") id: Long): Response<List<Post>>
 
 

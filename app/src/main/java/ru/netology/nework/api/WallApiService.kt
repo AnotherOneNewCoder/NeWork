@@ -15,11 +15,11 @@ interface WallApiService {
 
 
     @GET("{user_id}/wall/{post_id}/after")
-    suspend fun getUserPostsAfter(@Path("id") userId: Long,@Path("id") postId: Long, @Query("count") count: Int): Response<List<Post>>
+    suspend fun getUserPostsAfter(@Path("user_id") userId: Long,@Path("post_id") postId: Long, @Query("count") count: Int): Response<List<Post>>
 
     @GET("{user_id}/wall/{post_id}/before")
-    suspend fun getUserPostsBefore(@Path("id") userId: Long,@Path("id") postId: Long, @Query("count") count: Int): Response<List<Post>>
+    suspend fun getUserPostsBefore(@Path("user_id") userId: Long,@Path("post_id") postId: Long, @Query("count") count: Int): Response<List<Post>>
 
     @GET("{user_id}/wall/{post_id}/newer")
-    suspend fun getUserPostsNewer(@Path("id") userId: Long,@Path("id") postId: Long): Response<List<Post>>
+    suspend fun getUserPostsNewer(@Path("user_id") userId: Long,@Path("post_id") postId: Long): Response<List<Post>>
 }

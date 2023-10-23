@@ -17,22 +17,22 @@ interface PostsApiService {
     @GET("posts/latest")
     suspend fun getLatestPosts(@Query("count") count: Int): Response<List<Post>>
 
-    @GET("posts/{post_id}")
+    @GET("posts/{id}")
     suspend fun getPostById(@Path("id") id: Long): Response<Post>
 
-    @DELETE("posts/{post_id}")
+    @DELETE("posts/{id}")
     suspend fun deletePostById(@Path("id") id: Long): Response<Unit>
 
-    @GET("posts/{post_id}/after")
+    @GET("posts/{id}/after")
     suspend fun getPostsAfter(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
-    @GET("posts/{post_id}/before")
+    @GET("posts/{id}/before")
     suspend fun getPostsBefore(@Path("id") id: Long, @Query("count") count: Int): Response<List<Post>>
 
-    @GET("posts/{post_id}/newer")
+    @GET("posts/{id}/newer")
     suspend fun getNewerPosts(@Path("id") id: Long): Response<List<Post>>
-    @DELETE("posts/{post_id}/likes")
+    @DELETE("posts/{id}/likes")
     suspend fun unlikePostById(@Path("id") id: Long): Response<Post>
-    @POST("posts/{post_id}/likes")
+    @POST("posts/{id}/likes")
     suspend fun likePostById(@Path("id") id: Long): Response<Post>
     @Multipart
     @POST("media")

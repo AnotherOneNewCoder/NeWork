@@ -10,8 +10,8 @@ interface JobsApiService {
     @POST("my/jobs")
     suspend fun saveJob(@Body job: Job): Response<Job>
 
-    @DELETE("my/jobs/{job_id}")
+    @DELETE("my/jobs/{id}")
     suspend fun removeJobByID(@Path("id") id: Long): Response<Unit>
-    @GET("{user_id}/jobs")
+    @GET("{id}/jobs")
     suspend fun getUserJobs(@Path("id") id: Long): Response<List<Job>>
 }

@@ -5,16 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
 import ru.netology.nework.adapters.TabAdapter
+import ru.netology.nework.auth.AppAuth
 import ru.netology.nework.databinding.FragmentProfileBinding
+import ru.netology.nework.handler.loadAvatar
+import ru.netology.nework.viewmodel.AuthViewModel
+import ru.netology.nework.viewmodel.UsersViewModel
+import javax.inject.Inject
+
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
+    @Inject
+    lateinit var appAuth: AppAuth
+
+    private val authViewModel by viewModels<AuthViewModel>()
+    private val usersViewModel by viewModels<UsersViewModel>()
 
     private val tabTitles = arrayOf(
         R.string.tab_ic_calendar,
@@ -30,13 +42,50 @@ class ProfileFragment : Fragment() {
     ): View {
         val binding = FragmentProfileBinding.inflate(layoutInflater)
 
+        val userId = arguments?.getLong("user_id")
+        val userName = arguments?.getString("user_name")
+        val userAvatar = arguments?.getString("user_avatar")
+
+
         val viewPager = binding.viewPagerProfile
         val tabLayout = binding.profileTabLayout
         viewPager.adapter = TabAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getString(tabTitles[position])
         }.attach()
+
+
+
+        authViewModel.data.observe(viewLifecycleOwner) {
+            if (authViewModel.isAuthorized && it.id != 0L) {
+                binding.add.visibility = View.VISIBLE
+                binding.idOrCount.text = it.id.toString()
+                usersViewModel.getUserById(it.id)
+
+
+
+            } else {
+                binding.add.visibility = View.INVISIBLE
+            }
+        }
+        usersViewModel.user.observe(viewLifecycleOwner) { user ->
+            with(binding) {
+                wallUserName.text = user.name
+                if (user.avatar != null) {
+                    wallUserAvatar.loadAvatar(user.avatar)
+                }
+            }
+        }
+
         binding.apply {
+
+
+            btnLogOut.setOnClickListener {
+                appAuth.removeAuth()
+                findNavController().navigate(R.id.nav_main)
+
+            }
+
             add.setOnClickListener {
                 addGroupVisible = !addGroupVisible
                 when (addGroupVisible) {
