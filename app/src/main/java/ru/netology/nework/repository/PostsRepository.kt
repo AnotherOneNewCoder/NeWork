@@ -4,5 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.netology.nework.dto.Post
 
 interface PostsRepository {
-    fun getAll(): Flow<List<Post>>
+
+    val data: Flow<List<Post>>
+    suspend fun getAll()
 }

@@ -50,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 
             bottomNavigationView.menu.findItem(R.id.profileFragment).setOnMenuItemClickListener {
                 if (!authViewModel.isAuthorized) {
-                    navController.navigate(R.id.singInFragment)
+                    findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
+                    findNavController(R.id.nav_host_fragment_activity_app).navigate(R.id.singInFragment)
+                    //navController.navigate(R.id.singInFragment)
                     true
                 } else {
                     usersViewModel.getUserById(auth.id)

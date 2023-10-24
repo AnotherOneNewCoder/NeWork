@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,14 +16,14 @@ import ru.netology.nework.adapters.EventsAdapter
 import ru.netology.nework.adapters.OnEventInteractionListener
 import ru.netology.nework.databinding.FragmentEventsBinding
 import ru.netology.nework.dto.Event
+import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.EventsViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-
-
 class EventsFragment: Fragment() {
     private val eventViewModel by activityViewModels<EventsViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +41,16 @@ class EventsFragment: Fragment() {
                 }
 
                 override fun onLikeEvent(event: Event) {
-                    //eventViewModel...
+                    if(authViewModel.isAuthorized) {
+                        if (!event.likedByMe) {
+                            eventViewModel.likeById(event.id)
+                        } else {
+                            eventViewModel.unlikeById(event.id)
+                        }
+                    } else {
+                        // to do dialog
+                        Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onParticipateEvent(event: Event) {
@@ -60,14 +71,19 @@ class EventsFragment: Fragment() {
 
             }
         )
-
-
-
         binding.rwEvents.adapter = adapter
-        lifecycleScope.launchWhenCreated {
-            eventViewModel.data.collectLatest {
-                adapter.submitList(it)
+
+        eventViewModel.data.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        eventViewModel.state.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
+                }
             }
+            binding.progressBarFragmentEvents.isVisible = it.loading
         }
 
 
@@ -75,7 +91,7 @@ class EventsFragment: Fragment() {
 
 
 
-        val unKnow = true
+
 
 
 

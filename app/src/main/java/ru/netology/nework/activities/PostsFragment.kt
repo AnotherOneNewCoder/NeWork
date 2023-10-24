@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +23,7 @@ import ru.netology.nework.viewmodel.PostsViewModel
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class PostsFragment: Fragment() {
-    private val postViewModel by activityViewModels<PostsViewModel>()
+    private val postViewModel by viewModels<PostsViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,10 +67,8 @@ class PostsFragment: Fragment() {
         })
         binding.rwPosts.adapter = adapter
 
-        lifecycleScope.launchWhenCreated {
-            postViewModel.data.collectLatest {
-                adapter.submitList(it)
-            }
+        postViewModel.data.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
 
 

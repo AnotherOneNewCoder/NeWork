@@ -28,10 +28,8 @@ class CalendarFragment: Fragment() {
 
         val adapter= CalendarEventAdapter()
         binding.rwCalendarEvents.adapter = adapter
-        lifecycleScope.launchWhenCreated {
-            eventViewModel.data.collectLatest {
-                adapter.submitList(it)
-            }
+        eventViewModel.data.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
 
 
