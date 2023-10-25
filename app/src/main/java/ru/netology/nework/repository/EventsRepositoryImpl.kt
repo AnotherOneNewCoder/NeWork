@@ -1,6 +1,7 @@
 package ru.netology.nework.repository
 
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -94,7 +95,9 @@ class EventsRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
-            throw UnknownError()
+            val error = e.printStackTrace().toString()
+            Log.d("MyLog", "error")
+//            throw UnknownError()
         }
     }
 
@@ -110,6 +113,7 @@ class EventsRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
+            e.printStackTrace()
             throw UnknownError()
         }
     }

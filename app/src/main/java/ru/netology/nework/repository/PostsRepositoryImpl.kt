@@ -1,5 +1,6 @@
 package ru.netology.nework.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import kotlinx.coroutines.Dispatchers
@@ -23,9 +24,11 @@ import javax.inject.Inject
 class PostsRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
     private val postsApiService: PostsApiService
-): PostsRepository {
+) : PostsRepository {
 
-    override val data: Flow<List<Post>> = postDao.getAllPosts().map { it.toPost() }.flowOn(Dispatchers.Default)
+    override val data: Flow<List<Post>> =
+        postDao.getAllPosts().map { it.toPost() }.flowOn(Dispatchers.Default)
+
     override suspend fun getAll() {
         try {
             val response = postsApiService.getAllPosts()
@@ -39,6 +42,7 @@ class PostsRepositoryImpl @Inject constructor(
             throw NetworkError
         } catch (e: Exception) {
             e.printStackTrace()
+
             throw UnknownError()
         }
 

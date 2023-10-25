@@ -76,7 +76,7 @@ class EventsViewHolder(
             btnParticipate.setOnClickListener {
                 listener.onParticipateEvent(event)
             }
-            btnSpeakers.text = event.speakersIds.count().toString()
+            btnSpeakers.text = event.speakerIds.count().toString()
             btnSpeakers.setOnClickListener {
                 listener.onShowSpeakersEvent(event)
             }

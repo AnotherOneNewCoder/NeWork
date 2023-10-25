@@ -94,14 +94,14 @@ class PostsViewHolder(
             btnLike.isCheckable = true
             btnLike.isChecked = post.likedByMe
             btnLike.isCheckable = false
-            btnLike.text = post.likeOwnersId.count().toString()
+            btnLike.text = post.likeOwnerIds.count().toString()
             btnLike.setOnClickListener {
                 listener.onLikePost(post)
             }
 
             btnMention.isCheckable = true
             btnMention.isChecked = post.mentionedMe
-            btnMention.text = post.mentionId.count().toString()
+            btnMention.text = post.mentionIds.count().toString()
             btnMention.setOnClickListener {
                 listener.onMentionPost(post)
             }
