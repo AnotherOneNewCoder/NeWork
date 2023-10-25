@@ -25,6 +25,7 @@ class EventsViewHolder(
             } else {
                 eventAuthorJob.isVisible = false
             }
+            idOrCount.text = event.authorId.toString()
             eventPublishedTime.text = event.published
             eventContent.text = event.content
             var contentCliked = false
@@ -73,6 +74,10 @@ class EventsViewHolder(
                 listener.onLikeEvent(event)
             }
             btnParticipate.text = event.participantsIds.count().toString()
+
+            btnParticipate.isCheckable = true
+            btnParticipate.isChecked = event.participatedByMe
+
             btnParticipate.setOnClickListener {
                 listener.onParticipateEvent(event)
             }

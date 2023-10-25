@@ -20,8 +20,8 @@ class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         when(position) {
             0 -> return CalendarFragment()
-            1 -> return PostsFragment()
-            2 -> return EventsFragment()
+            1 -> return EventsFragment()
+            2 -> return PostsFragment()
             3 -> return JobsFragment()
         }
         return Fragment()

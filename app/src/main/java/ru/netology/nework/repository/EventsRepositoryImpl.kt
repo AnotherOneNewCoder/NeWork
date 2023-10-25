@@ -95,9 +95,9 @@ class EventsRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
-            val error = e.printStackTrace().toString()
-            Log.d("MyLog", "error")
-//            throw UnknownError()
+
+
+            throw UnknownError()
         }
     }
 
@@ -119,11 +119,37 @@ class EventsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun participate(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.participateEventById(id)
+            val response = eventsApiService.participateEventById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(body))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError()
+        }
     }
 
     override suspend fun dontParticipate(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.dontParticipateEventById(id)
+            val response = eventsApiService.dontParticipateEventById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(body))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError()
+        }
     }
 
 

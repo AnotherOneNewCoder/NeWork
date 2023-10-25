@@ -56,16 +56,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 } else {
                     usersViewModel.getUserById(auth.id)
-                    val bundle = Bundle().apply {
-                        usersViewModel.user.value?.let {
-                            putLong("user_id", it.id)
-                            putString("user_name", it.name)
-                            putString("user_avatar", it.avatar)
-                        }
 
-                    }
                     findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
-                    findNavController(R.id.nav_host_fragment_activity_app).navigate(R.id.profileFragment, bundle)
+                    findNavController(R.id.nav_host_fragment_activity_app).navigate(R.id.profileFragment)
                     true
                 }
             }

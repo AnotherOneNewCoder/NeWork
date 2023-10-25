@@ -61,4 +61,9 @@ class UsersViewModel @Inject constructor(
             _state.postValue(StateModel(error = true))
         }
     }
+    fun getUsersIds(set: Set<Long>) {
+        viewModelScope.launch {
+            _usersIds.value = set
+        }
+    }
 }

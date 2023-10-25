@@ -112,4 +112,27 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+    fun participateById(id: Long) = viewModelScope.launch {
+        try {
+            eventsRepository.participate(id)
+        } catch (e: Exception) {
+            _state.value = StateModel(error = true)
+        }
+    }
+    fun dontParticipateById(id: Long) = viewModelScope.launch {
+        try {
+            eventsRepository.dontParticipate(id)
+        } catch (e: Exception) {
+            _state.value = StateModel(error = true)
+        }
+    }
+    fun refreshEvents() = viewModelScope.launch {
+        _state.postValue(StateModel(loading = true))
+        try{
+            eventsRepository.getAll()
+            _state.postValue(StateModel())
+        } catch (e: Exception) {
+            _state.postValue(StateModel(loading = true))
+        }
+    }
 }

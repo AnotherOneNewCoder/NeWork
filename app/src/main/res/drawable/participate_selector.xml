@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- бывший ic_liked -->
     <item
-        android:drawable="@drawable/ic_participate"
+        android:drawable="@drawable/ic_participate_colored"
         android:state_checked="true"
         />
     <!-- fallback для всех остальных состояний -->

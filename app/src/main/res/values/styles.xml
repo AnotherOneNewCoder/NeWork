@@ -126,6 +126,9 @@
         <item name="android:textSize">18sp</item>
 
     </style>
+    <style name="styleWithFixedWidth">
+        <item name="android:maxWidth">400dp</item>
+    </style>
 
 
 

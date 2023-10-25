@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/eventsFragment">
 
     <fragment
         android:id="@+id/eventsFragment"
         android:name="ru.netology.nework.activities.EventsFragment"
-        android:label="EventFragment" />
+        android:label="EventFragment" >
+        <action
+            android:id="@+id/action_eventsFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/postsFragment"
         android:name="ru.netology.nework.activities.PostsFragment"
@@ -40,4 +49,9 @@
         android:id="@+id/singUpFragment"
         android:name="ru.netology.nework.activities.SingUpFragment"
         android:label="SingUpFragment" />
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="ru.netology.nework.activities.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" />
 </navigation>

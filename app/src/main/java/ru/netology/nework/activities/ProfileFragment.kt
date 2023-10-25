@@ -42,9 +42,7 @@ class ProfileFragment : Fragment() {
     ): View {
         val binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        val userId = arguments?.getLong("user_id")
-        val userName = arguments?.getString("user_name")
-        val userAvatar = arguments?.getString("user_avatar")
+
 
 
         val viewPager = binding.viewPagerProfile

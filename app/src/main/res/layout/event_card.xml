@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,6 +35,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/no_avatar" />
+
+            <TextView
+                android:id="@+id/id_or_count"
+                style="@style/id_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval"
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@id/event_author_avatar"
+                app:layout_constraintEnd_toEndOf="@id/event_author_avatar"
+                tools:text="32" />
+
 
             <TextView
                 android:id="@+id/event_author_name"
