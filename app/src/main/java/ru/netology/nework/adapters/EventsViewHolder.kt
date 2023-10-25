@@ -59,7 +59,7 @@ class EventsViewHolder(
                     check = !check
                 }
             }
-            if (event.attachment != null && event.attachment.typeAttachment == TypeAttachment.IMAGE) {
+            if (event.attachment != null && event.attachment.type == TypeAttachment.IMAGE) {
                 eventMedia.loadImage(event.attachment.url)
             } else {
                 eventMedia.isVisible = false

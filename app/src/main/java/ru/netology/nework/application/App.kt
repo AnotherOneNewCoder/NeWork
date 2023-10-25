@@ -3,7 +3,7 @@ package ru.netology.nework.application
 import android.app.Application
 import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.HiltAndroidApp
-import okhttp3.internal.notifyAll
+
 
 import ru.netology.nework.BuildConfig
 import ru.netology.nework.auth.AppAuth

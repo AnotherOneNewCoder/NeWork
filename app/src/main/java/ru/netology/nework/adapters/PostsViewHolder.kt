@@ -42,13 +42,13 @@ class PostsViewHolder(
                 null -> link.visibility = View.GONE
                 else -> link.visibility = View.VISIBLE
             }
-            if (post.attachment != null && post.attachment.typeAttachment == TypeAttachment.IMAGE) {
+            if (post.attachment != null && post.attachment.type== TypeAttachment.IMAGE) {
                 postImageMedia.loadImage(post.attachment.url)
             } else {
                 postImageMedia.isVisible = false
             }
-            musicElements.isVisible = post.attachment != null && post.attachment.typeAttachment == TypeAttachment.AUDIO
-            videoElements.isVisible = post.attachment != null && post.attachment.typeAttachment == TypeAttachment.VIDEO
+            musicElements.isVisible = post.attachment != null && post.attachment.type == TypeAttachment.AUDIO
+            videoElements.isVisible = post.attachment != null && post.attachment.type == TypeAttachment.VIDEO
 
 
             // отображение/скрытие полной ин-ции

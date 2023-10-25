@@ -32,11 +32,13 @@ class PostsRepositoryImpl @Inject constructor(
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
+
             val body = response.body() ?: throw ApiError(response.message())
             postDao.insertListPosts(body.toPostEntity())
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
+            e.printStackTrace()
             throw UnknownError()
         }
 

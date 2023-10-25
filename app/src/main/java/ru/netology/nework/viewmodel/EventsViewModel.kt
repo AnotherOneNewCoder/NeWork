@@ -39,7 +39,7 @@ private val emptyEvent= Event(
 
 private val emptyMedia = MediaModel()
 
-@ExperimentalCoroutinesApi
+
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val eventsRepository: EventsRepository,

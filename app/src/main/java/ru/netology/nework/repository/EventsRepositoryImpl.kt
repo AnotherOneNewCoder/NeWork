@@ -5,9 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.toRequestBody
+//import okhttp3.MediaType.Companion.toMediaTypeOrNull
+//import okhttp3.MultipartBody
+//import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.nework.api.EventsApiService
 import ru.netology.nework.dao.EventDao
 import ru.netology.nework.db.AppDb
@@ -45,7 +45,8 @@ class EventsRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
-//            throw UnknownError()
+            e.printStackTrace()
+            throw UnknownError()
         }
     }
 
@@ -57,25 +58,25 @@ class EventsRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun uploadWithContent(upload: MediaUpload): Media {
-        try {
-            val media = MultipartBody.Part.createFormData(
-                "file",
-                "name",
-                upload.inputStream.readBytes().toRequestBody("*/*".toMediaTypeOrNull())
-            )
-            val response = eventsApiService.uploadMedia(media)
-            if (!response.isSuccessful) {
-                throw ApiError(response.message())
-            }
-            return response.body() ?: throw ApiError(response.message())
-        } catch (e: IOException) {
-            throw NetworkError
-        } catch (e: Exception) {
-            throw UnknownError()
-        }
-
-    }
+//    override suspend fun uploadWithContent(upload: MediaUpload): Media {
+//        try {
+//            val media = MultipartBody.Part.createFormData(
+//                "file",
+//                "name",
+//                upload.inputStream.readBytes().toRequestBody("*/*".toMediaTypeOrNull())
+//            )
+//            val response = eventsApiService.uploadMedia(media)
+//            if (!response.isSuccessful) {
+//                throw ApiError(response.message())
+//            }
+//            return response.body() ?: throw ApiError(response.message())
+//        } catch (e: IOException) {
+//            throw NetworkError
+//        } catch (e: Exception) {
+//            throw UnknownError()
+//        }
+//
+//    }
 
     override suspend fun removeById(id: Long) {
 

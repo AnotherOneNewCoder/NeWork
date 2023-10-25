@@ -9,14 +9,14 @@ data class AttachmentEmbedded(
 ) {
     fun toDto() = Attachment(
         url = url,
-        typeAttachment = typeAttachment,
+        type = typeAttachment,
     )
 
     companion object{
         fun fromDto(dto: Attachment?) = dto?.let {
             AttachmentEmbedded(
                 url = dto.url,
-                typeAttachment = dto.typeAttachment,
+                typeAttachment = dto.type,
             )
         }
     }
