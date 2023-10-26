@@ -11,7 +11,7 @@ import ru.netology.nework.dto.Event
 
 
 interface OnEventInteractionListener {
-    fun onHideShowFullInfo(event: Event)
+
     fun onLikeEvent(event: Event)
     fun onParticipateEvent(event: Event)
     fun onShareEvent(event: Event)

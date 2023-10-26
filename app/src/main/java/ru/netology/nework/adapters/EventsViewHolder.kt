@@ -77,6 +77,7 @@ class EventsViewHolder(
 
             btnParticipate.isCheckable = true
             btnParticipate.isChecked = event.participatedByMe
+            btnParticipate.isCheckable = false
 
             btnParticipate.setOnClickListener {
                 listener.onParticipateEvent(event)

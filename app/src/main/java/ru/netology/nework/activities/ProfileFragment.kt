@@ -1,5 +1,6 @@
 package ru.netology.nework.activities
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,12 @@ class ProfileFragment : Fragment() {
         R.string.user_s_posts,
         R.string.user_s_jobs,
     )
+//    private val tabIcons = arrayOf(
+//        R.drawable.ic_calendar,
+//        R.drawable.ic_events,
+//        R.drawable.ic_posts,
+//        R.drawable.ic_job
+//    )
     private var addGroupVisible = false
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +49,9 @@ class ProfileFragment : Fragment() {
     ): View {
         val binding = FragmentProfileBinding.inflate(layoutInflater)
 
+        val id = arguments?.getLong("profileId")
+        val name = arguments?.getString("profileName")
+        val avatar = arguments?.getString("profileAvatar")
 
 
 
@@ -52,31 +62,30 @@ class ProfileFragment : Fragment() {
             tab.text = getString(tabTitles[position])
         }.attach()
 
+//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//            //tab.icon = Drawable.createFromPath(tabIcons[position])
+//            tab.setIcon(tabIcons[position])
+//        }.attach()
+
 
 
         authViewModel.data.observe(viewLifecycleOwner) {
             if (authViewModel.isAuthorized && it.id != 0L) {
                 binding.add.visibility = View.VISIBLE
                 binding.idOrCount.text = it.id.toString()
-                usersViewModel.getUserById(it.id)
-
-
 
             } else {
                 binding.add.visibility = View.INVISIBLE
             }
         }
-        usersViewModel.user.observe(viewLifecycleOwner) { user ->
-            with(binding) {
-                wallUserName.text = user.name
-                if (user.avatar != null) {
-                    wallUserAvatar.loadAvatar(user.avatar)
-                }
-            }
-        }
+
 
         binding.apply {
-
+            if (avatar != null) {
+                wallUserAvatar.loadAvatar(avatar)
+            }
+            wallUserName.text = name
+            idOrCount.text = id.toString()
 
             btnLogOut.setOnClickListener {
                 appAuth.removeAuth()

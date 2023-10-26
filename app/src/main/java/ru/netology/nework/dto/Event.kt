@@ -5,7 +5,7 @@ data class Event(
     val authorId: Long,
     val author: String,
     val authorAvatar: String? = null,
-    val authorJob: String?,
+    val authorJob: String? = null,
     val content: String,
     val datetime: String,
     val published: String,
@@ -21,7 +21,19 @@ data class Event(
     val ownedByMe: Boolean = false,
 
 
-    )
+    ) {
+    companion object {
+        val emptyEvent = Event(
+            id = 0,
+            authorId = 0,
+            author = "",
+            content = "2023-02-01T12:00:00.000000Z",
+            datetime = "2023-02-01T12:00:00.000000Z",
+            published = "",
+            type = TypeEvent.OFFLINE,
+        )
+    }
+}
 
 
 

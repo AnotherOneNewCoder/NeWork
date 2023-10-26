@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/container_text_passwd_fragment_sing_in"
+                android:id="@+id/container_text_content_fragment_new_event"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 app:hintTextColor="@color/news">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_name_fragment_new_event"
+                    android:id="@+id/edit_text_content_fragment_new_event"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
@@ -160,14 +160,7 @@
                     android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_event"
                     android:src="@drawable/ic_choose_from_gallery_62" />
 
-                <ImageView
-                    android:id="@+id/button_speakers_fragment_new_event"
-                    android:layout_width="wrap_content"
-                    app:tint="@color/text_grey"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_event"
-                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_event"
-                    android:src="@drawable/ic_speakers_62" />
+
 
                 <ImageView
                     android:id="@+id/button_coords_fragment_new_event"
@@ -177,6 +170,21 @@
                     android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_event"
                     android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_event"
                     android:src="@drawable/ic_coords_62" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_speakers_fragment_new_event"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:backgroundTint="@color/white"
+                    android:layout_height="42dp"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_event"
+                    android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_event"
+                    app:icon="@drawable/ic_speakers_62"
+                    app:iconTint="@color/text_grey"
+                    tools:text="1"
+                    android:textColor="@color/text_grey"
+                    android:textSize="18sp"
+                    app:iconSize="32dp"
+                    android:src="@drawable/ic_speakers_24" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

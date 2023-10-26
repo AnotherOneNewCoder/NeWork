@@ -16,6 +16,13 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_eventsFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/postsFragment"
@@ -54,4 +61,12 @@
         android:name="ru.netology.nework.activities.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
         tools:layout="@layout/fragment_bottom_sheet" />
+    <dialog
+        android:id="@+id/singInDialog"
+        android:name="ru.netology.nework.activities.SingInDialog"
+        android:label="SingInDialog" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.netology.nework.activities.MapFragment"
+        android:label="MapFragment" />
 </navigation>

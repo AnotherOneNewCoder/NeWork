@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +26,7 @@ import ru.netology.nework.viewmodel.UsersViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class EventsFragment: Fragment() {
+class EventsFragment : Fragment() {
     private val eventViewModel by activityViewModels<EventsViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
     private val usersViewModel by activityViewModels<UsersViewModel>()
@@ -37,16 +38,15 @@ class EventsFragment: Fragment() {
         val binding = FragmentEventsBinding.inflate(
             inflater,
             container,
-            false)
+            false
+        )
 
-        val adapter = EventsAdapter (
+        val adapter = EventsAdapter(
             object : OnEventInteractionListener {
-                override fun onHideShowFullInfo(event: Event) {
-                    // не уверен в необходимости этой функции уже
-                }
+
 
                 override fun onLikeEvent(event: Event) {
-                    if(authViewModel.isAuthorized) {
+                    if (authViewModel.isAuthorized) {
                         if (!event.likedByMe) {
                             eventViewModel.likeById(event.id)
                         } else {
@@ -54,7 +54,8 @@ class EventsFragment: Fragment() {
                         }
                     } else {
                         // to do dialog
-                        Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
                     }
                 }
 
@@ -67,7 +68,8 @@ class EventsFragment: Fragment() {
                         }
                     } else {
                         // to do dialog
-                        Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
                     }
                 }
 
@@ -75,24 +77,42 @@ class EventsFragment: Fragment() {
                     val intent = Intent().apply {
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_TEXT, event.content)
-                        type= "text/plain"
+                        type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(intent, "share event")
                     startActivity(shareIntent)
                 }
 
                 override fun onShowSpeakersEvent(event: Event) {
-                    if (event.speakerIds.isEmpty()) {
-                        Toast.makeText(context,
-                            getString(R.string.no_speakers_presented), Toast.LENGTH_SHORT).show()
+                    if (authViewModel.isAuthorized) {
+                        if (event.speakerIds.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.no_speakers_presented), Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            usersViewModel.getUsersIds(event.speakerIds)
+                            findNavController().navigate(R.id.action_eventsFragment_to_bottomSheetFragment)
+                        }
                     } else {
-                        usersViewModel.getUsersIds(event.speakerIds)
-                        findNavController().navigate(R.id.action_eventsFragment_to_bottomSheetFragment)
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
                     }
                 }
 
                 override fun onShowCoordsEvent(event: Event) {
-                    //navigate to yandex maps
+
+                    val coords = event.coords
+                    val lat = coords?.lat
+                    val long = coords?.long
+                    val bundle = Bundle().apply {
+                        if (lat != null && long != null) {
+                            putDouble("mapLat", lat)
+                            putDouble("mapLong", long)
+
+
+                        }
+                    }
+                    findNavController().navigate(R.id.mapFragment, bundle)
                 }
 
             }

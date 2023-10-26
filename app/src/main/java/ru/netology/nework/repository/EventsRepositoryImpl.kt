@@ -6,20 +6,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-//import okhttp3.MediaType.Companion.toMediaTypeOrNull
-//import okhttp3.MultipartBody
-//import okhttp3.RequestBody.Companion.toRequestBody
+
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.nework.api.EventsApiService
 import ru.netology.nework.dao.EventDao
 import ru.netology.nework.db.AppDb
+import ru.netology.nework.dto.Attachment
 import ru.netology.nework.dto.Event
 import ru.netology.nework.dto.Media
 import ru.netology.nework.dto.MediaUpload
+import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.entity.EventEntity
 import ru.netology.nework.entity.toEvent
 import ru.netology.nework.entity.toEventEntity
 import ru.netology.nework.entity.toEventEntity2
 import ru.netology.nework.errors.ApiError
+import ru.netology.nework.errors.AppError
 import ru.netology.nework.errors.NetworkError
 import java.io.IOException
 
@@ -29,13 +33,13 @@ class EventsRepositoryImpl @Inject constructor(
     private val eventDao: EventDao,
     private val eventsApiService: EventsApiService,
 //    appDb: AppDb
-): EventsRepository {
+) : EventsRepository {
     override val data: Flow<List<Event>> = eventDao.getAllEvents().map {
         it.toEvent()
     }.flowOn(Dispatchers.Default)
 
     override suspend fun getAll() {
-        try{
+        try {
             eventDao.getAllEvents()
             val response = eventsApiService.getAllEvents()
             if (!response.isSuccessful) {
@@ -52,35 +56,69 @@ class EventsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveEvent(event: Event) {
-
+        try {
+            val response = eventsApiService.saveEvent(event)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(body))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override suspend fun saveWithAttachments(event: Event, upload: MediaUpload) {
+        try {
+            val media = uploadWithContent(upload)
+            val eventWithAttach =
+                event.copy(attachment = Attachment(media.url, TypeAttachment.IMAGE))
+            saveEvent(eventWithAttach)
+        } catch (e: AppError) {
+            throw e
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun uploadWithContent(upload: MediaUpload): Media {
+        try {
+            val media = MultipartBody.Part.createFormData(
+                "file",
+                "name",
+                upload.inputStream.readBytes().toRequestBody("*/*".toMediaTypeOrNull())
+            )
+            val response = eventsApiService.uploadMedia(media)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            return response.body() ?: throw ApiError(response.message())
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError()
+        }
 
     }
 
-//    override suspend fun uploadWithContent(upload: MediaUpload): Media {
-//        try {
-//            val media = MultipartBody.Part.createFormData(
-//                "file",
-//                "name",
-//                upload.inputStream.readBytes().toRequestBody("*/*".toMediaTypeOrNull())
-//            )
-//            val response = eventsApiService.uploadMedia(media)
-//            if (!response.isSuccessful) {
-//                throw ApiError(response.message())
-//            }
-//            return response.body() ?: throw ApiError(response.message())
-//        } catch (e: IOException) {
-//            throw NetworkError
-//        } catch (e: Exception) {
-//            throw UnknownError()
-//        }
-//
-//    }
-
     override suspend fun removeById(id: Long) {
-
+        try {
+            eventDao.deleteEventById(id)
+            val response = eventsApiService.removeEventById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+        }catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw UnknownError()
+        }
     }
 
     override suspend fun likeById(id: Long) {
@@ -96,7 +134,7 @@ class EventsRepositoryImpl @Inject constructor(
             throw NetworkError
         } catch (e: Exception) {
 
-
+            e.printStackTrace()
             throw UnknownError()
         }
     }

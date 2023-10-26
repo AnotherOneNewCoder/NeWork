@@ -47,4 +47,9 @@
     <string name="mismatch_password">Mismatch password!</string>
     <string name="check_network_connection">Check network connection!</string>
     <string name="no_speakers_presented">No speakers presented!</string>
+    <string name="only_for_autorized_users_would_you_like_to_sing_in">Only for autorized users! Would you like to Sing In?</string>
+    <string name="current_location">Current location</string>
+    <string name="minus_zoom">Minus zoom</string>
+    <string name="plus_zoom">Plus zoom</string>
+    <string name="content_must_be_filled">Content must be filled!</string>
 </resources>

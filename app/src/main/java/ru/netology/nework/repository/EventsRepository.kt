@@ -14,7 +14,7 @@ interface EventsRepository {
     suspend fun saveEvent(event: Event)
     suspend fun saveWithAttachments(event: Event, upload: MediaUpload)
 
-//    suspend fun uploadWithContent(upload: MediaUpload): Media
+    suspend fun uploadWithContent(upload: MediaUpload): Media
 
     suspend fun removeById(id: Long)
 
