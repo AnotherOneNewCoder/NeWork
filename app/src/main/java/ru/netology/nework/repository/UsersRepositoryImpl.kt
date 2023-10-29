@@ -36,6 +36,7 @@ class UsersRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
+            e.printStackTrace()
             throw UnknownError()
         }
     }

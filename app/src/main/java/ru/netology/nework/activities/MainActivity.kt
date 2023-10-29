@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     //navController.navigate(R.id.singInFragment)
                     true
                 } else {
-                    usersViewModel.getUserById(auth.id)
+                    //usersViewModel.getUserById(auth.id)
                     val loggedUser = usersViewModel.user.value
                     val bundle = Bundle().apply {
                         if (loggedUser != null) {
@@ -69,6 +70,13 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
                     findNavController(R.id.nav_host_fragment_activity_app).navigate(R.id.profileFragment, bundle)
                     true
+                }
+            }
+            navController.addOnDestinationChangedListener{ _, destination, _ ->
+                if (destination.id == R.id.singInFragment || destination.id == R.id.singUpFragment) {
+                    bottomNavigationView.visibility = View.GONE
+                } else {
+                    bottomNavigationView.visibility = View.VISIBLE
                 }
             }
 

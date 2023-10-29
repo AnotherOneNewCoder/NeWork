@@ -75,7 +75,7 @@ class ProfileFragment : Fragment() {
         authViewModel.data.observe(viewLifecycleOwner) {
             if (authViewModel.isAuthorized && it.id != 0L) {
                 binding.add.visibility = View.VISIBLE
-                binding.idOrCount.text = it.id.toString()
+                binding.idOrCount.text = id.toString()
 
             } else {
                 binding.add.visibility = View.INVISIBLE

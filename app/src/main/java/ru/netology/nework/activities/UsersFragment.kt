@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +36,20 @@ class UsersFragment: Fragment() {
         val binding = FragmentUsersBinding.inflate(layoutInflater, container, false)
         val adapter = UsersAdapter( object: OnUserInteractionListener{
             override fun onUserClicked(user: User) {
-                Toast.makeText(context, user.name, Toast.LENGTH_SHORT).show()
+                val bundle = Bundle().apply {
+                    if (user != null) {
+
+
+                        putLong("profileId", user.id)
+                        putString("profileName", user.name)
+                        putString("profileAvatar", user.avatar)
+
+                    }
+
+                }
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.profileFragment, bundle)
+//                Toast.makeText(context, user.name, Toast.LENGTH_SHORT).show()
             }
 
         } )
