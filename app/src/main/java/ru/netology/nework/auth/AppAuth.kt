@@ -52,6 +52,9 @@ class AppAuth @Inject constructor(
             commit()
         }
     }
+    fun getToken(): String?{
+        return pref.getString(TOKEN_KEY, null)
+    }
 
     companion object {
 

@@ -11,11 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
+import ru.netology.nework.auth.AppAuth
 import ru.netology.nework.databinding.FragmentNewEventBinding
 import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.Event
@@ -24,7 +26,10 @@ import ru.netology.nework.dto.TypeEvent
 import ru.netology.nework.handler.loadImage
 import ru.netology.nework.utils.CommonUtils
 import ru.netology.nework.utils.StringArg
+import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.EventsViewModel
+import ru.netology.nework.viewmodel.UsersViewModel
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -32,7 +37,11 @@ class NewEventFragment: Fragment() {
     companion object {
         val Bundle.textArg: String? by StringArg
     }
+
+
+
     private val eventsViewModel by activityViewModels<EventsViewModel>()
+
     private var latitude: Double? = null
     private var longitude: Double? = null
     var type: TypeAttachment? = null
@@ -69,13 +78,14 @@ class NewEventFragment: Fragment() {
             }
 
             buttonCoordsFragmentNewEvent.setOnClickListener {
-                eventsViewModel.changeEventWithContent(editTextContentFragmentNewEvent.text.toString(),
+                eventsViewModel.changeEventWithContent(
+                    editTextContentFragmentNewEvent.text.toString(),
                     CommonUtils.formatToInstant(
                         "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
                     ),
                     null,
                     editTextLinkFragmentNewEvent.text.toString()
-                    )
+                )
 
                 val bundle = Bundle().apply {
                     putString("open", "newEvent")
@@ -111,14 +121,15 @@ class NewEventFragment: Fragment() {
                     text = "$text ${eventsViewModel.edited.value?.speakerIds?.count().toString()}"
                 }
             }
-            val photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                it.data?.data.let { url ->
-                    val stream = url?.let {
-                        context?.contentResolver?.openInputStream(it)
+            val photoLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    it.data?.data.let { url ->
+                        val stream = url?.let {
+                            context?.contentResolver?.openInputStream(it)
+                        }
+                        eventsViewModel.changeMedia(uri = url, stream, type)
                     }
-                    eventsViewModel.changeMedia(uri = url, stream, type)
                 }
-            }
             buttonTakePhotoFragmentNewEvent.setOnClickListener {
                 ImagePicker.Builder(this@NewEventFragment)
                     .cameraOnly()
@@ -142,11 +153,21 @@ class NewEventFragment: Fragment() {
                 type = TypeAttachment.IMAGE
             }
             buttonRemovePhotoFragmentNewEvent.setOnClickListener {
-                eventsViewModel.changeMedia(null, null,null)
+                eventsViewModel.changeMedia(null, null, null)
             }
 
             eventsViewModel.media.observe(viewLifecycleOwner) {
                 eventMediaImageView.loadImage(it.uri.toString())
+            }
+
+            val eventTypeFormat = when (switcherTypeFormatFragmentNewEvent.isChecked) {
+                true -> {
+                    true
+                }
+
+                false -> {
+                    false
+                }
             }
 
 
@@ -154,22 +175,74 @@ class NewEventFragment: Fragment() {
 
             buttonDoneFragmentNewEvent.setOnClickListener {
                 if (editTextContentFragmentNewEvent.text.isNullOrBlank()) {
-                    Toast.makeText(context,
-                        getString(R.string.content_must_be_filled), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.content_must_be_filled), Toast.LENGTH_SHORT
+                    ).show()
+                    editTextContentFragmentNewEvent.error = "Fill me!"
                 } else {
                     eventsViewModel.changeEventWithContent(
-                        editTextContentFragmentNewEvent.text.toString(),
-                        CommonUtils.formatToInstant(
+                        content = editTextContentFragmentNewEvent.text.toString(),
+                        date = CommonUtils.formatToInstant(
                             "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
                         ),
-                        Coordinates(latitude, longitude),
-                        editTextLinkFragmentNewEvent.text.toString()
+                        coordinates = Coordinates(latitude, longitude),
+                        link = editTextLinkFragmentNewEvent.text.toString()
                     )
                     eventsViewModel.saveEvent()
-                    Toast.makeText(context, "New event saved", Toast.LENGTH_SHORT).show()
                     findNavController().navigateUp()
-                }
+//                    eventsViewModel.edited.value?.let {
+//                        eventsViewModel.saveEventVersionTwo(
+//                            it.copy(
+//                                content = editTextContentFragmentNewEvent.text.toString(),
+//                                datetime = CommonUtils.formatToInstant(
+//                                    "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
+//                                ),
+//                                //coords = Coordinates(latitude, longitude),
+//                                link = editTextLinkFragmentNewEvent.text.toString(),
+//                                type = if (eventTypeFormat) {
+//                                    TypeEvent.ONLINE
+//                                } else {
+//                                    TypeEvent.OFFLINE
+//                                },
+//
+//                            )
+//                        )
+//                    } ?: eventsViewModel.saveEventVersionTwo(
+//                        Event.emptyEvent.copy(
+//                            content = editTextContentFragmentNewEvent.text.toString(),
+//                            datetime = CommonUtils.formatToInstant(
+//                                "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
+//                            ),
+//                            //coords = Coordinates(latitude, longitude),
+//                            link = editTextLinkFragmentNewEvent.text.toString(),
+//                            type = if (eventTypeFormat) {
+//                                TypeEvent.ONLINE
+//                            } else {
+//                                TypeEvent.OFFLINE
+//                            },
+//
+//
+//
+//                        )
+//                    )
+////                    if (event != null) {
+////                        eventsViewModel.saveEventVersionTwo(event)
+//////                        eventsViewModel.saveEvent()
+////                        Toast.makeText(context, "New event saved", Toast.LENGTH_SHORT).show()
+////                        findNavController().navigateUp()
+////                    } else {
+////                        eventsViewModel.saveEventVersionTwo(Event(
+////                            id = 0L,
+////
+////                        ))
+//
+//                        Toast.makeText(context, "Empty Event!", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
 
+
+                }
             }
         }
         return binding.root

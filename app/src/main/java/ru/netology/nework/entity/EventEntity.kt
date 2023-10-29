@@ -49,7 +49,7 @@ data class EventEntity(
         participantsIds = participantsIds,
         link = link,
         ownedByMe = ownedByMe,
-        coords = coords?.toDto(),
+        coordinates = coords?.toDto(),
         attachment = attachment?.toDto()
     )
 
@@ -71,7 +71,7 @@ data class EventEntity(
             participantsIds = dto.participantsIds,
             link = dto.link,
             ownedByMe = dto.ownedByMe,
-            coords = CoordsEmbedded.fromDto(dto.coords),
+            coords = CoordsEmbedded.fromDto(dto.coordinates),
             attachment = AttachmentEmbedded.fromDto(dto.attachment),
         )
     }

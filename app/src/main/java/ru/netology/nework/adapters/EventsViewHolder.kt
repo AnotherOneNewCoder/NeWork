@@ -89,7 +89,7 @@ class EventsViewHolder(
             btnShare.setOnClickListener {
                 listener.onShareEvent(event)
             }
-            if (event.coords != null) {
+            if (event.coordinates != null) {
                 btnCoords.isVisible = true
                 btnCoords.setOnClickListener {
                     listener.onShowCoordsEvent(event)

@@ -9,7 +9,7 @@ data class Event(
     val content: String,
     val datetime: String,
     val published: String,
-    val coords: Coordinates? = null,
+    val coordinates: Coordinates? = null,
     val type: TypeEvent,
     val likeOwnerIds: Set<Long> = emptySet(),
     val likedByMe: Boolean = false,
@@ -31,6 +31,7 @@ data class Event(
             datetime = "2023-02-01T12:00:00.000000Z",
             published = "",
             type = TypeEvent.OFFLINE,
+            speakerIds = emptySet(),
         )
     }
 }

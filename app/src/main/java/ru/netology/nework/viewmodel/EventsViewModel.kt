@@ -45,13 +45,11 @@ private val emptyEvent= Event(
 
 private val emptyMedia = MediaModel()
 
-
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val eventsRepository: EventsRepository,
-    private val eventsApiService: EventsApiService,
-
-    appAuth: AppAuth
+    private val appAuth: AppAuth,
 ): ViewModel() {
 
 //    val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
@@ -65,20 +63,21 @@ class EventsViewModel @Inject constructor(
 //
 //        }.asFlow()
 //    }.asLiveData(Dispatchers.Default)
-//    val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
-//        eventsRepository.data.map { events->
-//            events.map { event -> event.copy(
-//                ownedByMe = event.authorId == myId,
-//                likedByMe = event.likeOwnerIds.contains(myId),
-//                participatedByMe = event.participantsIds.contains(myId))
-//
-//            }
-//
-//        }
-//    }.asLiveData(Dispatchers.Default)
+@OptIn(ExperimentalCoroutinesApi::class)
+val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
+        eventsRepository.data.map { events->
+            events.map { event -> event.copy(
+                ownedByMe = event.authorId == myId,
+                likedByMe = event.likeOwnerIds.contains(myId),
+                participatedByMe = event.participantsIds.contains(myId))
+
+            }
+
+        }
+    }.asLiveData(Dispatchers.Default)
 
 
-    val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
+    //val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
 
 
 
@@ -97,45 +96,79 @@ class EventsViewModel @Inject constructor(
     }
     fun saveEvent() {
         edited.value?.let { event ->
-            viewModelScope.launch{
-                _state.postValue(StateModel(loading = true))
-                try {
-                    when(_media.value) {
-                        emptyMedia -> {
-                            eventsRepository.saveEvent(event)
-                        }
-                        else -> {
-                            _media.value?.inputStream?.let {
-                                MediaUpload(it)
-                            }?.let {
-                                eventsRepository.saveWithAttachments(event, it)
+            appAuth.getToken()?.let {token ->
+                viewModelScope.launch {
+                    _state.postValue(StateModel(loading = true))
+                    try {
+                        when (_media.value) {
+                            emptyMedia -> {
+                                eventsRepository.saveEvent(token,event)
                             }
+
+                            else -> {
+                                _media.value?.inputStream?.let {
+                                    MediaUpload(it)
+                                }?.let {
+                                    eventsRepository.saveWithAttachments(token, event, it)
+                                }
+                            }
+
+
                         }
+                        _state.value = StateModel()
 
-
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        throw UnknownError()
                     }
-                    _state.value = StateModel()
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    throw UnknownError()
                 }
             }
         }
         edited.value = emptyEvent
         _media.value = emptyMedia
     }
+
+//    fun saveEventVersionTwo(event: Event) {
+//        viewModelScope.launch {
+//            try {
+//                _state.postValue(StateModel(loading = true))
+//                when(_media.value) {
+//                    emptyMedia -> {
+//                        eventsRepository.saveEvent(event)
+//                    }
+//                    else -> {
+//                        _media.value?.inputStream?.let {
+//                            MediaUpload(it)
+//                        }?.let {
+//                            eventsRepository.saveWithAttachments(event, it)
+//                        }
+//                    }
+//
+//
+//                }
+//                _state.value = StateModel()
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//                throw UnknownError()
+//            } finally {
+//                edited.value = emptyEvent
+//                _media.value = emptyMedia
+//            }
+//        }
+//    }
+
     fun changeEventWithContent(content: String, date: String, coordinates: Coordinates?, link: String?) {
         edited.value?.let {
             val text = content.trim()
+            val link = link?.trim()
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
             if (edited.value?.datetime != date) {
                 edited.value = edited.value?.copy(datetime = date)
             }
-            if (edited.value?.coords != coordinates) {
-                edited.value = edited.value?.copy(coords = coordinates)
+            if (edited.value?.coordinates != coordinates) {
+                edited.value = edited.value?.copy(coordinates = coordinates)
             }
             if (edited.value?.link != link) {
                 edited.value = edited.value?.copy(link = link)

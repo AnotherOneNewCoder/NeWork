@@ -15,8 +15,10 @@ import ru.netology.nework.R
 import ru.netology.nework.adapters.TabAdapter
 import ru.netology.nework.auth.AppAuth
 import ru.netology.nework.databinding.FragmentProfileBinding
+import ru.netology.nework.dto.Event
 import ru.netology.nework.handler.loadAvatar
 import ru.netology.nework.viewmodel.AuthViewModel
+import ru.netology.nework.viewmodel.EventsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
 import javax.inject.Inject
 
@@ -28,6 +30,7 @@ class ProfileFragment : Fragment() {
 
     private val authViewModel by viewModels<AuthViewModel>()
     private val usersViewModel by viewModels<UsersViewModel>()
+    private val eventsViewModel by viewModels<EventsViewModel>()
 
     private val tabTitles = arrayOf(
         R.string.tab_ic_calendar,
@@ -104,6 +107,7 @@ class ProfileFragment : Fragment() {
                             addGroupVisible = !addGroupVisible
                         }
                         addEvent.setOnClickListener {
+                            eventsViewModel.edit(Event.emptyEvent)
                             findNavController().navigate(R.id.newEventFragment)
                             addGroupVisible = !addGroupVisible
                         }
