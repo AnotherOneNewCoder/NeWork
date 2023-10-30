@@ -19,6 +19,7 @@ import ru.netology.nework.dto.MediaUpload
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.entity.EventEntity
 import ru.netology.nework.entity.toEvent
+import ru.netology.nework.entity.toEventEntity
 import ru.netology.nework.entity.toEventEntity2
 import ru.netology.nework.errors.ApiError
 import ru.netology.nework.errors.AppError
@@ -44,7 +45,7 @@ class EventsRepositoryImpl @Inject constructor(
                 throw ApiError(response.message())
             }
             val body = response.body() ?: throw ApiError(response.message())
-            eventDao.insertListEvents(body.toEventEntity2())
+            eventDao.insertListEvents(body.toEventEntity())
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
@@ -53,9 +54,9 @@ class EventsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveEvent(authToken: String, event: Event) {
+    override suspend fun saveEvent(event: Event) {
         try {
-            val response = eventsApiService.saveEvent(authToken, event)
+            val response = eventsApiService.saveEvent(event)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
@@ -68,12 +69,12 @@ class EventsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveWithAttachments(authToken: String, event: Event, upload: MediaUpload) {
+    override suspend fun saveWithAttachments(event: Event, upload: MediaUpload) {
         try {
             val media = uploadWithContent(upload)
             val eventWithAttach =
                 event.copy(attachment = Attachment(media.url, TypeAttachment.IMAGE))
-            saveEvent(authToken, eventWithAttach)
+            saveEvent(eventWithAttach)
         } catch (e: AppError) {
             throw e
         } catch (e: IOException) {

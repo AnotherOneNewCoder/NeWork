@@ -1,5 +1,6 @@
 package ru.netology.nework.utils
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -12,10 +13,12 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Calendar
+import java.util.GregorianCalendar
 import java.util.Locale
 
 object CommonUtils {
@@ -90,6 +93,30 @@ object CommonUtils {
             calendar[Calendar.MINUTE],
             true
         ).show()
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertDate(date: String): String {
+        return if (date == "") {
+            ""
+        } else {
+            val parsedDate = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME)
+            return parsedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        }
+    }
+    @SuppressLint("NewApi")
+    fun selectDateDialog(editText: EditText?, context: Context) {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+
+        DatePickerDialog(context, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val pickedDateTime = Calendar.getInstance()
+            pickedDateTime.set(year, month, dayOfMonth)
+            val result = GregorianCalendar(year, month, dayOfMonth).time
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.uuu'Z'", Locale.getDefault())
+            editText?.setText(dateFormat.format(result))
+        }, startYear, startMonth, startDay).show()
     }
 
 }

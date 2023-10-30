@@ -10,7 +10,7 @@ data class CoordsEmbedded(
 
     companion object {
         fun fromDto(dto: Coordinates?) = dto?.let {
-            CoordsEmbedded(it.lat, it.long)
+            CoordsEmbedded(latitude = it.lat, longitude = it.long)
         }
     }
 }

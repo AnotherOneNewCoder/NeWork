@@ -11,8 +11,8 @@ interface EventsRepository {
 
     suspend fun getAll()
 
-    suspend fun saveEvent(authToken: String, event: Event)
-    suspend fun saveWithAttachments(authToken: String, event: Event, upload: MediaUpload)
+    suspend fun saveEvent(event: Event)
+    suspend fun saveWithAttachments(event: Event, upload: MediaUpload)
 
     suspend fun uploadWithContent(upload: MediaUpload): Media
 

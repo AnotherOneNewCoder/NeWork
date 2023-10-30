@@ -64,20 +64,20 @@ class EventsViewModel @Inject constructor(
 //        }.asFlow()
 //    }.asLiveData(Dispatchers.Default)
 @OptIn(ExperimentalCoroutinesApi::class)
-val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
-        eventsRepository.data.map { events->
-            events.map { event -> event.copy(
-                ownedByMe = event.authorId == myId,
-                likedByMe = event.likeOwnerIds.contains(myId),
-                participatedByMe = event.participantsIds.contains(myId))
+//val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
+//        eventsRepository.data.map { events->
+//            events.map { event -> event.copy(
+//                ownedByMe = event.authorId == myId,
+//                likedByMe = event.likeOwnerIds.contains(myId),
+//                participatedByMe = event.participantsIds.contains(myId))
+//
+//            }
+//
+//        }
+//    }.asLiveData(Dispatchers.Default)
 
-            }
 
-        }
-    }.asLiveData(Dispatchers.Default)
-
-
-    //val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
+    val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
 
 
 
@@ -96,20 +96,20 @@ val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) 
     }
     fun saveEvent() {
         edited.value?.let { event ->
-            appAuth.getToken()?.let {token ->
+
                 viewModelScope.launch {
                     _state.postValue(StateModel(loading = true))
                     try {
                         when (_media.value) {
                             emptyMedia -> {
-                                eventsRepository.saveEvent(token,event)
+                                eventsRepository.saveEvent(event)
                             }
 
                             else -> {
                                 _media.value?.inputStream?.let {
                                     MediaUpload(it)
                                 }?.let {
-                                    eventsRepository.saveWithAttachments(token, event, it)
+                                    eventsRepository.saveWithAttachments(event, it)
                                 }
                             }
 
@@ -122,7 +122,7 @@ val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) 
                         throw UnknownError()
                     }
                 }
-            }
+
         }
         edited.value = emptyEvent
         _media.value = emptyMedia
@@ -167,8 +167,8 @@ val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) 
             if (edited.value?.datetime != date) {
                 edited.value = edited.value?.copy(datetime = date)
             }
-            if (edited.value?.coordinates != coordinates) {
-                edited.value = edited.value?.copy(coordinates = coordinates)
+            if (edited.value?.coords != coordinates) {
+                edited.value = edited.value?.copy(coords = coordinates)
             }
             if (edited.value?.link != link) {
                 edited.value = edited.value?.copy(link = link)

@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.nework.dto.Event
 
-import ru.netology.nework.dto.TypeEvent
 @Entity
 data class EventEntity(
     @PrimaryKey(autoGenerate = true)
@@ -31,7 +30,7 @@ data class EventEntity(
     @Embedded
     val attachment: AttachmentEmbedded?,
 
-) {
+    ) {
     fun toDto() = Event(
         id = id,
         authorId = authorId,
@@ -49,7 +48,7 @@ data class EventEntity(
         participantsIds = participantsIds,
         link = link,
         ownedByMe = ownedByMe,
-        coordinates = coords?.toDto(),
+        coords = coords?.toDto(),
         attachment = attachment?.toDto()
     )
 
@@ -71,7 +70,7 @@ data class EventEntity(
             participantsIds = dto.participantsIds,
             link = dto.link,
             ownedByMe = dto.ownedByMe,
-            coords = CoordsEmbedded.fromDto(dto.coordinates),
+            coords = CoordsEmbedded.fromDto(dto.coords),
             attachment = AttachmentEmbedded.fromDto(dto.attachment),
         )
     }

@@ -101,7 +101,7 @@ class EventsFragment : Fragment() {
 
                 override fun onShowCoordsEvent(event: Event) {
 
-                    val coords = event.coordinates
+                    val coords = event.coords
                     val lat = coords?.lat
                     val long = coords?.long
                     val bundle = Bundle().apply {

@@ -73,9 +73,9 @@ class ProfileFragment : Fragment() {
 
 
         authViewModel.data.observe(viewLifecycleOwner) {
-            if (authViewModel.isAuthorized && it.id != 0L) {
+            if (authViewModel.isAuthorized && it.id != 0L && binding.idOrCount.text == it.id.toString()) {
                 binding.add.visibility = View.VISIBLE
-                binding.idOrCount.text = id.toString()
+
 
             } else {
                 binding.add.visibility = View.INVISIBLE
@@ -95,6 +95,8 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.nav_main)
 
             }
+            idOrCount.text = id.toString()
+            tokenTest.text = appAuth.authSateFlow.value.token
 
             add.setOnClickListener {
                 addGroupVisible = !addGroupVisible

@@ -13,10 +13,10 @@ class CalendarEventViewHolder(
             calendarEventAuthorName.text = event.author
             calendarEventType.text = event.type.toString()
             calendarEventDateTime.text = event.datetime
-            if (event.coordinates != null) {
+            if (event.coords != null) {
                 calendarEventCoords.visibility = View.VISIBLE
                 shapkaCalendarEventCoords.visibility = View.VISIBLE
-                calendarEventCoords.text = "${event.coordinates.lat}, ${event.coordinates.long}"
+                calendarEventCoords.text = "${event.coords.lat}, ${event.coords.long}"
             } else {
                 calendarEventCoords.visibility = View.GONE
                 shapkaCalendarEventCoords.visibility = View.GONE

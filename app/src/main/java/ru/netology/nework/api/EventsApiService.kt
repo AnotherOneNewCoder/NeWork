@@ -28,7 +28,7 @@ interface EventsApiService {
 //    @POST("events")
 //    suspend fun saveEvent(@Body event: Event): Response<Event>
     @POST("events")
-    suspend fun saveEvent(@Header("auth") auth: String,@Body event: Event): Response<Event>
+    suspend fun saveEvent(@Body event: Event): Response<Event>
 
     @POST("events/{id}/likes")
     suspend fun likeEventById(@Path("id") id: Long): Response<Event>

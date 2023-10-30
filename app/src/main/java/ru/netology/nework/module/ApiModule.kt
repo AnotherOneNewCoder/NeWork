@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,25 +36,29 @@ class ApiModule {
         if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BASIC
     }
 
+    @Provides
+    fun provideAutInterceptor(
+        appAuth: AppAuth
+    ): Interceptor = Interceptor { chain ->
+        val request = appAuth.authSateFlow.value.token?.let {
+            chain.request()
+                .newBuilder()
+                .addHeader("Authorization", it)
+                .build()
+        } ?: chain.request()
+
+        chain.proceed(request)
+    }
+
     @Singleton
     @Provides
     fun provideOkhttp(
         logging: HttpLoggingInterceptor,
-        appAuth: AppAuth,
+        authInterceptor: Interceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS)
         .addInterceptor(logging)
-        .addInterceptor{ chain ->
-            appAuth.authSateFlow.value.token?.let { token->
-                val newRequest = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", token)
-                    .build()
-                return@addInterceptor chain.proceed(newRequest)
-
-            }
-            chain.proceed(chain.request())
-        }
+        .addInterceptor(authInterceptor)
         .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 

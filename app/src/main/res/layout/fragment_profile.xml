@@ -193,4 +193,16 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="add_event,add_job,add_post"/>
+
+    <TextView
+        android:id="@+id/token_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/wall_avatar_cv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -200,7 +200,7 @@
                 android:id="@+id/full_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="event_media_space, bottoms_space" />
 
             <LinearLayout

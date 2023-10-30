@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.netology.nework.repository.EventsRepository
 import ru.netology.nework.repository.EventsRepositoryImpl
+import ru.netology.nework.repository.JobsRepository
+import ru.netology.nework.repository.JobsRepositoryImpl
 import ru.netology.nework.repository.PostsRepository
 import ru.netology.nework.repository.PostsRepositoryImpl
 import ru.netology.nework.repository.UsersRepository
@@ -27,4 +29,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindPostsRepository(impl: PostsRepositoryImpl): PostsRepository
+
+    @Singleton
+    @Binds
+    fun bindJobRepository(impl: JobsRepositoryImpl): JobsRepository
 }

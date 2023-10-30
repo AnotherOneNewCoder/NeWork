@@ -186,7 +186,7 @@ class MapFragment : Fragment(), UserLocationObjectListener {
             ImageProvider.fromBitmap(
                 CommonUtils.createBitmapFromVector(
                     requireContext(),
-                    R.drawable.rabbit
+                    R.drawable.ic_coords
                 )
             ),
             IconStyle().apply { anchor = PointF(0.5f, 1.0f) }

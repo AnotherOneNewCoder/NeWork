@@ -20,5 +20,8 @@ interface JobDao {
     @Query("DELETE FROM JobEntity WHERE id = :id")
     suspend fun deleteJobById(id: Long)
 
+    @Query("DELETE FROM JobEntity")
+    suspend fun clear()
+
 
 }
