@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 import ru.netology.nework.R
 import ru.netology.nework.adapters.EventsAdapter
 import ru.netology.nework.adapters.OnEventInteractionListener
@@ -24,22 +21,19 @@ import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.EventsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
 
-@ExperimentalCoroutinesApi
-@AndroidEntryPoint
-class EventsFragment : Fragment() {
+class UserEventFragment : Fragment() {
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val eventViewModel by activityViewModels<EventsViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
     private val usersViewModel by activityViewModels<UsersViewModel>()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentEventsBinding.inflate(
-            inflater,
-            container,
-            false
-        )
+        val binding = FragmentEventsBinding.inflate(layoutInflater, container, false)
 
         val adapter = EventsAdapter(
             object : OnEventInteractionListener {
@@ -137,36 +131,30 @@ class EventsFragment : Fragment() {
             }
         )
         binding.rwEvents.adapter = adapter
+        var id: Long = 0L
+        eventViewModel.userId.observe(activity as LifecycleOwner, {
+            id = it
+        })
+//        val id = arguments?.getLong("userId")
 
-        eventViewModel.data.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-
-        eventViewModel.state.observe(viewLifecycleOwner) {
-            when {
-                it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
-                }
+        if (id != 0L) {
+            eventViewModel.data.observe(viewLifecycleOwner) { events ->
+                adapter.submitList(events.filter { event -> event.authorId == id })
             }
-            binding.progressBarFragmentEvents.isVisible = it.loading
-        }
-
-        binding.refresher.setColorSchemeResources(R.color.news)
-        binding.refresher.setOnRefreshListener {
-            eventViewModel.refreshEvents()
-            binding.refresher.isRefreshing = false
+        } else {
+            Toast.makeText(context, "Null!", Toast.LENGTH_SHORT).show()
         }
 
 
 
+//            eventViewModel.getUserEvents(id).observe(viewLifecycleOwner) {
+//                adapter.submitList(it)
+//            }
+//            } else {
+//                Toast.makeText(context, "Id is null!", Toast.LENGTH_SHORT).show()
+//            }
 
 
-
-
-
-
-
-
-        return binding.root
+            return binding.root
+        }
     }
-}

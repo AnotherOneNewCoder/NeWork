@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/news"
+    app:cardCornerRadius="20dp"
+    app:strokeColor="@color/black"
+    app:strokeWidth="1dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/event_author_avatar"
+                android:layout_width="@dimen/event_avatar_size"
+                android:layout_height="@dimen/event_avatar_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/no_avatar" />
+
+            <TextView
+                android:id="@+id/id_or_count"
+                style="@style/id_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval"
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@id/event_author_avatar"
+                app:layout_constraintEnd_toEndOf="@id/event_author_avatar"
+                tools:text="32" />
+
+
+            <TextView
+                android:id="@+id/event_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:maxLines="1"
+                android:text="@string/event_author_name"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintStart_toEndOf="@id/event_author_avatar"
+                app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_menu_card_event"
+                style="@style/Widget.AppTheme.LikeCheckBox"
+                app:icon="@drawable/ic_editor_24"
+                app:iconTint="@color/news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/event_author_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:maxLines="1"
+                android:text="@string/author_current_job_place"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/event_author_avatar"
+                app:layout_constraintTop_toBottomOf="@id/event_author_name" />
+
+            <TextView
+                android:id="@+id/event_published_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:text="05.10.2023 21:44"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toEndOf="@id/event_author_avatar"
+                app:layout_constraintTop_toBottomOf="@id/event_author_job" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_divider"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_author_avatar" />
+
+
+            <TextView
+                android:id="@+id/event_content"
+                style="@style/text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:layout_marginHorizontal="4dp"
+                android:maxLines="6"
+                android:text="@tools:sample/lorem[50]"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_top" />
+
+            <TextView
+                android:id="@+id/shapka_event_date_time"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_start_text"
+                android:layout_marginStart="4dp"
+                android:text="Date and time: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_content" />
+
+            <TextView
+                android:id="@+id/event_date_time"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:text="06.10.2023 at 19:00"
+                app:layout_constraintBottom_toBottomOf="@id/shapka_event_date_time"
+                app:layout_constraintStart_toEndOf="@id/shapka_event_date_time"
+                app:layout_constraintTop_toTopOf="@id/shapka_event_date_time" />
+
+            <TextView
+                android:id="@+id/shapka_event_format"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Format: "
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time" />
+
+            <TextView
+                android:id="@+id/event_format"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:text="Offline"
+                app:layout_constraintStart_toEndOf="@id/shapka_event_format"
+                app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time" />
+
+            <TextView
+                android:id="@+id/shapka_event_link"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Link: "
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shapka_event_format" />
+
+            <TextView
+                android:id="@+id/event_link"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:autoLink="web"
+                android:text="https://stackoverflow.com/"
+                app:layout_constraintStart_toEndOf="@id/shapka_event_link"
+                app:layout_constraintTop_toBottomOf="@id/shapka_event_format" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="shapka_event_link, event_link" />
+
+
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_min"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shapka_event_format" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/full_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="event_media_layout" />
+
+            <LinearLayout
+                android:id="@+id/event_media_layout"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_min"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btn_like"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/event_media"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/media"
+                    android:visibility="gone"
+                    android:layout_marginTop="4dp"
+                    android:scaleType="fitCenter"
+
+                     />
+            </LinearLayout>
+
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_like"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    tools:text="100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/notSaved"
+                    app:layout_constraintTop_toBottomOf="@id/event_media_layout"
+                    app:icon="@drawable/like_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_participate"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/end_margin_btn"
+                    tools:text="100"
+                    app:layout_constraintStart_toEndOf="@id/btn_like"
+                    app:layout_constraintTop_toTopOf="@id/btn_like"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/participate_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_speakers"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/end_margin_btn"
+                    tools:text="400"
+                    app:layout_constraintStart_toEndOf="@id/btn_participate"
+                    app:layout_constraintTop_toTopOf="@id/btn_like"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/speakers_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_share"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/btn_speakers"
+                    app:layout_constraintTop_toTopOf="@id/btn_like"
+                    android:layout_marginStart="@dimen/end_margin_btn"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/share_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_coords"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/btn_share"
+                    app:layout_constraintTop_toTopOf="@id/btn_like"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/end_margin_btn"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/coords_selector" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</com.google.android.material.card.MaterialCardView>

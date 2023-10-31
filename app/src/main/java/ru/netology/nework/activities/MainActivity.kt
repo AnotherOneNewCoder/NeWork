@@ -20,6 +20,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
 import ru.netology.nework.databinding.ActivityMainBinding
 import ru.netology.nework.viewmodel.AuthViewModel
+import ru.netology.nework.viewmodel.EventsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
 
 @ExperimentalCoroutinesApi
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val authViewModel by viewModels<AuthViewModel>()
     private val usersViewModel by viewModels<UsersViewModel>()
+    private val eventsViewModel by viewModels<EventsViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -91,6 +93,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 
         }
+//        eventsViewModel.userId.observe(this, {
+//
+//        })
 
         usersViewModel.user.observe(this) {
             Glide.with(this)

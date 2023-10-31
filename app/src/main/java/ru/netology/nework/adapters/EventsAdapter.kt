@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.netology.nework.databinding.EventCardBinding
+import ru.netology.nework.databinding.EventCardV2Binding
 import ru.netology.nework.dto.Event
 
 
@@ -18,22 +19,26 @@ interface OnEventInteractionListener {
     fun onShowSpeakersEvent(event: Event)
     fun onShowCoordsEvent(event: Event)
 
+    fun deleteEvent(event: Event)
+    fun editEvent(event: Event)
+
 }
 
 class EventsAdapter(
     private val onEventInteractionListener: OnEventInteractionListener
-): ListAdapter<Event, EventsViewHolder>(EventDiffCallBack()) {
+): ListAdapter<Event, EventsViewHolderVersionTwo>(EventDiffCallBack()) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
-        val binding = EventCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventsViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolderVersionTwo {
+        val binding = EventCardV2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return EventsViewHolderVersionTwo(
             binding = binding,
-            listener = onEventInteractionListener
+            listener = onEventInteractionListener,
+            context = parent.context,
         )
     }
 
-    override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EventsViewHolderVersionTwo, position: Int) {
         getItem(position)?.let {
             holder.binding(it)
         }

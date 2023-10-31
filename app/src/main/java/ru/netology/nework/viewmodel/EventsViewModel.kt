@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -30,7 +31,8 @@ import ru.netology.nework.repository.EventsRepository
 import ru.netology.nework.repository.EventsRepositoryImpl
 import java.io.InputStream
 import javax.inject.Inject
-private val emptyEvent= Event(
+
+private val emptyEvent = Event(
     id = 0,
     authorId = 0,
     author = "",
@@ -50,9 +52,9 @@ private val emptyMedia = MediaModel()
 class EventsViewModel @Inject constructor(
     private val eventsRepository: EventsRepository,
     private val appAuth: AppAuth,
-): ViewModel() {
+) : ViewModel() {
 
-//    val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
+    //    val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
 //        eventsRepository.data.asLiveData().map { events->
 //            events.map { event -> event.copy(
 //                ownedByMe = event.authorId == myId,
@@ -63,7 +65,7 @@ class EventsViewModel @Inject constructor(
 //
 //        }.asFlow()
 //    }.asLiveData(Dispatchers.Default)
-@OptIn(ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
 //val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
 //        eventsRepository.data.map { events->
 //            events.map { event -> event.copy(
@@ -79,10 +81,7 @@ class EventsViewModel @Inject constructor(
 
     val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
 
-
-
-
-
+//    val userData: MutableLiveData<List<Event>>()
     private val _state = MutableLiveData<StateModel>()
     val state: LiveData<StateModel>
         get() = _state
@@ -91,37 +90,44 @@ class EventsViewModel @Inject constructor(
     private val _media = MutableLiveData(emptyMedia)
     val media: LiveData<MediaModel>
         get() = _media
+
+    val userId: MutableLiveData<Long> by lazy {
+        MutableLiveData<Long>()
+    }
+
+
     init {
         getAllEvents()
     }
+
     fun saveEvent() {
         edited.value?.let { event ->
 
-                viewModelScope.launch {
-                    _state.postValue(StateModel(loading = true))
-                    try {
-                        when (_media.value) {
-                            emptyMedia -> {
-                                eventsRepository.saveEvent(event)
-                            }
-
-                            else -> {
-                                _media.value?.inputStream?.let {
-                                    MediaUpload(it)
-                                }?.let {
-                                    eventsRepository.saveWithAttachments(event, it)
-                                }
-                            }
-
-
+            viewModelScope.launch {
+                _state.postValue(StateModel(loading = true))
+                try {
+                    when (_media.value) {
+                        emptyMedia -> {
+                            eventsRepository.saveEvent(event)
                         }
-                        _state.value = StateModel()
 
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        throw UnknownError()
+                        else -> {
+                            _media.value?.inputStream?.let {
+                                MediaUpload(it)
+                            }?.let {
+                                eventsRepository.saveWithAttachments(event, it)
+                            }
+                        }
+
+
                     }
+                    _state.value = StateModel()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw UnknownError()
                 }
+            }
 
         }
         edited.value = emptyEvent
@@ -157,7 +163,12 @@ class EventsViewModel @Inject constructor(
 //        }
 //    }
 
-    fun changeEventWithContent(content: String, date: String, coordinates: Coordinates?, link: String?) {
+    fun changeEventWithContent(
+        content: String,
+        date: String,
+        coordinates: Coordinates?,
+        link: String?
+    ) {
         edited.value?.let {
             val text = content.trim()
             val link = link?.trim()
@@ -175,6 +186,7 @@ class EventsViewModel @Inject constructor(
             }
         }
     }
+
     fun setSpeaker(id: Long) {
         if (edited.value?.speakerIds?.contains(id) == false) {
             edited.value = edited.value?.speakerIds?.plus(id)?.let {
@@ -182,6 +194,9 @@ class EventsViewModel @Inject constructor(
             }
         }
     }
+
+
+
     fun changeMedia(
         uri: Uri?,
         inputStream: InputStream?,
@@ -197,19 +212,21 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+
     fun edit(event: Event) {
         edited.value = event
     }
 
     private fun getAllEvents() = viewModelScope.launch {
         _state.postValue(StateModel(loading = true))
-        try{
+        try {
             eventsRepository.getAll()
             _state.postValue(StateModel())
         } catch (e: Exception) {
             _state.postValue(StateModel(loading = true))
         }
     }
+
     fun likeById(id: Long) = viewModelScope.launch {
         try {
             eventsRepository.likeById(id)
@@ -217,6 +234,7 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+
     fun unlikeById(id: Long) = viewModelScope.launch {
         try {
             eventsRepository.unlikeById(id)
@@ -224,6 +242,7 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+
     fun participateById(id: Long) = viewModelScope.launch {
         try {
             eventsRepository.participate(id)
@@ -231,6 +250,7 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+
     fun dontParticipateById(id: Long) = viewModelScope.launch {
         try {
             eventsRepository.dontParticipate(id)
@@ -238,14 +258,25 @@ class EventsViewModel @Inject constructor(
             _state.value = StateModel(error = true)
         }
     }
+
     fun refreshEvents() = viewModelScope.launch {
         _state.postValue(StateModel(loading = true))
-        try{
+        try {
             eventsRepository.getAll()
             _state.postValue(StateModel())
         } catch (e: Exception) {
             _state.postValue(StateModel(loading = true))
         }
+    }
+
+    fun getUserEvents(id: Long): LiveData<List<Event>> {
+          val userData = data.map {
+            it.filter { event ->
+                event.authorId == id
+            }
+        }
+        return userData
+
     }
 
 }

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -30,15 +32,16 @@ class ProfileFragment : Fragment() {
 
     private val authViewModel by viewModels<AuthViewModel>()
     private val usersViewModel by viewModels<UsersViewModel>()
-    private val eventsViewModel by viewModels<EventsViewModel>()
+    private val eventsViewModel by activityViewModels<EventsViewModel>()
 
     private val tabTitles = arrayOf(
-        R.string.tab_ic_calendar,
         R.string.user_s_events,
         R.string.user_s_posts,
         R.string.user_s_jobs,
+        R.string.tab_ic_calendar,
     )
-//    private val tabIcons = arrayOf(
+
+    //    private val tabIcons = arrayOf(
 //        R.drawable.ic_calendar,
 //        R.drawable.ic_events,
 //        R.drawable.ic_posts,
@@ -56,12 +59,18 @@ class ProfileFragment : Fragment() {
         val name = arguments?.getString("profileName")
         val avatar = arguments?.getString("profileAvatar")
 
+        val userId = arguments?.getLong("userId")
+
+        if (id != null) {
+            eventsViewModel.userId.value = id
+        }
 
 
         val viewPager = binding.viewPagerProfile
         val tabLayout = binding.profileTabLayout
         viewPager.adapter = TabAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+
             tab.text = getString(tabTitles[position])
         }.attach()
 
@@ -71,14 +80,15 @@ class ProfileFragment : Fragment() {
 //        }.attach()
 
 
-
         authViewModel.data.observe(viewLifecycleOwner) {
             if (authViewModel.isAuthorized && it.id != 0L && binding.idOrCount.text == it.id.toString()) {
                 binding.add.visibility = View.VISIBLE
+                //(binding.profileTabLayout.getTabAt(0)?.view)?.isVisible = false
 
 
             } else {
                 binding.add.visibility = View.INVISIBLE
+                //(binding.profileTabLayout.getTabAt(0)?.view)?.isVisible = true
             }
         }
 
@@ -89,7 +99,8 @@ class ProfileFragment : Fragment() {
             }
             wallUserName.text = name
             idOrCount.text = id.toString()
-
+            (profileTabLayout.getTabAt(3)?.view)?.isVisible =
+                (idOrCount.text.toString().toLong() == authViewModel.data.value?.id)
             btnLogOut.setOnClickListener {
                 appAuth.removeAuth()
                 findNavController().navigate(R.id.nav_main)

@@ -1,17 +1,22 @@
 package ru.netology.nework.adapters
 
+import android.content.Context
 import android.view.View
+import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import ru.netology.nework.R
 import ru.netology.nework.databinding.EventCardBinding
+import ru.netology.nework.databinding.EventCardV2Binding
 import ru.netology.nework.dto.Event
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.handler.loadAvatar
 import ru.netology.nework.handler.loadImage
 
-class EventsViewHolder(
-    private val binding: EventCardBinding,
-    private val listener: OnEventInteractionListener
+class EventsViewHolderVersionTwo(
+    private val binding: EventCardV2Binding,
+    private val listener: OnEventInteractionListener,
+    private val context: Context,
 ) : ViewHolder(binding.root) {
     fun binding(event: Event) {
         binding.apply {
@@ -46,24 +51,13 @@ class EventsViewHolder(
             }
 
 
-            // отображение/скрытие полной ин-ции
 
-            var check = false
-            btnShowHide.isCheckable = true
-            btnShowHide.setOnClickListener {
-                if (!check) {
-                    fullContent.visibility = View.VISIBLE
-                    btnShowHide.isChecked = !check
-                    check = !check
-                } else {
-                    fullContent.visibility = View.GONE
-                    check = !check
-                }
-            }
+
             if (event.attachment != null && event.attachment.type == TypeAttachment.IMAGE) {
+                eventMedia.visibility = View.VISIBLE
                 eventMedia.loadImage(event.attachment.url)
             } else {
-                eventMedia.isVisible = false
+                eventMedia.visibility = View.GONE
             }
             btnLike.isCheckable = true
             btnLike.isChecked = event.likedByMe
@@ -97,8 +91,26 @@ class EventsViewHolder(
             } else {
                 btnCoords.visibility = View.INVISIBLE
             }
+            buttonMenuCardEvent.isVisible = event.ownedByMe
+            buttonMenuCardEvent.setOnClickListener {
+                PopupMenu(context,it).apply {
+                    inflate(R.menu.edit_options)
+                    setOnMenuItemClickListener { item->
+                        when(item.itemId) {
+                            R.id.edit -> {
+                                listener.editEvent(event)
+                                true
+                            }
+                            R.id.remove -> {
+                                listener.deleteEvent(event)
+                                true
+                            }
+                            else -> false
 
-
+                        }
+                    }
+                }.show()
+            }
 
         }
     }

@@ -56,6 +56,7 @@ class AppAuth @Inject constructor(
         return pref.getString(TOKEN_KEY, null)
     }
 
+
     companion object {
 
         private const val ID_KEY = "ID_KEY"

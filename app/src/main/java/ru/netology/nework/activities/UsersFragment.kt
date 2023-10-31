@@ -43,7 +43,7 @@ class UsersFragment: Fragment() {
                         putLong("profileId", user.id)
                         putString("profileName", user.name)
                         putString("profileAvatar", user.avatar)
-
+                        putLong("userId", user.id)
                     }
 
                 }

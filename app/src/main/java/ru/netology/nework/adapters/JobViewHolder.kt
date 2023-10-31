@@ -37,7 +37,7 @@ class JobViewHolder(
             buttonMenuCardJob.setOnClickListener {
                 PopupMenu(context,it).apply {
                     inflate(R.menu.edit_options)
-                    menu.setGroupVisible(R.id.options, job.ownedByMe)
+//                    menu.setGroupVisible(R.id.options, job.ownedByMe)
                     setOnMenuItemClickListener { item->
                         when(item.itemId) {
                             R.id.edit -> {

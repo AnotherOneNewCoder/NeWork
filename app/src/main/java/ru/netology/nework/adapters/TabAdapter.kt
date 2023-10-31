@@ -7,6 +7,7 @@ import ru.netology.nework.activities.CalendarFragment
 import ru.netology.nework.activities.EventsFragment
 import ru.netology.nework.activities.JobsFragment
 import ru.netology.nework.activities.PostsFragment
+import ru.netology.nework.activities.UserEventFragment
 import ru.netology.nework.activities.UsersFragment
 
 class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -19,10 +20,11 @@ class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun createFragment(position: Int): Fragment {
         when(position) {
-            0 -> return CalendarFragment()
-            1 -> return EventsFragment()
-            2 -> return PostsFragment()
-            3 -> return JobsFragment()
+            3 -> return CalendarFragment()
+//            0 -> return EventsFragment()
+            0 -> return UserEventFragment()
+            1 -> return PostsFragment()
+            2 -> return JobsFragment()
         }
         return Fragment()
     }
