@@ -34,6 +34,8 @@ class UsersAdapter(
         }
     }
 
+
+
 }
 
 class UsersDiffCallBack: DiffUtil.ItemCallback<User>(){

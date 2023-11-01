@@ -5,28 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.netology.nework.R
 import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
 import ru.netology.nework.databinding.FragmentPostsBinding
 import ru.netology.nework.dto.Post
+import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.PostsViewModel
-
-
-
+import ru.netology.nework.viewmodel.UsersViewModel
+import ru.netology.nework.viewmodel.WallViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class PostsFragment: Fragment() {
-    private val postViewModel by viewModels<PostsViewModel>()
+class WallFragment: Fragment() {
+    private val postViewModel by activityViewModels<PostsViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
+    private val usersViewModel by activityViewModels<UsersViewModel>()
+    private val wallViewModel by activityViewModels<WallViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +39,7 @@ class PostsFragment: Fragment() {
     ): View {
         val binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
 
-        val adapter = PostsAdapter(object : OnPostInteractionListener{
+        val adapter = PostsAdapter(object : OnPostInteractionListener {
             override fun onHideShowFullInfo(post: Post) {
 
             }
@@ -69,25 +74,19 @@ class PostsFragment: Fragment() {
 
         })
         binding.rwPosts.adapter = adapter
-
-        postViewModel.data.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        var id: Long = 0L
+        usersViewModel.userId.observe(activity as LifecycleOwner) {
+            id = it
         }
-        postViewModel.state.observe(viewLifecycleOwner) {
-            when {
-                it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
-                }
+
+        if (id != 0L) {
+            wallViewModel.loadUserPosts(id)
+            postViewModel.data.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
             }
-            binding.progressBarFragmentPosts.isVisible = it.loading
+        } else {
+            Toast.makeText(context, getString(R.string.id_null), Toast.LENGTH_SHORT).show()
         }
-
-        binding.refresher.setColorSchemeResources(R.color.news)
-        binding.refresher.setOnRefreshListener {
-            postViewModel.refreshEvents()
-            binding.refresher.isRefreshing = false
-        }
-
 
         return binding.root
     }

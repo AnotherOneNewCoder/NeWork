@@ -22,4 +22,8 @@ interface UserDao {
 
     @Query("DELETE FROM UserEntity WHERE id = :id")
     suspend fun deleteUserById(id: Long)
+
+    // for search
+    @Query("SELECT * FROM UserEntity WHERE id LIKE :searchQuery OR name LIKE :searchQuery")
+    fun searchUser(searchQuery: String): Flow<List<UserEntity>>
 }

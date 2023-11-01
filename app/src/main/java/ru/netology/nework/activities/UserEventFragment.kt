@@ -86,7 +86,7 @@ class UserEventFragment : Fragment() {
                             ).show()
                         } else {
                             usersViewModel.getUsersIds(event.speakerIds)
-                            findNavController().navigate(R.id.action_eventsFragment_to_bottomSheetFragment)
+                            findNavController().navigate(R.id.action_profileFragment_to_bottomSheetFragment)
                         }
                     } else {
                         binding.rwEvents.findNavController().navigate(R.id.singInDialog)
@@ -132,7 +132,7 @@ class UserEventFragment : Fragment() {
         )
         binding.rwEvents.adapter = adapter
         var id: Long = 0L
-        eventViewModel.userId.observe(activity as LifecycleOwner, {
+        usersViewModel.userId.observe(activity as LifecycleOwner, {
             id = it
         })
 //        val id = arguments?.getLong("userId")
@@ -142,17 +142,11 @@ class UserEventFragment : Fragment() {
                 adapter.submitList(events.filter { event -> event.authorId == id })
             }
         } else {
-            Toast.makeText(context, "Null!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.id_null), Toast.LENGTH_SHORT).show()
         }
 
 
 
-//            eventViewModel.getUserEvents(id).observe(viewLifecycleOwner) {
-//                adapter.submitList(it)
-//            }
-//            } else {
-//                Toast.makeText(context, "Id is null!", Toast.LENGTH_SHORT).show()
-//            }
 
 
             return binding.root

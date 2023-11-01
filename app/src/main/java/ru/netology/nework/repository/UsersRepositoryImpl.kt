@@ -40,4 +40,10 @@ class UsersRepositoryImpl @Inject constructor(
             throw UnknownError()
         }
     }
+
+    override fun searchUser(searchQuery: String): Flow<List<User>> {
+        return userDao.searchUser(searchQuery).map {
+            it.toUser()
+        }.flowOn(Dispatchers.Default)
+    }
 }

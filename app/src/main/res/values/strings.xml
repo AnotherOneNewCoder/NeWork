@@ -53,4 +53,5 @@
     <string name="plus_zoom">Plus zoom</string>
     <string name="content_must_be_filled">Content must be filled!</string>
     <string name="all_fields_should_be_filled">All fields should be filled!</string>
+    <string name="id_null">Null!</string>
 </resources>

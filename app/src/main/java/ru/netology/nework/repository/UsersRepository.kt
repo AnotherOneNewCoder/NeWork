@@ -6,4 +6,6 @@ import ru.netology.nework.dto.User
 interface UsersRepository {
     val data: Flow<List<User>>
     suspend fun getAll()
+
+    fun searchUser(searchQuery: String): Flow<List<User>>
 }

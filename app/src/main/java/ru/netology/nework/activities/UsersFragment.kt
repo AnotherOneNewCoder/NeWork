@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 
@@ -60,6 +61,31 @@ class UsersFragment: Fragment() {
         userModel.data.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
+
+
+        fun searchUser(query: String) {
+            val searchQuery = "%$query%"
+            userModel.searchUser(searchQuery).observe(viewLifecycleOwner) {list ->
+                list.let {
+                    adapter.submitList(it)
+                }
+            }
+        }
+
+
+        binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    searchUser(query)
+                }
+                return true
+            }
+
+        })
         userModel.state.observe(viewLifecycleOwner) {
             when {
                 it.error -> {
@@ -69,6 +95,8 @@ class UsersFragment: Fragment() {
             }
             binding.progressBarFragmentUsers.isVisible = it.loading
         }
+
+
 
 
 //        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{

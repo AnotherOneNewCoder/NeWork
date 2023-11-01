@@ -9,6 +9,7 @@ import ru.netology.nework.activities.JobsFragment
 import ru.netology.nework.activities.PostsFragment
 import ru.netology.nework.activities.UserEventFragment
 import ru.netology.nework.activities.UsersFragment
+import ru.netology.nework.activities.WallFragment
 
 class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
@@ -23,7 +24,7 @@ class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             3 -> return CalendarFragment()
 //            0 -> return EventsFragment()
             0 -> return UserEventFragment()
-            1 -> return PostsFragment()
+            1 -> return WallFragment()
             2 -> return JobsFragment()
         }
         return Fragment()

@@ -53,18 +53,7 @@ class PostsViewHolder(
 
             // отображение/скрытие полной ин-ции
 
-            var check = false
-            btnShowHide.isCheckable = true
-            btnShowHide.setOnClickListener {
-                if (!check) {
-                    fullContent.visibility = View.VISIBLE
-                    btnShowHide.isChecked = !check
-                    check = !check
-                } else {
-                    fullContent.visibility = View.GONE
-                    check = !check
-                }
-            }
+
 
 
 

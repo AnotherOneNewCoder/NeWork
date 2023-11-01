@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
     lateinit var appAuth: AppAuth
 
     private val authViewModel by viewModels<AuthViewModel>()
-    private val usersViewModel by viewModels<UsersViewModel>()
+    private val usersViewModel by activityViewModels<UsersViewModel>()
     private val eventsViewModel by activityViewModels<EventsViewModel>()
 
     private val tabTitles = arrayOf(
@@ -62,7 +62,7 @@ class ProfileFragment : Fragment() {
         val userId = arguments?.getLong("userId")
 
         if (id != null) {
-            eventsViewModel.userId.value = id
+            usersViewModel.userId.value = id
         }
 
 

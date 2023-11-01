@@ -82,20 +82,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-//            val authorised = authViewModel.isAuthorized
-//
-//            if (!authorised) {
-//                navController.navigate(R.id.singInFragment)
-//                bottomNavigationView.isVisible = false
-//
-//            } else {
-//                bottomNavigationView.isVisible = true
-//            }
 
-        }
-//        eventsViewModel.userId.observe(this, {
-//
-//        })
 
         usersViewModel.user.observe(this) {
             Glide.with(this)
@@ -119,4 +106,4 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-}
+}}

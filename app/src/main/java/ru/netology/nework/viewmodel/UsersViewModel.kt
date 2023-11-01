@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.netology.nework.api.UsersApiService
 import ru.netology.nework.dto.User
+import ru.netology.nework.entity.UserEntity
 import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.UsersRepository
 import ru.netology.nework.repository.UsersRepositoryImpl
@@ -34,6 +37,11 @@ class UsersViewModel @Inject constructor(
     private val _usersIds = MutableLiveData<Set<Long>>()
     val usersIds: LiveData<Set<Long>>
         get() = _usersIds
+
+    val userId: MutableLiveData<Long> by lazy {
+        MutableLiveData<Long>()
+    }
+
 
     init {
         getAllUsers()
@@ -65,5 +73,8 @@ class UsersViewModel @Inject constructor(
         viewModelScope.launch {
             _usersIds.value = set
         }
+    }
+    fun searchUser(searchQuery: String): LiveData<List<User>> {
+        return usersRepository.searchUser(searchQuery).asLiveData()
     }
 }

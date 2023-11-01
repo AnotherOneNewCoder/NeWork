@@ -91,9 +91,7 @@ class EventsViewModel @Inject constructor(
     val media: LiveData<MediaModel>
         get() = _media
 
-    val userId: MutableLiveData<Long> by lazy {
-        MutableLiveData<Long>()
-    }
+
 
 
     init {
@@ -269,14 +267,6 @@ class EventsViewModel @Inject constructor(
         }
     }
 
-    fun getUserEvents(id: Long): LiveData<List<Event>> {
-          val userData = data.map {
-            it.filter { event ->
-                event.authorId == id
-            }
-        }
-        return userData
 
-    }
 
 }

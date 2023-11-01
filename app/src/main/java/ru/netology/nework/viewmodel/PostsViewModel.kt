@@ -2,6 +2,7 @@ package ru.netology.nework.viewmodel
 
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -23,15 +24,29 @@ class PostsViewModel @Inject constructor(
 ): ViewModel() {
 
     val data: LiveData<List<Post>> = postsRepository.data.asLiveData(Dispatchers.Default)
+    private val _state = MutableLiveData<StateModel>()
+    val state: LiveData<StateModel>
+        get() = _state
 
     init {
         getAllPosts()
     }
     private fun getAllPosts() = viewModelScope.launch {
+        _state.postValue(StateModel(loading = true))
         try {
             postsRepository.getAll()
+            _state.postValue(StateModel())
         } catch (e: Exception) {
-            throw UnknownError
+            _state.postValue(StateModel(loading = true))
+        }
+    }
+    fun refreshEvents() = viewModelScope.launch {
+        _state.postValue(StateModel(loading = true))
+        try {
+            postsRepository.getAll()
+            _state.postValue(StateModel())
+        } catch (e: Exception) {
+            _state.postValue(StateModel(loading = true))
         }
     }
 }

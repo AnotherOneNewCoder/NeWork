@@ -12,6 +12,8 @@ import ru.netology.nework.repository.PostsRepository
 import ru.netology.nework.repository.PostsRepositoryImpl
 import ru.netology.nework.repository.UsersRepository
 import ru.netology.nework.repository.UsersRepositoryImpl
+import ru.netology.nework.repository.WallRepository
+import ru.netology.nework.repository.WallRepositoryImpl
 import javax.inject.Singleton
 
 
@@ -33,4 +35,9 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindJobRepository(impl: JobsRepositoryImpl): JobsRepository
+
+
+    @Singleton
+    @Binds
+    fun bindWallRepository(impl: WallRepositoryImpl): WallRepository
 }

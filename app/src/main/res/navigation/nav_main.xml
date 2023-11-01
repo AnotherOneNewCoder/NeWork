@@ -35,7 +35,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="ru.netology.nework.activities.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newJobFragment"
         android:name="ru.netology.nework.activities.NewJobFragment"
@@ -69,4 +73,8 @@
         android:id="@+id/mapFragment"
         android:name="ru.netology.nework.activities.MapFragment"
         android:label="MapFragment" />
+    <fragment
+        android:id="@+id/userEventFragment"
+        android:name="ru.netology.nework.activities.UserEventFragment"
+        android:label="UserEventFragment" />
 </navigation>

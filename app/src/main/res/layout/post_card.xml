@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -117,23 +118,14 @@
             app:constraint_referenced_ids="shapka_post_link, post_link"
             android:visibility="visible"/>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppTheme.LikeCheckBox"
-            android:id="@+id/btn_show_hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/show_selector"
-            app:layout_constraintTop_toBottomOf="@id/post_content"
-            android:textColor="@color/notSaved"
-            />
+
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_min"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:backgroundTint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/btn_show_hide"
+            app:layout_constraintTop_toBottomOf="@id/shapka_post_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.constraintlayout.widget.Group
@@ -142,7 +134,7 @@
 
             android:id="@+id/full_content"
             app:constraint_referenced_ids="post_media_space, bottoms_space"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/post_media_space"
@@ -158,10 +150,11 @@
                 android:layout_height="200dp"
                 android:contentDescription="@string/media"
                 android:scaleType="fitCenter"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/media" />
+                tools:srcCompat="@drawable/media" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/play_stop_music_btn"
