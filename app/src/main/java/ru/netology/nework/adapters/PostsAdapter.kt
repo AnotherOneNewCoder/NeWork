@@ -9,7 +9,7 @@ import ru.netology.nework.databinding.PostCardBinding
 
 
 interface OnPostInteractionListener {
-    fun onHideShowFullInfo(post: Post)
+
     fun onLikePost(post: Post)
     fun onMentionPost(post: Post)
     fun onSharePost(post: Post)

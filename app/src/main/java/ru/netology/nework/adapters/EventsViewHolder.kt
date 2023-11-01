@@ -97,6 +97,9 @@ class EventsViewHolder(
             } else {
                 btnCoords.visibility = View.INVISIBLE
             }
+            eventMedia.setOnClickListener {
+                listener.openImage(event)
+            }
 
 
 

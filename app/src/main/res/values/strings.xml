@@ -54,4 +54,6 @@
     <string name="content_must_be_filled">Content must be filled!</string>
     <string name="all_fields_should_be_filled">All fields should be filled!</string>
     <string name="id_null">Null!</string>
+    <string name="error_loading">Error loading!</string>
+    <string name="nothing_to_play">Nothing to play</string>
 </resources>

@@ -91,6 +91,9 @@ class EventsViewHolderVersionTwo(
             } else {
                 btnCoords.visibility = View.INVISIBLE
             }
+            eventMedia.setOnClickListener {
+                listener.openImage(event)
+            }
             buttonMenuCardEvent.isVisible = event.ownedByMe
             buttonMenuCardEvent.setOnClickListener {
                 PopupMenu(context,it).apply {

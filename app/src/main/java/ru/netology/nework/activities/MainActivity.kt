@@ -75,7 +75,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             navController.addOnDestinationChangedListener{ _, destination, _ ->
-                if (destination.id == R.id.singInFragment || destination.id == R.id.singUpFragment) {
+                if (destination.id == R.id.singInFragment || destination.id == R.id.singUpFragment ||
+                    destination.id == R.id.imageAttachFragment) {
                     bottomNavigationView.visibility = View.GONE
                 } else {
                     bottomNavigationView.visibility = View.VISIBLE

@@ -77,6 +77,9 @@ class PostsViewHolder(
                 playStopVideoBtn.isChecked = startStopVideo
                 startStopVideo = !startStopVideo
             }
+            videoPlayer.setOnClickListener {
+                listener.onPlayStopVideo(post)
+            }
 
 
 

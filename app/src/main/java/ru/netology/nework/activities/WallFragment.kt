@@ -40,9 +40,7 @@ class WallFragment: Fragment() {
         val binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
 
         val adapter = PostsAdapter(object : OnPostInteractionListener {
-            override fun onHideShowFullInfo(post: Post) {
 
-            }
 
             override fun onLikePost(post: Post) {
 

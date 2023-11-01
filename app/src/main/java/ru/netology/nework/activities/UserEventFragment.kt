@@ -128,6 +128,13 @@ class UserEventFragment : Fragment() {
                     findNavController().navigate(R.id.newEventFragment, bundle)
                 }
 
+                override fun openImage(event: Event) {
+                    val bundle = Bundle().apply {
+                        putString("attach_img", event.attachment?.url)
+                    }
+                    findNavController().navigate(R.id.imageAttachFragment, bundle)
+                }
+
             }
         )
         binding.rwEvents.adapter = adapter

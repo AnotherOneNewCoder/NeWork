@@ -21,6 +21,7 @@ interface OnEventInteractionListener {
 
     fun deleteEvent(event: Event)
     fun editEvent(event: Event)
+    fun openImage(event: Event)
 
 }
 

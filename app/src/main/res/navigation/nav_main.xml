@@ -77,4 +77,9 @@
         android:id="@+id/userEventFragment"
         android:name="ru.netology.nework.activities.UserEventFragment"
         android:label="UserEventFragment" />
+    <fragment
+        android:id="@+id/imageAttachFragment"
+        android:name="ru.netology.nework.activities.ImageAttachFragment"
+        android:label="fragment_image_attach"
+        tools:layout="@layout/fragment_image_attach" />
 </navigation>
