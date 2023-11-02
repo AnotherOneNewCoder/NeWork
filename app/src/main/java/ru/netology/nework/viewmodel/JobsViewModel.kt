@@ -144,40 +144,40 @@ class JobsViewModel @Inject constructor(
         edited.value = edited.value?.copy(finish = date)
     }
 
-    fun saveThroughViewModel(
-        name: String,
-        position: String,
-        started: String,
-        finished: String?,
-        link: String?,
-    ) {
-        viewModelScope.launch {
-            val newJob = edited.value?.copy(
-                name = name,
-                position = position,
-                start = started,
-                finish = finished,
-                link = link,
-            )
-            try{
-                if (newJob != null) {
-                    val response = jobsApiService.saveJob(newJob)
-                    if (!response.isSuccessful) {
-                        throw ApiError(response.message())
-                    }
-                    edited.postValue(response.body())
-                    _created.value = Unit
-                }
-
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-                _state.postValue(StateModel(error = true))
-            }
-            catch (e: Exception) {
-                e.printStackTrace()
-                _state.postValue(StateModel(loginError = true))
-            }
-        }
-    }
+//    fun saveThroughViewModel(
+//        name: String,
+//        position: String,
+//        started: String,
+//        finished: String?,
+//        link: String?,
+//    ) {
+//        viewModelScope.launch {
+//            val newJob = edited.value?.copy(
+//                name = name,
+//                position = position,
+//                start = started,
+//                finish = finished,
+//                link = link,
+//            )
+//            try{
+//                if (newJob != null) {
+//                    val response = jobsApiService.saveJob(newJob)
+//                    if (!response.isSuccessful) {
+//                        throw ApiError(response.message())
+//                    }
+//                    edited.postValue(response.body())
+//                    _created.value = Unit
+//                }
+//
+//
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//                _state.postValue(StateModel(error = true))
+//            }
+//            catch (e: Exception) {
+//                e.printStackTrace()
+//                _state.postValue(StateModel(loginError = true))
+//            }
+//        }
+//    }
 }

@@ -57,6 +57,7 @@ class EventsRepositoryImpl @Inject constructor(
     override suspend fun saveEvent(event: Event) {
         try {
             val response = eventsApiService.saveEvent(event)
+            print(response)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
@@ -81,6 +82,7 @@ class EventsRepositoryImpl @Inject constructor(
             throw NetworkError
         } catch (e: Exception) {
             e.printStackTrace()
+
         }
     }
 

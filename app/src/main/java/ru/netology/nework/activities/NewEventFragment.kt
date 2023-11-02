@@ -120,6 +120,7 @@ class NewEventFragment: Fragment() {
                 buttonSpeakersFragmentNewEvent.apply {
                     text = "$text ${eventsViewModel.edited.value?.speakerIds?.count().toString()}"
                 }
+
             }
             val photoLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -159,16 +160,18 @@ class NewEventFragment: Fragment() {
             eventsViewModel.media.observe(viewLifecycleOwner) {
                 eventMediaImageView.loadImage(it.uri.toString())
             }
-
-            val eventTypeFormat = when (switcherTypeFormatFragmentNewEvent.isChecked) {
+            when (switcherTypeFormatFragmentNewEvent.isChecked) {
                 true -> {
-                    true
+                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.ONLINE)
+
                 }
 
                 false -> {
-                    false
+                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.OFFLINE)
                 }
             }
+
+
 
 
 
@@ -190,7 +193,7 @@ class NewEventFragment: Fragment() {
                         link = editTextLinkFragmentNewEvent.text.toString()
                     )
                     eventsViewModel.saveEvent()
-                    findNavController().navigateUp()
+
 //                    eventsViewModel.edited.value?.let {
 //                        eventsViewModel.saveEventVersionTwo(
 //                            it.copy(
@@ -243,6 +246,9 @@ class NewEventFragment: Fragment() {
 
 
                 }
+            }
+            eventsViewModel.eventCreated.observe(viewLifecycleOwner){
+                findNavController().navigate(R.id.eventsFragment)
             }
         }
         return binding.root

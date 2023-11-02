@@ -29,6 +29,7 @@ import ru.netology.nework.models.MediaModel
 import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.EventsRepository
 import ru.netology.nework.repository.EventsRepositoryImpl
+import ru.netology.nework.utils.SingleLiveEvent
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -90,6 +91,10 @@ class EventsViewModel @Inject constructor(
     private val _media = MutableLiveData(emptyMedia)
     val media: LiveData<MediaModel>
         get() = _media
+
+    private val _eventCreated = SingleLiveEvent<Unit>()
+    val eventCreated: LiveData<Unit>
+        get() = _eventCreated
 
 
 
@@ -169,7 +174,7 @@ class EventsViewModel @Inject constructor(
     ) {
         edited.value?.let {
             val text = content.trim()
-            val link = link?.trim()
+
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
@@ -179,6 +184,7 @@ class EventsViewModel @Inject constructor(
             if (edited.value?.coords != coordinates) {
                 edited.value = edited.value?.copy(coords = coordinates)
             }
+            val link = link?.trim()
             if (edited.value?.link != link) {
                 edited.value = edited.value?.copy(link = link)
             }

@@ -120,7 +120,6 @@ class ProfileFragment : Fragment() {
                             addGroupVisible = !addGroupVisible
                         }
                         addEvent.setOnClickListener {
-                            eventsViewModel.edit(Event.emptyEvent)
                             findNavController().navigate(R.id.newEventFragment)
                             addGroupVisible = !addGroupVisible
                         }

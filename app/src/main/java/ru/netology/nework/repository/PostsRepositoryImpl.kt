@@ -1,20 +1,16 @@
 package ru.netology.nework.repository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asFlow
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.nework.api.PostsApiService
 import ru.netology.nework.dao.PostDao
 import ru.netology.nework.dto.Attachment
-import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.Media
 import ru.netology.nework.dto.MediaUpload
 import ru.netology.nework.dto.Post
@@ -22,7 +18,6 @@ import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.entity.PostEntity
 import ru.netology.nework.entity.toPost
 import ru.netology.nework.entity.toPostEntity
-import ru.netology.nework.entity.toUserEntity
 import ru.netology.nework.errors.ApiError
 import ru.netology.nework.errors.NetworkError
 import java.io.IOException
