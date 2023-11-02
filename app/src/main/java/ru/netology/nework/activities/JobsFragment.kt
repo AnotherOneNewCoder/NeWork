@@ -76,15 +76,15 @@ class JobsFragment: Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenCreated {
-            if (id != null) {
-                jobViewModel.setId(id)
-                jobViewModel.loadJobs(id)
-            }
-            jobViewModel.data.collectLatest {
-                adapter.submitList(it)
-            }
-        }
+//        lifecycleScope.launchWhenCreated {
+//            if (id != null) {
+//                jobViewModel.setId(id)
+//                jobViewModel.loadJobs(id)
+//            }
+//            jobViewModel.data.collectLatest {
+//                adapter.submitList(it)
+//            }
+//        }
 
 
 

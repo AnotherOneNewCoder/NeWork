@@ -6,13 +6,13 @@ import ru.netology.nework.dto.Job
 @Entity
 data class JobEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val name: String = "",
-    val position: String = "",
-    val start: String = "",
+    val id: Long,
+    val name: String,
+    val position: String,
+    val start: String,
     val finish: String? = null,
     val link: String? = null,
-//    val ownedByMe: Boolean = false,
+    val ownedByMe: Boolean = false,
 ) {
     fun toDto() = Job(
         id = id,
@@ -21,7 +21,7 @@ data class JobEntity(
         start = start,
         finish = finish,
         link = link,
-//        ownedByMe = ownedByMe
+        ownedByMe = ownedByMe
     )
 
     companion object{
@@ -32,7 +32,7 @@ data class JobEntity(
             start = dto.start,
             finish = dto.finish,
             link = dto.link,
-//            ownedByMe = dto.ownedByMe,
+            ownedByMe = dto.ownedByMe,
         )
     }
 

@@ -57,21 +57,21 @@ class NewJobFragment : Fragment() {
                         getString(R.string.all_fields_should_be_filled), Toast.LENGTH_SHORT
                     ).show()
                 } else {
-//                    jobsViewModel.changeJob(
-//                        companyName = editTextNameFragmentNewJob.text.toString(),
+                    jobsViewModel.changeJob(
+                        companyName = editTextNameFragmentNewJob.text.toString(),
+                        position = editTextPositionFragmentNewJob.text.toString(),
+                        link = editTextLinkFragmentNewJob.text.toString(),
+                        start = editTextStartedFragmentNewJob.text.toString(),
+                        finish = editTextFinishedFragmentNewJob.text.toString(),
+                    )
+                    jobsViewModel.save()
+//                    jobsViewModel.saveThroughViewModel(
+//                        name = editTextNameFragmentNewJob.text.toString(),
 //                        position = editTextPositionFragmentNewJob.text.toString(),
 //                        started = editTextStartedFragmentNewJob.text.toString(),
 //                        finished = editTextFinishedFragmentNewJob.text.toString(),
 //                        link = editTextLinkFragmentNewJob.text.toString(),
 //                    )
-//                    jobsViewModel.save()
-                    jobsViewModel.saveThroughViewModel(
-                        name = editTextNameFragmentNewJob.text.toString(),
-                        position = editTextPositionFragmentNewJob.text.toString(),
-                        started = editTextStartedFragmentNewJob.text.toString(),
-                        finished = editTextFinishedFragmentNewJob.text.toString(),
-                        link = editTextLinkFragmentNewJob.text.toString(),
-                    )
                     AndroidUtils.hideKeyboard(requireView())
 
 
@@ -84,6 +84,7 @@ class NewJobFragment : Fragment() {
                 CommonUtils.selectDateDialog(editTextStartedFragmentNewJob, requireContext())
                 val started = editTextStartedFragmentNewJob.text.toString()
                 jobsViewModel.startDate(started)
+
             }
             editTextFinishedFragmentNewJob.setOnClickListener {
                 CommonUtils.selectDateDialog(editTextFinishedFragmentNewJob, requireContext())

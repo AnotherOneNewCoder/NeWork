@@ -23,7 +23,14 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-private val emptyJob = Job()
+private val emptyJob = Job(
+    id = 0L,
+    name = "",
+    position = "",
+    start = "",
+    finish = null,
+
+)
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -37,7 +44,7 @@ class JobsViewModel @Inject constructor(
             JobModel()
             it.map { job ->
                 job.copy(
-//                    ownedByMe = userId.value == myId
+                    ownedByMe = userId.value == myId
                 )
             }
         }
@@ -67,28 +74,28 @@ class JobsViewModel @Inject constructor(
     }
 
     fun save() {
-        edited.value?.let {
-            _created.value = Unit
+        edited.value?.let {job ->
             viewModelScope.launch {
                 _state.postValue(StateModel(loading = true))
                 try {
-                    jobsRepository.editJob(it)
+                    jobsRepository.editJob(job)
                     _state.postValue(StateModel())
+                    _created.value = Unit
                 } catch (e: Exception) {
                     e.printStackTrace()
                     _state.postValue(StateModel(error = true))
                 }
             }
         }
-        edited.value = Job()
+        edited.value = emptyJob
     }
 
     fun changeJob(
         companyName: String,
         position: String,
-        started: String,
-        finished: String?,
         link: String?,
+        start: String,
+        finish: String?,
     ) {
         edited.value.let {
             val textCompany = companyName.trim()
@@ -103,12 +110,13 @@ class JobsViewModel @Inject constructor(
             if (edited.value?.link != textLink) {
                 edited.value = edited.value?.copy(link = textLink)
             }
-            if (edited.value?.start != started) {
-                edited.value = edited.value?.copy(start = started)
+            if (edited.value?.start != start) {
+                edited.value = edited.value?.copy(start = start)
             }
 
-            if (edited.value?.finish != finished) {
-                edited.value = edited.value?.copy(finish = finished)
+            if (edited.value?.finish != finish) {
+                edited.value = edited.value?.copy(finish = finish)
+
             }
         }
     }
