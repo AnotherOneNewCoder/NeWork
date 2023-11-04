@@ -56,4 +56,13 @@
     <string name="id_null">Null!</string>
     <string name="error_loading">Error loading!</string>
     <string name="nothing_to_play">Nothing to play</string>
+    <string name="create_job_to_get_list">Create job to get list</string>
+    <string name="check_internet_connection">Check internet connection!</string>
+    <string name="create_event_to_get_list">Create event to get list</string>
+    <string name="create_post_to_view_list">Create post to view list</string>
+    <string name="no_one_liked_it">No one liked it</string>
+    <string name="no_one_going_to_participate">No one going to participate</string>
+    <string name="nobody_mentioned">Nobody mentioned!</string>
+    <string name="offline_event">OFFLINE event</string>
+    <string name="save">Save</string>
 </resources>

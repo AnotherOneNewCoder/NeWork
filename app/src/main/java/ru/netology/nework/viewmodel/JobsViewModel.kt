@@ -103,7 +103,7 @@ class JobsViewModel @Inject constructor(
                 edited.value = edited.value?.copy(name = textCompany)
             }
             val textPosition = position.trim()
-            if (edited.value?.name != textCompany) {
+            if (edited.value?.position != textPosition) {
                 edited.value = edited.value?.copy(position = textPosition)
             }
             val textLink = link?.trim()
@@ -144,40 +144,14 @@ class JobsViewModel @Inject constructor(
         edited.value = edited.value?.copy(finish = date)
     }
 
-//    fun saveThroughViewModel(
-//        name: String,
-//        position: String,
-//        started: String,
-//        finished: String?,
-//        link: String?,
-//    ) {
-//        viewModelScope.launch {
-//            val newJob = edited.value?.copy(
-//                name = name,
-//                position = position,
-//                start = started,
-//                finish = finished,
-//                link = link,
-//            )
-//            try{
-//                if (newJob != null) {
-//                    val response = jobsApiService.saveJob(newJob)
-//                    if (!response.isSuccessful) {
-//                        throw ApiError(response.message())
-//                    }
-//                    edited.postValue(response.body())
-//                    _created.value = Unit
-//                }
-//
-//
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//                _state.postValue(StateModel(error = true))
-//            }
-//            catch (e: Exception) {
-//                e.printStackTrace()
-//                _state.postValue(StateModel(loginError = true))
-//            }
-//        }
-//    }
+    fun refreshJobs(id: Long) = viewModelScope.launch {
+        _state.postValue(StateModel(loading = true))
+        try {
+            jobsRepository.getJobsByUserId(id)
+            _state.postValue(StateModel())
+        } catch (e: Exception) {
+            _state.postValue(StateModel(loading = true))
+        }
+    }
+
 }

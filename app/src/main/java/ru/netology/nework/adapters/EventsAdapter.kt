@@ -1,8 +1,10 @@
 package ru.netology.nework.adapters
 
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.netology.nework.databinding.EventCardBinding
@@ -23,6 +25,9 @@ interface OnEventInteractionListener {
     fun editEvent(event: Event)
     fun openImage(event: Event)
 
+    fun showLikersEvent(event: Event)
+    fun showParticipantsEvent(event: Event)
+
 }
 
 class EventsAdapter(
@@ -39,6 +44,7 @@ class EventsAdapter(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: EventsViewHolderVersionTwo, position: Int) {
         getItem(position)?.let {
             holder.binding(it)

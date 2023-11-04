@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import ru.netology.nework.dto.Post
 import androidx.recyclerview.widget.ListAdapter
 import ru.netology.nework.databinding.PostCardBinding
+import ru.netology.nework.dto.Event
 
 
 interface OnPostInteractionListener {
@@ -17,6 +18,11 @@ interface OnPostInteractionListener {
     fun onOpenImageFullScreen(post: Post)
     fun onPlayStopMusic(post: Post)
     fun onPlayStopVideo(post: Post)
+    fun deletePost(post: Post)
+    fun editPost(post: Post)
+
+    fun showLikersList(post: Post)
+    fun showMentionsList(post: Post)
 
 
 }
@@ -27,7 +33,8 @@ class PostsAdapter(
         val binding = PostCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostsViewHolder(
             binding,
-            listener
+            listener,
+            context = parent.context,
         )
     }
 

@@ -60,9 +60,18 @@ class NewJobFragment : Fragment() {
                     jobsViewModel.changeJob(
                         companyName = editTextNameFragmentNewJob.text.toString(),
                         position = editTextPositionFragmentNewJob.text.toString(),
-                        link = editTextLinkFragmentNewJob.text.toString(),
+                        link = if (editTextLinkFragmentNewJob.text.isNullOrBlank()){
+                            "hide"
+                        } else {
+                            editTextLinkFragmentNewJob.text.toString()
+                               },
                         start = editTextStartedFragmentNewJob.text.toString(),
-                        finish = editTextFinishedFragmentNewJob.text.toString(),
+                        finish = if (editTextFinishedFragmentNewJob.text.isNullOrBlank()){
+                            "1900-01-01"
+
+                        } else {
+                            editTextFinishedFragmentNewJob.text.toString()
+                               },
                     )
                     jobsViewModel.save()
 //                    jobsViewModel.saveThroughViewModel(

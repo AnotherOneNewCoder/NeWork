@@ -129,6 +129,22 @@
                     android:layout_marginStart="@dimen/margin_horizontal_bottom_icons_fragment_new_post"
                     android:src="@drawable/ic_coords_62" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_mention_fragment_new_post"
+                    android:layout_width="wrap_content"
+                    app:tint="@color/text_grey"
+                    android:backgroundTint="@color/white"
+                    android:layout_height="42dp"
+                    android:layout_marginVertical="@dimen/margin_vertical_bottom_icons_fragment_new_event"
+                    android:layout_marginStart="12dp"
+                    app:icon="@drawable/ic_participate"
+                    app:iconTint="@color/text_grey"
+                    tools:text="1"
+                    android:textColor="@color/text_grey"
+                    android:textSize="18sp"
+                    app:iconSize="32dp"
+                    />
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,18 +1,26 @@
 package ru.netology.nework.adapters
 
 import android.view.View
+import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import ru.netology.nework.R
 import ru.netology.nework.databinding.PostCardBinding
 import ru.netology.nework.dto.Post
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.handler.loadAvatar
 import ru.netology.nework.handler.loadImage
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
+import ru.netology.nework.utils.CommonUtils
 
 class PostsViewHolder(
     private val binding: PostCardBinding,
-    private val listener: OnPostInteractionListener
+    private val listener: OnPostInteractionListener,
+    private val context: Context,
 ): ViewHolder(binding.root) {
+    @RequiresApi(Build.VERSION_CODES.O)
     fun bind(post: Post) {
         binding.apply {
             if (post.authorAvatar != null) {
@@ -25,7 +33,7 @@ class PostsViewHolder(
             } else {
                 postAuthorJob.isVisible = false
             }
-            postPublishedTime.text = post.published
+            postPublishedTime.text = CommonUtils.formatToDate(post.published)
             postContent.text = post.content
             var contentCliked = false
             postContent.setOnClickListener {
@@ -90,12 +98,21 @@ class PostsViewHolder(
             btnLike.setOnClickListener {
                 listener.onLikePost(post)
             }
+            btnLike.setOnLongClickListener {
+                listener.showLikersList(post)
+                true
+            }
 
             btnMention.isCheckable = true
             btnMention.isChecked = post.mentionedMe
+            btnMention.isCheckable = false
             btnMention.text = post.mentionIds.count().toString()
             btnMention.setOnClickListener {
                 listener.onMentionPost(post)
+            }
+            btnMention.setOnLongClickListener {
+                listener.showMentionsList(post)
+                true
             }
 
             btnShare.setOnClickListener {
@@ -108,6 +125,26 @@ class PostsViewHolder(
                 }
             } else {
                 btnCoords.visibility = View.INVISIBLE
+            }
+            buttonMenuCardPost.isVisible = post.ownedByMe
+            buttonMenuCardPost.setOnClickListener {
+                PopupMenu(context,it).apply {
+                    inflate(R.menu.edit_options)
+                    setOnMenuItemClickListener { item->
+                        when(item.itemId) {
+                            R.id.edit -> {
+                                listener.editPost(post)
+                                true
+                            }
+                            R.id.remove -> {
+                                listener.deletePost(post)
+                                true
+                            }
+                            else -> false
+
+                        }
+                    }
+                }.show()
             }
         }
     }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -72,7 +74,24 @@ class JobsFragment: Fragment() {
                 }
                 jobViewModel.data.collectLatest {
                     adapter.submitList(it)
+                    binding.textViewEmptyTextFragmentJobs.isVisible = it.isEmpty()
                 }
+            }
+        }
+        jobViewModel.state.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context,
+                        getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show()
+                }
+            }
+            binding.progressBarFragmentJobs.isVisible = it.loading
+        }
+        binding.refresher.setColorSchemeResources(R.color.news)
+        binding.refresher.setOnRefreshListener {
+            if (id != null) {
+                jobViewModel.refreshJobs(id)
+                binding.refresher.isRefreshing = false
             }
         }
 

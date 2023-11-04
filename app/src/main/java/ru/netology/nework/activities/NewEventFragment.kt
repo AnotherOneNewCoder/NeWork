@@ -24,6 +24,7 @@ import ru.netology.nework.dto.Event
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.dto.TypeEvent
 import ru.netology.nework.handler.loadImage
+import ru.netology.nework.utils.AndroidUtils
 import ru.netology.nework.utils.CommonUtils
 import ru.netology.nework.utils.StringArg
 import ru.netology.nework.viewmodel.AuthViewModel
@@ -55,8 +56,8 @@ class NewEventFragment: Fragment() {
     ): View {
         val binding = FragmentNewEventBinding.inflate(layoutInflater, container, false)
         binding.apply {
-            latitude = arguments?.getDouble("edit_event_lat")
-            longitude = arguments?.getDouble("edit_event_long")
+            latitude = arguments?.getDouble("map_lat")
+            longitude = arguments?.getDouble("map_long")
 
             arguments?.textArg
                 ?.let(editTextContentFragmentNewEvent::setText)
@@ -64,10 +65,11 @@ class NewEventFragment: Fragment() {
 
             val dateTime = arguments?.getString("edit_event_datetime")?.let {
                 CommonUtils.formatToDate(it)
-            } ?: CommonUtils.formatToDate("${eventsViewModel.edited.value?.datetime}")
+            } //?: CommonUtils.formatToDate("${eventsViewModel.edited.value?.datetime}")
+            ?: eventsViewModel.edited.value?.datetime
 
-            val date = dateTime.substring(0, 10)
-            val time = dateTime.substring(11)
+            val date = dateTime?.substring(0, 10)
+            val time = dateTime?.substring(11, 16)
 
             editTextContentFragmentNewEvent.setText(
                 arguments?.getString("edit_event_content") ?: eventsViewModel.edited.value?.content
@@ -112,13 +114,24 @@ class NewEventFragment: Fragment() {
 
             buttonSpeakersFragmentNewEvent.setOnClickListener {
                 val bundle = Bundle().apply {
-                    putString("open", "speaker")
+                    putString("action", "speaker")
                 }
                 findNavController().navigate(R.id.usersFragment, bundle)
             }
             eventsViewModel.edited.observe(viewLifecycleOwner) {
                 buttonSpeakersFragmentNewEvent.apply {
                     text = "$text ${eventsViewModel.edited.value?.speakerIds?.count().toString()}"
+                }
+//
+
+            }
+
+
+            switcherTypeFormatFragmentNewEvent.setOnCheckedChangeListener { button, checked ->
+                if (checked) {
+                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.OFFLINE)
+                } else {
+                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.ONLINE)
                 }
 
             }
@@ -160,16 +173,24 @@ class NewEventFragment: Fragment() {
             eventsViewModel.media.observe(viewLifecycleOwner) {
                 eventMediaImageView.loadImage(it.uri.toString())
             }
-            when (switcherTypeFormatFragmentNewEvent.isChecked) {
-                true -> {
-                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.ONLINE)
-
+            buttonCoordsFragmentNewEvent.setOnClickListener {
+                val bundle = Bundle().apply {
+                    eventsViewModel.edited.value?.coords?.lat?.let { lat ->
+                        putDouble("mapLat",
+                            lat
+                        )
+                    }
+                    eventsViewModel.edited.value?.coords?.long?.let { long ->
+                        putDouble("mapLong",
+                            long
+                        )
+                    }
+                    putString("action", "new")
+                    putString("fragment", "event")
                 }
-
-                false -> {
-                    eventsViewModel.edited.value = eventsViewModel.edited.value?.copy(type = TypeEvent.OFFLINE)
-                }
+                findNavController().navigate(R.id.mapFragment, bundle)
             }
+
 
 
 
@@ -189,67 +210,28 @@ class NewEventFragment: Fragment() {
                         date = CommonUtils.formatToInstant(
                             "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
                         ),
-                        coordinates = Coordinates(latitude, longitude),
-                        link = editTextLinkFragmentNewEvent.text.toString()
+                        coordinates = if (latitude == null || longitude ==null) {
+                            Coordinates(0.00, 0.00)
+                        } else {
+                            Coordinates(latitude, longitude)
+                        },
+                        link = if (editTextLinkFragmentNewEvent.text.isNullOrBlank()){
+                            "Not presentated!"
+                        } else {
+                            editTextLinkFragmentNewEvent.text.toString()
+                        }
                     )
                     eventsViewModel.saveEvent()
+                    AndroidUtils.hideKeyboard(requireView())
 
-//                    eventsViewModel.edited.value?.let {
-//                        eventsViewModel.saveEventVersionTwo(
-//                            it.copy(
-//                                content = editTextContentFragmentNewEvent.text.toString(),
-//                                datetime = CommonUtils.formatToInstant(
-//                                    "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
-//                                ),
-//                                //coords = Coordinates(latitude, longitude),
-//                                link = editTextLinkFragmentNewEvent.text.toString(),
-//                                type = if (eventTypeFormat) {
-//                                    TypeEvent.ONLINE
-//                                } else {
-//                                    TypeEvent.OFFLINE
-//                                },
-//
-//                            )
-//                        )
-//                    } ?: eventsViewModel.saveEventVersionTwo(
-//                        Event.emptyEvent.copy(
-//                            content = editTextContentFragmentNewEvent.text.toString(),
-//                            datetime = CommonUtils.formatToInstant(
-//                                "${editTextDateFragmentNewEvent.text}" + " " + "${editTextTimeFragmentNewEvent.text}"
-//                            ),
-//                            //coords = Coordinates(latitude, longitude),
-//                            link = editTextLinkFragmentNewEvent.text.toString(),
-//                            type = if (eventTypeFormat) {
-//                                TypeEvent.ONLINE
-//                            } else {
-//                                TypeEvent.OFFLINE
-//                            },
-//
-//
-//
-//                        )
-//                    )
-////                    if (event != null) {
-////                        eventsViewModel.saveEventVersionTwo(event)
-//////                        eventsViewModel.saveEvent()
-////                        Toast.makeText(context, "New event saved", Toast.LENGTH_SHORT).show()
-////                        findNavController().navigateUp()
-////                    } else {
-////                        eventsViewModel.saveEventVersionTwo(Event(
-////                            id = 0L,
-////
-////                        ))
-//
-//                        Toast.makeText(context, "Empty Event!", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
 
 
                 }
             }
-            eventsViewModel.eventCreated.observe(viewLifecycleOwner){
-                findNavController().navigate(R.id.eventsFragment)
-            }
+
+        }
+        eventsViewModel.eventCreated.observe(viewLifecycleOwner){
+            findNavController().navigate(R.id.eventsFragment)
         }
         return binding.root
     }

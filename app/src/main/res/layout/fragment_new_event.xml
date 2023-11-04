@@ -128,9 +128,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_switcher_fragment_new_event"
                 android:layout_marginTop="@dimen/margin_top_text_field_fragment_new_event"
-                android:checked="false"
+                android:enabled="true"
 
-                android:text="@string/online_event"
+                android:text="@string/offline_event"
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.LinearLayoutCompat

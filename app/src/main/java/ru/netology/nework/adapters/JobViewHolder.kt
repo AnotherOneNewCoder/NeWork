@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.View
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nework.R
 import ru.netology.nework.databinding.JobCardBinding
@@ -22,18 +23,21 @@ class JobViewHolder(
             jobName.text = job.name
             jobPosition.text = job.position
             jobStarted.text = CommonUtils.convertDate(job.start).substring(0, 10)
-            if (job.finish != null) {
+            if (job.finish != null && job.finish != "1900-01-01T00:00:00Z") {
                 jobFinished.text = CommonUtils.convertDate(job.finish).substring(0, 10)
             } else {
                 jobFinished.text = context.getString(R.string.currently_working)
             }
-            if (job.link != null) {
+            if (job.link != null && job.link != "hide") {
                 shapkaJobLink.visibility = View.VISIBLE
                 jobLink.text = job.link
             } else {
                 shapkaJobLink.visibility = View.GONE
                 jobLink.visibility = View.GONE
             }
+
+            buttonMenuCardJob.isVisible = job.ownedByMe
+
             buttonMenuCardJob.setOnClickListener {
                 PopupMenu(context,it).apply {
                     inflate(R.menu.edit_options)

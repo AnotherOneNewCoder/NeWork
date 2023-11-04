@@ -1,11 +1,14 @@
 package ru.netology.nework.activities
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,9 +33,13 @@ class NewPostFragment : Fragment() {
     }
 
     var type: TypeAttachment? = null
+    private var latitude: Double? = null
+    private var longitude: Double? = null
 
     private val postsViewModel by activityViewModels<PostsViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,12 +65,15 @@ class NewPostFragment : Fragment() {
         }
 
         binding.apply {
-
+            latitude = arguments?.getDouble("map_lat")
+            longitude = arguments?.getDouble("map_long")
             arguments?.textArg?.let(
                 editTextContentFragmentNewPost::setText
             ) ?: postsViewModel.edited.value?.content
             editTextContentFragmentNewPost.requestFocus()
 
+            editTextContentFragmentNewPost.setText(
+                arguments?.getString("edit_post_content") ?: postsViewModel.edited.value?.content)
 
             buttonTakePhotoFragmentNewPost.setOnClickListener {
                 ImagePicker.Builder(this@NewPostFragment)
@@ -98,6 +108,19 @@ class NewPostFragment : Fragment() {
             postsViewModel.postCreated.observe(viewLifecycleOwner) {
                 findNavController().navigate(R.id.postsFragment)
             }
+            buttonMentionFragmentNewPost.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString("action", "mention")
+                }
+                findNavController().navigate(R.id.usersFragment, bundle)
+            }
+
+            postsViewModel.edited.observe(viewLifecycleOwner) {
+                buttonMentionFragmentNewPost.apply {
+                    text = "$text ${postsViewModel.edited.value?.mentionIds?.count().toString()}"
+                }
+            }
+
             buttonDoneFragmentNewPost.setOnClickListener {
                 if (editTextContentFragmentNewPost.text.isNullOrBlank()) {
                     Toast.makeText(

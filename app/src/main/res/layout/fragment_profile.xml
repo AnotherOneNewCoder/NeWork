@@ -97,27 +97,32 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:icon="@drawable/ic_calendar"/>
+
+                android:text="@string/user_s_events"
+               />
 <!--                android:text="@string/tab_ic_calendar" />-->
 
             <com.google.android.material.tabs.TabItem
+                android:text="@string/user_s_posts"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_s_events" />
+                />
 
             <com.google.android.material.tabs.TabItem
+                android:text="@string/user_s_jobs"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_s_posts" />
+                 />
 
             <com.google.android.material.tabs.TabItem
+                android:text=""
 
+                android:icon="@drawable/ic_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_s_jobs" />
+                 />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -187,22 +192,12 @@
         app:layout_constraintBottom_toTopOf="@id/add_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:icon="@drawable/btn_plus" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="add_event,add_job,add_post"/>
+        app:constraint_referenced_ids="add_event,add_job,add_post" />
 
-    <TextView
-        android:id="@+id/token_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/wall_avatar_cv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

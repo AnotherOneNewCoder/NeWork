@@ -39,7 +39,9 @@ class ProfileFragment : Fragment() {
         R.string.user_s_posts,
         R.string.user_s_jobs,
         R.string.tab_ic_calendar,
+//        R.drawable.ic_calendar,
     )
+
 
     //    private val tabIcons = arrayOf(
 //        R.drawable.ic_calendar,
@@ -70,8 +72,21 @@ class ProfileFragment : Fragment() {
         val tabLayout = binding.profileTabLayout
         viewPager.adapter = TabAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-
-            tab.text = getString(tabTitles[position])
+//                if (tabTitles[position] < 3) {
+//                    tab.text = getString(tabTitles[position])
+//                } else {
+//                    tab.setIcon(tabTitles[3])
+//                }
+//            binding.apply {
+//                firstTab.text = getString(tabTitles[position])
+//                when(tab.id) {
+//                    firstTab ->
+//                }
+//            }
+                tab.text = getString(tabTitles[position])
+//                if (tab.position == tabTitles[position]) {
+//                    tab.text = null
+//                }
         }.attach()
 
 //        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -106,8 +121,14 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.nav_main)
 
             }
+            wallUserAvatar.setOnClickListener{
+                val bundle = Bundle().apply {
+                    putString("attach_img", avatar)
+                }
+                findNavController().navigate(R.id.imageAttachFragment, bundle)
+            }
             idOrCount.text = id.toString()
-            tokenTest.text = appAuth.authSateFlow.value.token
+//            tokenTest.text = appAuth.authSateFlow.value.token
 
             add.setOnClickListener {
                 addGroupVisible = !addGroupVisible

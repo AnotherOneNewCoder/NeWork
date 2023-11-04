@@ -1,6 +1,8 @@
 package ru.netology.nework.adapters
 
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.netology.nework.databinding.EventCardBinding
@@ -8,11 +10,13 @@ import ru.netology.nework.dto.Event
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.handler.loadAvatar
 import ru.netology.nework.handler.loadImage
+import ru.netology.nework.utils.CommonUtils
 
 class EventsViewHolder(
     private val binding: EventCardBinding,
     private val listener: OnEventInteractionListener
 ) : ViewHolder(binding.root) {
+    @RequiresApi(Build.VERSION_CODES.O)
     fun binding(event: Event) {
         binding.apply {
             if (event.authorAvatar != null) {
@@ -26,7 +30,7 @@ class EventsViewHolder(
                 eventAuthorJob.isVisible = false
             }
             idOrCount.text = event.authorId.toString()
-            eventPublishedTime.text = event.published
+            eventPublishedTime.text = CommonUtils.formatToDate(event.published)
             eventContent.text = event.content
             var contentCliked = false
             eventContent.setOnClickListener {
@@ -38,7 +42,7 @@ class EventsViewHolder(
                     contentCliked = false
                 }
             }
-            eventDateTime.text = event.datetime
+            eventDateTime.text = CommonUtils.formatToDate(event.datetime)
             eventFormat.text = event.type.toString()
             when (event.link) {
                 null -> link.visibility = View.GONE

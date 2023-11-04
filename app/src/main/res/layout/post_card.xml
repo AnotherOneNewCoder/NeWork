@@ -43,6 +43,17 @@
             app:layout_constraintStart_toEndOf="@id/post_author_avatar"
             app:layout_constraintTop_toTopOf="parent"
             android:textAppearance="?attr/textAppearanceHeadline6" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_menu_card_post"
+            style="@style/Widget.AppTheme.LikeCheckBox"
+            app:icon="@drawable/ic_editor_24"
+            app:iconTint="@color/news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:checkable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/post_author_job"

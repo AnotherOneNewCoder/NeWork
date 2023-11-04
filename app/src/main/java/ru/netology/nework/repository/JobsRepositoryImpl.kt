@@ -93,7 +93,7 @@ class JobsRepositoryImpl @Inject constructor(
             throw NetworkError
         } catch (e: Exception) {
             e.printStackTrace()
-            throw UnknownError()
+            //throw UnknownError()
         }
     }
 }

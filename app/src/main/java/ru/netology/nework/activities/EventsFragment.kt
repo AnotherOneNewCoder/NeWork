@@ -125,10 +125,10 @@ class EventsFragment : Fragment() {
                         putString("edit_event_content", event.content)
                         putString("edit_event_datetime", event.datetime)
                         event.coords?.lat?.let {
-                            putDouble("edit_event_lat", it)
+                            putDouble("map_lat", it)
                         }
                         event.coords?.long?.let {
-                            putDouble("edit_event_long", it)
+                            putDouble("map_long", it)
                         }
                     }
                     findNavController().navigate(R.id.newEventFragment, bundle)
@@ -139,6 +139,38 @@ class EventsFragment : Fragment() {
                         putString("attach_img", event.attachment?.url)
                     }
                     findNavController().navigate(R.id.imageAttachFragment, bundle)
+                }
+
+                override fun showLikersEvent(event: Event) {
+                    if (authViewModel.isAuthorized) {
+                        if (event.likeOwnerIds.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.no_one_liked_it), Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            usersViewModel.getUsersIds(event.likeOwnerIds)
+                            findNavController().navigate(R.id.action_eventsFragment_to_bottomSheetFragment)
+                        }
+                    } else {
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
+                    }
+                }
+
+                override fun showParticipantsEvent(event: Event) {
+                    if (authViewModel.isAuthorized) {
+                        if (event.participantsIds.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.no_one_going_to_participate), Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            usersViewModel.getUsersIds(event.participantsIds)
+                            findNavController().navigate(R.id.action_eventsFragment_to_bottomSheetFragment)
+                        }
+                    } else {
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
+                    }
                 }
 
             }
@@ -152,7 +184,8 @@ class EventsFragment : Fragment() {
         eventViewModel.state.observe(viewLifecycleOwner) {
             when {
                 it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,
+                        getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show()
                 }
             }
             binding.progressBarFragmentEvents.isVisible = it.loading

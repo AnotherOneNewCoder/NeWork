@@ -124,7 +124,10 @@ class EventsViewModel @Inject constructor(
 
 
                     }
+                    _eventCreated.value = Unit
                     _state.value = StateModel()
+                    edited.value = emptyEvent
+                    _media.value = emptyMedia
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -133,38 +136,10 @@ class EventsViewModel @Inject constructor(
             }
 
         }
-        edited.value = emptyEvent
-        _media.value = emptyMedia
+
     }
 
-//    fun saveEventVersionTwo(event: Event) {
-//        viewModelScope.launch {
-//            try {
-//                _state.postValue(StateModel(loading = true))
-//                when(_media.value) {
-//                    emptyMedia -> {
-//                        eventsRepository.saveEvent(event)
-//                    }
-//                    else -> {
-//                        _media.value?.inputStream?.let {
-//                            MediaUpload(it)
-//                        }?.let {
-//                            eventsRepository.saveWithAttachments(event, it)
-//                        }
-//                    }
-//
-//
-//                }
-//                _state.value = StateModel()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                throw UnknownError()
-//            } finally {
-//                edited.value = emptyEvent
-//                _media.value = emptyMedia
-//            }
-//        }
-//    }
+
 
     fun changeEventWithContent(
         content: String,
@@ -272,6 +247,10 @@ class EventsViewModel @Inject constructor(
             _state.postValue(StateModel(loading = true))
         }
     }
+
+
+
+
 
 
 

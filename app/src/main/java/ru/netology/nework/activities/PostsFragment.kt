@@ -52,8 +52,6 @@ class PostsFragment: Fragment() {
                         postViewModel.unlikeById(post.id)
                     }
                 } else {
-                    // to do dialog
-                    //Toast.makeText(context, "Logging first!", Toast.LENGTH_SHORT).show()
                     binding.rwPosts.findNavController().navigate(R.id.singInDialog)
                 }
             }
@@ -116,6 +114,57 @@ class PostsFragment: Fragment() {
                 }
             }
 
+            override fun deletePost(post: Post) {
+                postViewModel.removeById(post.id)
+            }
+
+            override fun editPost(post: Post) {
+                postViewModel.edit(post)
+                val bundle = Bundle().apply {
+                    putString("edit_post_content", post.content)
+                    putString("edit_post_published", post.published)
+                    post.coords?.lat?.let {
+                        putDouble("edit_post_lat", it)
+                    }
+                    post.coords?.long?.let {
+                        putDouble("edit_post_long", it)
+                    }
+                }
+                findNavController().navigate(R.id.newPostFragment, bundle)
+            }
+
+            override fun showLikersList(post: Post) {
+                if (authViewModel.isAuthorized) {
+                    if (post.likeOwnerIds.isEmpty()) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.no_one_liked_it), Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        usersViewModel.getUsersIds(post.likeOwnerIds)
+                        findNavController().navigate(R.id.action_postsFragment_to_bottomSheetFragment)
+                    }
+                } else {
+                    binding.rwPosts.findNavController().navigate(R.id.singInDialog)
+                }
+            }
+
+            override fun showMentionsList(post: Post) {
+                if (authViewModel.isAuthorized) {
+                    if (post.mentionIds.isEmpty()) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.nobody_mentioned), Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        usersViewModel.getUsersIds(post.mentionIds)
+                        findNavController().navigate(R.id.action_postsFragment_to_bottomSheetFragment)
+                    }
+                } else {
+                    binding.rwPosts.findNavController().navigate(R.id.singInDialog)
+                }
+            }
+
         })
         binding.rwPosts.adapter = adapter
 
@@ -139,5 +188,11 @@ class PostsFragment: Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        postViewModel.refreshEvents()
+        super.onCreate(savedInstanceState)
     }
 }

@@ -33,7 +33,7 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideLogging(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BASIC
+        if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
     }
 
     @Provides

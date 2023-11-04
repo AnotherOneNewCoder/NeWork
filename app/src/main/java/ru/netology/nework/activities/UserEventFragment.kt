@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
@@ -134,22 +135,71 @@ class UserEventFragment : Fragment() {
                     }
                     findNavController().navigate(R.id.imageAttachFragment, bundle)
                 }
+                override fun showLikersEvent(event: Event) {
+                    if (authViewModel.isAuthorized) {
+                        if (event.likeOwnerIds.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.no_one_liked_it), Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            usersViewModel.getUsersIds(event.likeOwnerIds)
+                            findNavController().navigate(R.id.action_profileFragment_to_bottomSheetFragment)
+                        }
+                    } else {
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
+                    }
+                }
+
+                override fun showParticipantsEvent(event: Event) {
+                    if (authViewModel.isAuthorized) {
+                        if (event.participantsIds.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.no_one_going_to_participate), Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            usersViewModel.getUsersIds(event.participantsIds)
+                            findNavController().navigate(R.id.action_profileFragment_to_bottomSheetFragment)
+                        }
+                    } else {
+                        binding.rwEvents.findNavController().navigate(R.id.singInDialog)
+                    }
+                }
 
             }
         )
         binding.rwEvents.adapter = adapter
         var id: Long = 0L
-        usersViewModel.userId.observe(activity as LifecycleOwner, {
+        usersViewModel.userId.observe(activity as LifecycleOwner) {
             id = it
-        })
+        }
 //        val id = arguments?.getLong("userId")
 
         if (id != 0L) {
-            eventViewModel.data.observe(viewLifecycleOwner) { events ->
-                adapter.submitList(events.filter { event -> event.authorId == id })
+//            eventViewModel.data.observe(viewLifecycleOwner) { events ->
+//                adapter.submitList(events.filter { event -> event.authorId == id })
+//            }
+            eventViewModel.data.observe(viewLifecycleOwner) {
+                //adapter.submitList(it.filter { event -> event.authorId == id })
+                val list = it.filter { event ->  event.authorId == id}
+                adapter.submitList(list)
+                binding.emptyTextFragmentEvents.isVisible = list.isEmpty()
             }
         } else {
             Toast.makeText(context, getString(R.string.id_null), Toast.LENGTH_SHORT).show()
+        }
+
+        binding.refresher.setColorSchemeResources(R.color.news)
+        binding.refresher.setOnRefreshListener {
+            if (id != null) {
+                eventViewModel.data.observe(viewLifecycleOwner) {
+                    val list = it.filter { event ->  event.authorId == id}
+                    adapter.submitList(list)
+                    binding.emptyTextFragmentEvents.isVisible = list.isEmpty()
+                }
+                binding.refresher.isRefreshing = false
+            }
         }
 
 

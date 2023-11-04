@@ -27,7 +27,15 @@
     <fragment
         android:id="@+id/postsFragment"
         android:name="ru.netology.nework.activities.PostsFragment"
-        android:label="PostsFragment" />
+        android:label="PostsFragment" >
+        <action
+            android:id="@+id/action_postsFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/usersFragment"
         android:name="ru.netology.nework.activities.UsersFragment"
@@ -38,7 +46,11 @@
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
+            app:destination="@id/bottomSheetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/newJobFragment"
@@ -82,4 +94,8 @@
         android:name="ru.netology.nework.activities.ImageAttachFragment"
         android:label="fragment_image_attach"
         tools:layout="@layout/fragment_image_attach" />
+    <fragment
+        android:id="@+id/wallFragment"
+        android:name="ru.netology.nework.activities.WallFragment"
+        android:label="WallFragment" />
 </navigation>

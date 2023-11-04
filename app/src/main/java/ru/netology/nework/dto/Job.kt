@@ -8,4 +8,13 @@ data class Job(
     val finish: String? = null,
     val link: String? = null,
     val ownedByMe: Boolean = false,
-)
+) {
+    companion object{
+        val emptyJob = Job(
+            id = 0,
+            name = "",
+            position = "",
+            start = "",
+        )
+    }
+}
