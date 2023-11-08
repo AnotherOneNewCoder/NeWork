@@ -3,6 +3,7 @@ package ru.netology.nework.activities
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
 import ru.netology.nework.databinding.FragmentNewPostBinding
+import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.handler.loadImage
 import ru.netology.nework.utils.AndroidUtils
@@ -88,17 +90,38 @@ class NewPostFragment : Fragment() {
             }
             buttonChooseAudioFragmentNewPost.setOnClickListener {
                 mediaLauncher.launch("audio/*")
-                type = TypeAttachment.IMAGE
+                type = TypeAttachment.AUDIO
             }
             buttonVideoFragmentNewPost.setOnClickListener {
                 mediaLauncher.launch("video/*")
-                type = TypeAttachment.IMAGE
+                type = TypeAttachment.VIDEO
             }
             buttonRemoveFragmentNewPost.setOnClickListener {
                 postsViewModel.changeMedia(null, null, null)
             }
             buttonCoordsFragmentNewPost.setOnClickListener {
-                Toast.makeText(context, "do in future", Toast.LENGTH_SHORT).show()
+                postsViewModel.changePostContent(
+                    editTextContentFragmentNewPost.text.toString(),
+                    null
+                )
+                val bundle = Bundle().apply {
+                    putString("action", "new")
+                    putString("fragment", "post")
+                    if (latitude != null) {
+                        Log.d("MyTag", "$latitude")
+                        putDouble("mapLat",
+                            latitude!!
+                        )
+                    }
+                    if (longitude != null) {
+                        Log.d("MyTag", "$longitude")
+                        putDouble("mapLong",
+                            longitude!!
+                        )
+                    }
+
+                }
+                findNavController().navigate(R.id.mapFragment, bundle)
             }
             postsViewModel.media.observe(viewLifecycleOwner) {
                 if (it?.uri != null) {
@@ -130,7 +153,12 @@ class NewPostFragment : Fragment() {
                     editTextContentFragmentNewPost.error = "Fill me!"
                 } else {
                     postsViewModel.changePostContent(
-                        editTextContentFragmentNewPost.text.toString()
+                        editTextContentFragmentNewPost.text.toString(),
+                        coordinates = if (latitude == null || longitude ==null) {
+                            Coordinates(0.00, 0.00)
+                        } else {
+                            Coordinates(latitude, longitude)
+                        },
                     )
                     postsViewModel.savePost()
                     AndroidUtils.hideKeyboard(requireView())

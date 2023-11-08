@@ -2,6 +2,7 @@ package ru.netology.nework.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,10 +113,12 @@ class WallFragment: Fragment() {
                     putString("edit_post_content", post.content)
                     putString("edit_post_published", post.published)
                     post.coords?.lat?.let {
-                        putDouble("edit_post_lat", it)
+                        putDouble("map_lat", it)
+                        Log.d("MyTag", "Lat: $it")
                     }
                     post.coords?.long?.let {
-                        putDouble("edit_post_long", it)
+                        putDouble("map_long", it)
+                        Log.d("MyTag", "Long: $it")
                     }
                 }
                 findNavController().navigate(R.id.newPostFragment, bundle)

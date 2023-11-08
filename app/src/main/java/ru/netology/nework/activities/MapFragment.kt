@@ -45,8 +45,6 @@ class MapFragment : Fragment(), UserLocationObjectListener, InputListener {
     companion object {
         private const val ZOOM_STEP = 1f
         private val SMOOTH_ANIMATION = Animation(Animation.Type.SMOOTH, 0.4f)
-        const val LAT_KEY = "LAT_KEY"
-        const val LONG_KEY = "LONG_KEY"
 
         // временные точки для теста
         private val START_ANIMATION = Animation(Animation.Type.LINEAR, 1f)
@@ -173,6 +171,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, InputListener {
                     false -> {
                         userLocation.isVisible = true
                         userLocation.isHeadingEnabled = true
+                        onOffUserLocation = true
                         val target = userLocation.cameraPosition()
                         if (target != null) {
                             map.move(
@@ -191,45 +190,13 @@ class MapFragment : Fragment(), UserLocationObjectListener, InputListener {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                          //  )
-//                        } else {
-//                            map.move(
-//                                CameraPosition(newPoint, 15f, 0f, 0f),
-//                                START_ANIMATION
-//                            ) {
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "Move to event location",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
+
                         }
-
-
-
-
-
-
-                        onOffUserLocation = true
                     }
                 }
             }
         }
-//    } else
-//    {
-//        map.move(
-//            START_POSITION,
-//            START_ANIMATION
-//        ) {
-//            Toast.makeText(
-//                requireContext(),
-//                "Move to start location",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//
-//
-//    }
+
         return binding.root
     }
 
@@ -316,7 +283,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, InputListener {
     }
 
     override fun onMapTap(p0: Map, p1: Point) {
-
+        Toast.makeText(requireContext(), "Lat: ${p1.latitude} Long: ${p1.longitude}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onMapLongTap(map: Map, point: Point) {

@@ -3,6 +3,7 @@ package ru.netology.nework.activities
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,16 +91,25 @@ class NewEventFragment: Fragment() {
                 )
 
                 val bundle = Bundle().apply {
-                    putString("open", "newEvent")
+                    putString("action", "new")
+                    putString("fragment", "event")
                     if (latitude != null) {
-                        putDouble("lat", latitude!!)
+                        Log.d("MyTag", "$latitude")
+                        putDouble("mapLat",
+                            latitude!!
+                        )
                     }
                     if (longitude != null) {
-                        putDouble("long", longitude!!)
+                        Log.d("MyTag", "$longitude")
+                        putDouble("mapLong",
+                            longitude!!
+                        )
                     }
+
                 }
                 findNavController().navigate(R.id.mapFragment, bundle)
             }
+
 
             editTextDateFragmentNewEvent.setOnClickListener {
                 context?.let { item ->
@@ -173,23 +183,7 @@ class NewEventFragment: Fragment() {
             eventsViewModel.media.observe(viewLifecycleOwner) {
                 eventMediaImageView.loadImage(it.uri.toString())
             }
-            buttonCoordsFragmentNewEvent.setOnClickListener {
-                val bundle = Bundle().apply {
-                    eventsViewModel.edited.value?.coords?.lat?.let { lat ->
-                        putDouble("mapLat",
-                            lat
-                        )
-                    }
-                    eventsViewModel.edited.value?.coords?.long?.let { long ->
-                        putDouble("mapLong",
-                            long
-                        )
-                    }
-                    putString("action", "new")
-                    putString("fragment", "event")
-                }
-                findNavController().navigate(R.id.mapFragment, bundle)
-            }
+
 
 
 

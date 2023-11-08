@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.nework.api.PostsApiService
 import ru.netology.nework.auth.AppAuth
+import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.MediaUpload
 import ru.netology.nework.dto.Post
 import ru.netology.nework.dto.TypeAttachment
@@ -130,11 +131,17 @@ class PostsViewModel @Inject constructor(
         _media.value = noMedia
     }
 
-    fun changePostContent(content: String) {
+    fun changePostContent(
+        content: String,
+        coordinates: Coordinates?,
+        ) {
         edited.value?.let {
             val text = content.trim()
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
+            }
+            if (edited.value?.coords != coordinates) {
+                edited.value = edited.value?.copy(coords = coordinates)
             }
         }
     }

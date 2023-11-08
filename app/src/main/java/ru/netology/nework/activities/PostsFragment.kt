@@ -3,6 +3,7 @@ package ru.netology.nework.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,8 @@ import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
 import ru.netology.nework.databinding.FragmentPostsBinding
 import ru.netology.nework.dto.Post
+import ru.netology.nework.dto.TypeAttachment
+import ru.netology.nework.media.MediaLifecycleObserver
 import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.PostsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
@@ -30,18 +33,19 @@ import ru.netology.nework.viewmodel.UsersViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class PostsFragment: Fragment() {
+class PostsFragment : Fragment() {
     private val postViewModel by activityViewModels<PostsViewModel>()
     private val usersViewModel by activityViewModels<UsersViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
+    private val mediaObserver = MediaLifecycleObserver()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
-
-        val adapter = PostsAdapter(object : OnPostInteractionListener{
+        lifecycle.addObserver(mediaObserver)
+        val adapter = PostsAdapter(object : OnPostInteractionListener {
 
 
             override fun onLikePost(post: Post) {
@@ -93,14 +97,26 @@ class PostsFragment: Fragment() {
             }
 
             override fun onPlayStopMusic(post: Post) {
-                try {
-                    val uri = Uri.parse(post.attachment?.url)
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.setDataAndType(uri, "audio/*")
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(context, getString(R.string.nothing_to_play), Toast.LENGTH_SHORT).show()
-                }
+
+                mediaObserver.apply {
+                    if (player?.isPlaying == true) {
+                        player?.pause()
+                        player?.reset()
+                        return
+                    } else
+                        if (post.attachment?.type == TypeAttachment.AUDIO) {
+                            player?.setDataSource(post.attachment.url)
+                        }
+                }.play()
+
+//                try {
+//                    val uri = Uri.parse(post.attachment?.url)
+//                    val intent = Intent(Intent.ACTION_VIEW)
+//                    intent.setDataAndType(uri, "audio/*")
+//                    startActivity(intent)
+//                } catch (e: Exception) {
+//                    Toast.makeText(context, getString(R.string.nothing_to_play), Toast.LENGTH_SHORT).show()
+//                }
             }
 
             override fun onPlayStopVideo(post: Post) {
@@ -110,7 +126,11 @@ class PostsFragment: Fragment() {
                     intent.setDataAndType(uri, "video/*")
                     startActivity(intent)
                 } catch (e: Exception) {
-                    Toast.makeText(context, getString(R.string.nothing_to_play), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        getString(R.string.nothing_to_play),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -124,10 +144,12 @@ class PostsFragment: Fragment() {
                     putString("edit_post_content", post.content)
                     putString("edit_post_published", post.published)
                     post.coords?.lat?.let {
-                        putDouble("edit_post_lat", it)
+                        putDouble("map_lat", it)
+                        Log.d("MyTag", "Lat: $it")
                     }
                     post.coords?.long?.let {
-                        putDouble("edit_post_long", it)
+                        putDouble("map_long", it)
+                        Log.d("MyTag", "Long: $it")
                     }
                 }
                 findNavController().navigate(R.id.newPostFragment, bundle)
@@ -168,13 +190,16 @@ class PostsFragment: Fragment() {
         })
         binding.rwPosts.adapter = adapter
 
-        postViewModel.data.observe(viewLifecycleOwner) {
+        postViewModel.data.observe(viewLifecycleOwner)
+        {
             adapter.submitList(it)
         }
-        postViewModel.state.observe(viewLifecycleOwner) {
+        postViewModel.state.observe(viewLifecycleOwner)
+        {
             when {
                 it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             binding.progressBarFragmentPosts.isVisible = it.loading
@@ -185,6 +210,9 @@ class PostsFragment: Fragment() {
             postViewModel.refreshEvents()
             binding.refresher.isRefreshing = false
         }
+
+
+
 
 
         return binding.root

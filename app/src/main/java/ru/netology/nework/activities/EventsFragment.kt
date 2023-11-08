@@ -2,6 +2,7 @@ package ru.netology.nework.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,9 +127,11 @@ class EventsFragment : Fragment() {
                         putString("edit_event_datetime", event.datetime)
                         event.coords?.lat?.let {
                             putDouble("map_lat", it)
+                            Log.d("MyTag", "Lat: $it")
                         }
                         event.coords?.long?.let {
                             putDouble("map_long", it)
+                            Log.d("MyTag", "Long: $it")
                         }
                     }
                     findNavController().navigate(R.id.newEventFragment, bundle)
