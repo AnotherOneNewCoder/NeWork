@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:anroid="http://schemas.android.com/tools"
-    xmlns:tools=""
+
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="54dp"
-                tools:text="Petrov Vasya"
+
                 app:layout_constraintBottom_toBottomOf="@+id/shapka_calendar_event_author_name"
                 app:layout_constraintStart_toEndOf="@+id/shapka_calendar_event_author_name"
                 app:layout_constraintTop_toTopOf="@+id/shapka_calendar_event_author_name" />
@@ -108,7 +108,7 @@
                 style="@style/text_job_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="OFFLINE"
+
                 app:layout_constraintBottom_toBottomOf="@+id/shapka_calendar_event_type"
                 app:layout_constraintStart_toStartOf="@+id/calendar_event_author_name"
                 app:layout_constraintTop_toTopOf="@+id/shapka_calendar_event_type" />
@@ -118,7 +118,7 @@
                 style="@style/text_job_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="11.10.2024"
+
                 app:layout_constraintBottom_toBottomOf="@+id/shapka_calendar_event_date_time"
                 app:layout_constraintStart_toStartOf="@+id/calendar_event_author_name"
                 app:layout_constraintTop_toTopOf="@+id/shapka_calendar_event_date_time" />
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:autoLink="web"
-                tools:text="https://www.google.com/"
+
 
                 app:layout_constraintBottom_toBottomOf="@+id/shapka_calendar_event_link"
                 app:layout_constraintStart_toStartOf="@+id/calendar_event_author_name"
