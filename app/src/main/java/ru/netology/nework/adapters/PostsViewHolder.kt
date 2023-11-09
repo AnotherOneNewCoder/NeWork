@@ -11,8 +11,12 @@ import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.handler.loadAvatar
 import ru.netology.nework.handler.loadImage
 import android.content.Context
+
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import ru.netology.nework.utils.CommonUtils
 
 class PostsViewHolder(
@@ -21,6 +25,7 @@ class PostsViewHolder(
     private val context: Context,
 ): ViewHolder(binding.root) {
     @RequiresApi(Build.VERSION_CODES.O)
+
     fun bind(post: Post) {
         binding.apply {
             if (post.authorAvatar != null) {
@@ -77,16 +82,27 @@ class PostsViewHolder(
                 playStopMusicBtn.isChecked = startStopMusic
                 startStopMusic = !startStopMusic
             }
-
-            var startStopVideo = true
-            playStopVideoBtn.isCheckable = startStopVideo
-            playStopVideoBtn.setOnClickListener {
-                listener.onPlayStopVideo(post)
-                playStopVideoBtn.isChecked = startStopVideo
-                startStopVideo = !startStopVideo
-            }
+            val player = ExoPlayer.Builder(context).build()
+            videoPlayer.player = player
             videoPlayer.setOnClickListener {
-                listener.onPlayStopVideo(post)
+                if (!player.isPlaying) {
+                    val mediaItem = post.attachment?.url?.let { uri ->
+                        androidx.media3.common.MediaItem.fromUri(
+                            uri
+                        )
+                    }
+                    if (mediaItem != null) {
+                        player.setMediaItem(mediaItem)
+                    }
+//                val mediaSource = ProgressiveMediaSource.Factory(
+//                    DefaultDataSource.Factory(context)
+//                ).createMediaSource(mediaItem)
+                    player.prepare()
+                    player.playWhenReady
+
+//                listener.onPlayStopVideo(post)
+                }
+                else player.release()
             }
 
 

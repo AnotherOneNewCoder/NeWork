@@ -17,7 +17,7 @@ interface OnPostInteractionListener {
     fun onShowCoordsPost(post: Post)
     fun onOpenImageFullScreen(post: Post)
     fun onPlayStopMusic(post: Post)
-    fun onPlayStopVideo(post: Post)
+
     fun deletePost(post: Post)
     fun editPost(post: Post)
 

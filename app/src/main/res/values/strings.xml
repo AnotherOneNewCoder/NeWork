@@ -65,4 +65,5 @@
     <string name="nobody_mentioned">Nobody mentioned!</string>
     <string name="offline_event">OFFLINE event</string>
     <string name="save">Save</string>
+    <string name="only_post_owner_can_mention_users">Only post owner can mention users!</string>
 </resources>

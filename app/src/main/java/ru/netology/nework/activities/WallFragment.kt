@@ -25,6 +25,8 @@ import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
 import ru.netology.nework.databinding.FragmentPostsBinding
 import ru.netology.nework.dto.Post
+import ru.netology.nework.dto.TypeAttachment
+import ru.netology.nework.media.MediaLifecycleObserver
 import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.PostsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
@@ -37,13 +39,14 @@ class WallFragment: Fragment() {
     private val authViewModel by activityViewModels<AuthViewModel>()
     private val usersViewModel by activityViewModels<UsersViewModel>()
     private val wallViewModel by activityViewModels<WallViewModel>()
+    private val mediaObserver = MediaLifecycleObserver()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
-
+        lifecycle.addObserver(mediaObserver)
         val adapter = PostsAdapter(object : OnPostInteractionListener {
 
 
@@ -60,7 +63,23 @@ class WallFragment: Fragment() {
             }
 
             override fun onMentionPost(post: Post) {
-
+                if (authViewModel.isAuthorized) {
+                    if (post.ownedByMe) {
+                        postViewModel.edit(post)
+                        val bundle = Bundle().apply {
+                            putString("action", "mention")
+                        }
+                        findNavController().navigate(R.id.usersFragment, bundle)
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.only_post_owner_can_mention_users),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    binding.rwPosts.findNavController().navigate(R.id.singInDialog)
+                }
             }
 
             override fun onSharePost(post: Post) {
@@ -96,12 +115,19 @@ class WallFragment: Fragment() {
             }
 
             override fun onPlayStopMusic(post: Post) {
-
+                mediaObserver.apply {
+                    if (player?.isPlaying == true) {
+                        player?.pause()
+                        player?.reset()
+                        return
+                    } else
+                        if (post.attachment?.type == TypeAttachment.AUDIO) {
+                            player?.setDataSource(post.attachment.url)
+                        }
+                }.play()
             }
 
-            override fun onPlayStopVideo(post: Post) {
 
-            }
 
             override fun deletePost(post: Post) {
                 postViewModel.removeById(post.id)

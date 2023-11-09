@@ -21,293 +21,257 @@
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_margin="4dp"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/post_author_avatar"
-            android:layout_width="@dimen/event_avatar_size"
-            android:layout_height="@dimen/event_avatar_size"
-            app:srcCompat="@drawable/no_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-            android:id="@+id/post_author_name"
-            android:maxLines="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/event_author_name"
-            android:layout_marginStart="@dimen/margin_start_text"
-            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_menu_card_post"
-            style="@style/Widget.AppTheme.LikeCheckBox"
-            app:icon="@drawable/ic_editor_24"
-            app:iconTint="@color/news"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:checkable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/post_author_job"
-            android:layout_marginStart="@dimen/margin_start_text"
-            android:maxLines="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/author_current_job_place"
-            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
-            app:layout_constraintTop_toBottomOf="@id/post_author_name"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary" />
-        <TextView
-            android:id="@+id/post_published_time"
-            android:layout_marginStart="@dimen/margin_start_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="05.10.2023 21:44"
-            app:layout_constraintStart_toEndOf="@id/post_author_avatar"
-            app:layout_constraintTop_toBottomOf="@id/post_author_job"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary" />
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_top"
-            app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_divider"
-            app:layout_constraintTop_toBottomOf="@id/post_author_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-        <TextView
-            android:id="@+id/post_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="6"
-            android:autoLink="web"
-            android:ellipsize="end"
-
-            android:text="@tools:sample/lorem[50]"
-            android:textAppearance="?attr/textAppearanceBody2"
-            style="@style/text_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_top"/>
-
-        <TextView
-            android:id="@+id/shapka_post_link"
-            android:text="Link: "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/post_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/text_date_time"/>
-        <TextView
-            android:id="@+id/post_link"
-            tools:text="https://stackoverflow.com/"
-            app:layout_constraintStart_toEndOf="@id/shapka_post_link"
-            app:layout_constraintTop_toBottomOf="@id/post_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="@dimen/margin_start_text"
-            style="@style/text_date_time"/>
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/link"
-            app:constraint_referenced_ids="shapka_post_link, post_link"
-            android:visibility="visible"/>
-
-
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_min"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/shapka_post_link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/full_content"
-            app:constraint_referenced_ids="post_media_space, bottoms_space"
-            android:visibility="visible"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/post_media_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/divider_min"
+            android:layout_margin="4dp">
 
-            >
-            <!-- Media -->
-            <ImageView
-                android:id="@+id/post_image_media"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:contentDescription="@string/media"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/post_author_avatar"
+                android:layout_width="@dimen/event_avatar_size"
+                android:layout_height="@dimen/event_avatar_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/media" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/play_stop_music_btn"
-                style="@style/Widget.App.Play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/music_play_pause_selector"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/post_image_media"
-
-                />
-
-            <SeekBar
-                android:id="@+id/music_progress_bar"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="false"
-                android:progress="50"
-                android:progressDrawable="@drawable/track"
-                android:splitTrack="false"
-                android:thumb="@drawable/thumb"
-                app:layout_constraintBottom_toBottomOf="@id/play_stop_music_btn"
-                app:layout_constraintStart_toEndOf="@id/play_stop_music_btn"
-                app:layout_constraintTop_toTopOf="@id/play_stop_music_btn" />
+                app:srcCompat="@drawable/no_avatar" />
 
             <TextView
-                android:id="@+id/estimated_music_time"
+                android:id="@+id/post_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:maxLines="1"
+                android:text="@string/event_author_name"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintStart_toEndOf="@id/post_author_avatar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_menu_card_post"
+                style="@style/Widget.AppTheme.LikeCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:visibility="visible"
+                app:icon="@drawable/ic_editor_24"
+                app:iconTint="@color/news"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/post_author_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:maxLines="1"
+                android:text="@string/author_current_job_place"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/post_author_avatar"
+                app:layout_constraintTop_toBottomOf="@id/post_author_name" />
+
+            <TextView
+                android:id="@+id/post_published_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:text="05.10.2023 21:44"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toEndOf="@id/post_author_avatar"
+                app:layout_constraintTop_toBottomOf="@id/post_author_job" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_divider"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_author_avatar" />
+
+
+            <TextView
+                android:id="@+id/post_content"
                 style="@style/text_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4:12"
-                app:layout_constraintBottom_toBottomOf="@id/play_stop_music_btn"
-                app:layout_constraintStart_toEndOf="@id/music_progress_bar"
-                app:layout_constraintTop_toTopOf="@id/play_stop_music_btn" />
+                android:autoLink="web"
+                android:ellipsize="end"
+
+                android:maxLines="6"
+                android:text="@tools:sample/lorem[50]"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_top" />
+
+            <TextView
+                android:id="@+id/shapka_post_link"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Link: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_content" />
+
+            <TextView
+                android:id="@+id/post_link"
+                style="@style/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_text"
+                android:layout_marginTop="8dp"
+                android:autoLink="web"
+                app:layout_constraintStart_toEndOf="@id/shapka_post_link"
+                app:layout_constraintTop_toBottomOf="@id/post_content"
+                tools:text="https://stackoverflow.com/" />
 
             <androidx.constraintlayout.widget.Group
-                android:id="@+id/music_elements"
+                android:id="@+id/link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:constraint_referenced_ids="play_stop_music_btn, music_progress_bar, estimated_music_time" />
+                app:constraint_referenced_ids="shapka_post_link, post_link" />
 
-            <VideoView
-                android:id="@+id/video_player"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="12dp"
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/play_stop_music_btn" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/play_stop_video_btn"
-                style="@style/Widget.App.Play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/video_play_pause_selector"
-                app:layout_constraintStart_toStartOf="@id/video_player"
-                app:layout_constraintTop_toBottomOf="@id/video_player"
-
-                />
-
-            <SeekBar
-                android:id="@+id/video_progress_bar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="false"
-                android:progress="50"
-                android:progressDrawable="@drawable/track"
-                android:splitTrack="false"
-                android:thumb="@drawable/thumb"
-                app:layout_constraintBottom_toBottomOf="@id/play_stop_video_btn"
-                app:layout_constraintEnd_toEndOf="@id/video_player"
-                app:layout_constraintStart_toEndOf="@id/play_stop_video_btn"
-                app:layout_constraintTop_toTopOf="@id/play_stop_video_btn" />
+                app:layout_constraintTop_toBottomOf="@id/shapka_post_link" />
 
             <androidx.constraintlayout.widget.Group
-                android:id="@+id/video_elements"
+                android:id="@+id/full_content"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:constraint_referenced_ids="video_player, play_stop_video_btn, video_progress_bar" />
+                app:constraint_referenced_ids="post_media_space, bottoms_space" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/post_media_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/divider_min"
+
+                >
+                <!-- Media -->
+                <ImageView
+                    android:id="@+id/post_image_media"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/media"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/media" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/play_stop_music_btn"
+                    style="@style/Widget.App.Play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="@dimen/end_margin_btn_post"
+                    app:icon="@drawable/music_play_pause_selector"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/post_image_media"
+
+                    />
+
+
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/music_elements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="play_stop_music_btn" />
+
+                <androidx.media3.ui.PlayerView
+                    android:id="@+id/video_player"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/play_stop_music_btn"
+                    app:show_buffering="when_playing"
+                    app:show_shuffle_button="true" />
+
+
+
+>
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/video_elements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="video_player" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/bottoms_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_media_space">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_like"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/end_margin_btn_post"
+                    android:layout_marginEnd="@dimen/end_margin_btn_post"
+                    android:text="100"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/like_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mention"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/end_margin_btn_post"
+                    android:text="40"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/mention_selector" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_share"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/end_margin_btn_post"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/share_selector" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_coords"
+                    style="@style/Widget.AppTheme.LikeCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/end_margin_btn_post"
+                    android:textColor="@color/notSaved"
+                    app:icon="@drawable/coords_selector" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/bottoms_space"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/post_media_space"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppTheme.LikeCheckBox"
-                android:id="@+id/btn_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/end_margin_btn_post"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/like_selector"
-                android:textColor="@color/notSaved"
-                android:text="100" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppTheme.LikeCheckBox"
-                android:id="@+id/btn_mention"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/mention_selector"
-                android:textColor="@color/notSaved"
-                android:text="40" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_share"
-                style="@style/Widget.AppTheme.LikeCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/share_selector"
-                android:textColor="@color/notSaved"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_coords"
-                style="@style/Widget.AppTheme.LikeCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/end_margin_btn_post"
-                app:icon="@drawable/coords_selector"
-                android:textColor="@color/notSaved"
-                />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </com.google.android.material.card.MaterialCardView>

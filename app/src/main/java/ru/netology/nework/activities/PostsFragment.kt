@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +45,7 @@ class PostsFragment : Fragment() {
     ): View {
         val binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
         lifecycle.addObserver(mediaObserver)
+
         val adapter = PostsAdapter(object : OnPostInteractionListener {
 
 
@@ -61,7 +62,23 @@ class PostsFragment : Fragment() {
             }
 
             override fun onMentionPost(post: Post) {
-
+                if (authViewModel.isAuthorized) {
+                    if (post.ownedByMe) {
+                        postViewModel.edit(post)
+                        val bundle = Bundle().apply {
+                            putString("action", "mention")
+                        }
+                        findNavController().navigate(R.id.usersFragment, bundle)
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.only_post_owner_can_mention_users),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    binding.rwPosts.findNavController().navigate(R.id.singInDialog)
+                }
             }
 
             override fun onSharePost(post: Post) {
@@ -109,30 +126,8 @@ class PostsFragment : Fragment() {
                         }
                 }.play()
 
-//                try {
-//                    val uri = Uri.parse(post.attachment?.url)
-//                    val intent = Intent(Intent.ACTION_VIEW)
-//                    intent.setDataAndType(uri, "audio/*")
-//                    startActivity(intent)
-//                } catch (e: Exception) {
-//                    Toast.makeText(context, getString(R.string.nothing_to_play), Toast.LENGTH_SHORT).show()
-//                }
             }
 
-            override fun onPlayStopVideo(post: Post) {
-                try {
-                    val uri = Uri.parse(post.attachment?.url)
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.setDataAndType(uri, "video/*")
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.nothing_to_play),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
 
             override fun deletePost(post: Post) {
                 postViewModel.removeById(post.id)
@@ -220,7 +215,7 @@ class PostsFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        postViewModel.refreshEvents()
+        //postViewModel.refreshEvents()
         super.onCreate(savedInstanceState)
     }
 }

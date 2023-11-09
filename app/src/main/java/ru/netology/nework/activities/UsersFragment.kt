@@ -54,6 +54,7 @@ class UsersFragment: Fragment() {
 
                     "mention" -> {
                         postsViewModel.setMentionIds(user.id)
+                        postsViewModel.savePost()
                         findNavController().navigateUp()
                     }
 
