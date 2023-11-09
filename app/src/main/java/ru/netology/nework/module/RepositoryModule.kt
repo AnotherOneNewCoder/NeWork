@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.netology.nework.repository.CalendarNoteRepository
+import ru.netology.nework.repository.CalendarNoteRepositoryImpl
 import ru.netology.nework.repository.EventsRepository
 import ru.netology.nework.repository.EventsRepositoryImpl
 import ru.netology.nework.repository.JobsRepository
@@ -40,4 +42,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindWallRepository(impl: WallRepositoryImpl): WallRepository
+
+    @Singleton
+    @Binds
+    fun bindCalendarNoteRepository(impl: CalendarNoteRepositoryImpl): CalendarNoteRepository
 }

@@ -1,33 +1,35 @@
 package ru.netology.nework.adapters
 
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nework.databinding.CalendarEventCardBinding
-import ru.netology.nework.dto.Event
+import ru.netology.nework.dto.CalendarNote
+
+import ru.netology.nework.utils.CommonUtils
 
 class CalendarEventViewHolder(
-    val binding: CalendarEventCardBinding
+    val binding: CalendarEventCardBinding,
+    val listener: OnCalendarEventInteractionListener,
 ): RecyclerView.ViewHolder(binding.root) {
-    fun bind(event: Event) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bind(calendarNote: CalendarNote) {
         binding.apply {
-            calendarEventAuthorName.text = event.author
-            calendarEventType.text = event.type.toString()
-            calendarEventDateTime.text = event.datetime
-            if (event.coords != null) {
-                calendarEventCoords.visibility = View.VISIBLE
-                shapkaCalendarEventCoords.visibility = View.VISIBLE
-                calendarEventCoords.text = "${event.coords.lat}, ${event.coords.long}"
-            } else {
-                calendarEventCoords.visibility = View.GONE
-                shapkaCalendarEventCoords.visibility = View.GONE
-            }
-            if (event.link != null) {
+            calendarEventAuthorName.text = calendarNote.author
+            calendarEventType.text = calendarNote.type.toString()
+            calendarEventDateTime.text = CommonUtils.formatToDate(calendarNote.datetime)
+
+            if (calendarNote.link != null && calendarNote.link != "Not presentated!") {
                 calendarEventLink.visibility = View.VISIBLE
                 shapkaCalendarEventLink.visibility = View.VISIBLE
-                calendarEventLink.text = event.link
+                calendarEventLink.text = calendarNote.link
             } else {
                 calendarEventLink.visibility = View.GONE
                 shapkaCalendarEventLink.visibility = View.GONE
+            }
+            buttonDelete.setOnClickListener {
+                listener.deleteCalendarEvent(calendarNote)
             }
 
         }

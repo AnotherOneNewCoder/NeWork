@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.netology.nework.dao.CalendarNoteDao
 import ru.netology.nework.dao.EventDao
 import ru.netology.nework.dao.JobDao
 import ru.netology.nework.dao.PostDao
@@ -46,5 +47,10 @@ object DbModule {
     fun provideJobDao(
         appDb: AppDb
     ): JobDao = appDb.jobDao()
+
+    @Provides
+    fun provideCalendarNoteDao(
+        appDb: AppDb
+    ): CalendarNoteDao = appDb.calendarNoteDao()
 
 }

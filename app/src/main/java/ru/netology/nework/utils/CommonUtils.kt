@@ -9,7 +9,7 @@ import android.graphics.Canvas
 import android.os.Build
 import android.widget.EditText
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatEditText
+
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -29,7 +29,7 @@ object CommonUtils {
             drawble.intrinsicWidth,
             drawble.intrinsicHeight,
             Bitmap.Config.ARGB_8888
-        ) ?: return null
+        )
         val canvas = Canvas(bitmap)
         drawble.setBounds(0, 0, canvas.width, canvas.height)
         drawble.draw(canvas)
@@ -117,6 +117,13 @@ object CommonUtils {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.uuu'Z'", Locale.getDefault())
             editText?.setText(dateFormat.format(result))
         }, startYear, startMonth, startDay).show()
+    }
+    fun convertDataToLong(date: String): Long {
+        val dateString = date.substring(0, 10)
+        val timeString = date.substring(11, 16)
+        val fullDate = dateString.trim() + " " + timeString.trim()
+        val df = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        return df.parse(fullDate).time
     }
 
 }

@@ -10,18 +10,17 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 import ru.netology.nework.R
 import ru.netology.nework.adapters.EventsAdapter
 import ru.netology.nework.adapters.OnEventInteractionListener
 import ru.netology.nework.databinding.FragmentEventsBinding
 import ru.netology.nework.dto.Event
 import ru.netology.nework.viewmodel.AuthViewModel
+import ru.netology.nework.viewmodel.CalendarNoteViewModel
 import ru.netology.nework.viewmodel.EventsViewModel
 import ru.netology.nework.viewmodel.UsersViewModel
 
@@ -31,6 +30,7 @@ class EventsFragment : Fragment() {
     private val eventViewModel by activityViewModels<EventsViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
     private val usersViewModel by activityViewModels<UsersViewModel>()
+    private val calendarNoteViewModel by activityViewModels<CalendarNoteViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,6 +63,16 @@ class EventsFragment : Fragment() {
                 override fun onParticipateEvent(event: Event) {
                     if (authViewModel.isAuthorized) {
                         if (!event.participatedByMe) {
+                            authViewModel.data.value?.id?.let { currentUserId ->
+                                calendarNoteViewModel.edited.value = calendarNoteViewModel.edited.value?.copy(
+                                    author = event.author,
+                                    currentUserId = currentUserId,
+                                    link = event.link,
+                                    datetime = event.datetime,
+                                    type = event.type,
+                                )
+                            }
+                            calendarNoteViewModel.saveCalendarNote()
                             eventViewModel.participateById(event.id)
                         } else {
                             eventViewModel.dontParticipateById(event.id)
