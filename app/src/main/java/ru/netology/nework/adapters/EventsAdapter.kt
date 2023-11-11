@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.netology.nework.databinding.EventCardBinding
+
 import ru.netology.nework.databinding.EventCardV2Binding
 import ru.netology.nework.dto.Event
 

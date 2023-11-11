@@ -10,16 +10,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import ru.netology.nework.R
 import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
@@ -184,7 +179,7 @@ class WallFragment: Fragment() {
 
         })
         binding.rwPosts.adapter = adapter
-        var id: Long = 0L
+        var id = 0L
         usersViewModel.userId.observe(activity as LifecycleOwner) {
             id = it
         }
@@ -201,7 +196,7 @@ class WallFragment: Fragment() {
         postViewModel.state.observe(viewLifecycleOwner) {
             when {
                 it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show()
                 }
             }
             binding.progressBarFragmentPosts.isVisible = it.loading

@@ -9,7 +9,7 @@
     <string name="event_author_name">Event author name</string>
     <string name="job_place">Job place</string>
     <string name="search">Search</string>
-    <string name="add_button_event">Add button event</string>
+    <string name="add_button_event" translatable="false">Add button event</string>
     <string name="event">event</string>
     <string name="tab_ic_calendar">Calendar</string>
     <string name="user_s_events">user\'s events</string>
@@ -28,13 +28,13 @@
     <string name="date_and_time">Date and time:</string>
     <string name="type">Type:</string>
     <string name="link">Link:</string>
-    <string name="_11_10_2015">11.10.2015</string>
+    <string name="_11_10_2015" translatable="false">11.10.2015</string>
     <string name="event_content">Event content:</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="online_event">ONLINE event</string>
     <string name="clear">Clear</string>
-    <string name="add_button">Add button</string>
+    <string name="add_button" translatable="false">Add button</string>
     <string name="post_content">Post content:</string>
     <string name="login">Login:</string>
     <string name="password">Password:</string>
@@ -53,9 +53,9 @@
     <string name="plus_zoom">Plus zoom</string>
     <string name="content_must_be_filled">Content must be filled!</string>
     <string name="all_fields_should_be_filled">All fields should be filled!</string>
-    <string name="id_null">Null!</string>
-    <string name="error_loading">Error loading!</string>
-    <string name="nothing_to_play">Nothing to play</string>
+    <string name="id_null" translatable="false">Null!</string>
+    <string name="error_loading" translatable="false">Error loading!</string>
+    <string name="nothing_to_play" translatable="false">Nothing to play</string>
     <string name="create_job_to_get_list">Create job to get list</string>
     <string name="check_internet_connection">Check internet connection!</string>
     <string name="create_event_to_get_list">Create event to get list</string>
@@ -66,4 +66,8 @@
     <string name="offline_event">OFFLINE event</string>
     <string name="save">Save</string>
     <string name="only_post_owner_can_mention_users">Only post owner can mention users!</string>
+    <string name="fill_me">Fill me!</string>
+    <string name="later">Later</string>
+    <string name="go">Go</string>
+    <string name="wrong_login_or_password">Wrong login or password!</string>
 </resources>

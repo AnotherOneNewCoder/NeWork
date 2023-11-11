@@ -14,9 +14,10 @@ import android.content.Context
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.media3.datasource.DefaultDataSource
+
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
+
+import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.utils.CommonUtils
 
 class PostsViewHolder(
@@ -134,7 +135,10 @@ class PostsViewHolder(
             btnShare.setOnClickListener {
                 listener.onSharePost(post)
             }
-            if (post.coords != null) {
+            if (post.coords != null && post.coords != Coordinates(
+                    0.00000000000000000000, 0.00000000000000000000
+                )
+            ) {
                 btnCoords.isVisible = true
                 btnCoords.setOnClickListener {
                     listener.onShowCoordsPost(post)

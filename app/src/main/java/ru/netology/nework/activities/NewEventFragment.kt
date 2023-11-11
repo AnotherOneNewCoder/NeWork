@@ -12,13 +12,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nework.R
-import ru.netology.nework.auth.AppAuth
+
 import ru.netology.nework.databinding.FragmentNewEventBinding
 import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.Event
@@ -28,10 +28,9 @@ import ru.netology.nework.handler.loadImage
 import ru.netology.nework.utils.AndroidUtils
 import ru.netology.nework.utils.CommonUtils
 import ru.netology.nework.utils.StringArg
-import ru.netology.nework.viewmodel.AuthViewModel
+
 import ru.netology.nework.viewmodel.EventsViewModel
-import ru.netology.nework.viewmodel.UsersViewModel
-import javax.inject.Inject
+
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -197,7 +196,7 @@ class NewEventFragment: Fragment() {
                         context,
                         getString(R.string.content_must_be_filled), Toast.LENGTH_SHORT
                     ).show()
-                    editTextContentFragmentNewEvent.error = "Fill me!"
+                    editTextContentFragmentNewEvent.error = getString(R.string.fill_me)
                 } else {
                     eventsViewModel.changeEventWithContent(
                         content = editTextContentFragmentNewEvent.text.toString(),
@@ -210,7 +209,7 @@ class NewEventFragment: Fragment() {
                             Coordinates(latitude, longitude)
                         },
                         link = if (editTextLinkFragmentNewEvent.text.isNullOrBlank()){
-                            "Not presentated!"
+                            "Not presented!"
                         } else {
                             editTextLinkFragmentNewEvent.text.toString()
                         }

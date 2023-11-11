@@ -52,25 +52,16 @@ class AppAuth @Inject constructor(
             commit()
         }
     }
-    fun getToken(): String?{
-        return pref.getString(TOKEN_KEY, null)
-    }
+
 
 
     companion object {
 
         private const val ID_KEY = "ID_KEY"
         private const val TOKEN_KEY = "TOKEN_KEY"
-        private var INSTANCE: AppAuth? = null
 
-        //2
-        fun getInstance(): AppAuth = requireNotNull(INSTANCE)
 
-        // 1
-        fun initApp(context: Context) {
-            INSTANCE = AppAuth(context)
 
-        }
 
     }
 

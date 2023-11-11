@@ -20,7 +20,7 @@ class CalendarEventViewHolder(
             calendarEventType.text = calendarNote.type.toString()
             calendarEventDateTime.text = CommonUtils.formatToDate(calendarNote.datetime)
 
-            if (calendarNote.link != null && calendarNote.link != "Not presentated!") {
+            if (calendarNote.link != null && calendarNote.link != "Not presented") {
                 calendarEventLink.visibility = View.VISIBLE
                 shapkaCalendarEventLink.visibility = View.VISIBLE
                 calendarEventLink.text = calendarNote.link

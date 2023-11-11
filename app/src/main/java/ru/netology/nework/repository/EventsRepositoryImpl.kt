@@ -1,7 +1,7 @@
 package ru.netology.nework.repository
 
 
-import android.util.Log
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,7 +20,7 @@ import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.entity.EventEntity
 import ru.netology.nework.entity.toEvent
 import ru.netology.nework.entity.toEventEntity
-import ru.netology.nework.entity.toEventEntity2
+
 import ru.netology.nework.errors.ApiError
 import ru.netology.nework.errors.AppError
 import ru.netology.nework.errors.NetworkError

@@ -1,7 +1,9 @@
 package ru.netology.nework.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.netology.nework.databinding.JobCardBinding
@@ -25,6 +27,7 @@ class JobAdapter(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)

@@ -1,12 +1,14 @@
 package ru.netology.nework.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import ru.netology.nework.dto.Post
 import androidx.recyclerview.widget.ListAdapter
 import ru.netology.nework.databinding.PostCardBinding
-import ru.netology.nework.dto.Event
+
 
 
 interface OnPostInteractionListener {
@@ -38,6 +40,7 @@ class PostsAdapter(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)

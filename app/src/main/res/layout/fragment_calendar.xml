@@ -27,18 +27,20 @@
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp">
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calendar_view"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
 
-            android:scaleX="1.3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:mcv_calendarMode="month"
-            app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Small" />
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+
+                android:scaleX="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mcv_calendarMode="month"
+                app:mcv_firstDayOfWeek="monday"
+                app:mcv_weekDayTextAppearance="@style/TextAppearance.AppCompat.Small" />
         </com.google.android.material.card.MaterialCardView>
 
     </com.google.android.material.card.MaterialCardView>

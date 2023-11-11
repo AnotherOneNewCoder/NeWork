@@ -173,7 +173,7 @@ class UserEventFragment : Fragment() {
             }
         )
         binding.rwEvents.adapter = adapter
-        var id: Long = 0L
+        var id = 0L
         usersViewModel.userId.observe(activity as LifecycleOwner) {
             id = it
         }
@@ -195,7 +195,7 @@ class UserEventFragment : Fragment() {
 
         binding.refresher.setColorSchemeResources(R.color.news)
         binding.refresher.setOnRefreshListener {
-            if (id != null) {
+            if (id != null && id != 0L) {
                 eventViewModel.data.observe(viewLifecycleOwner) {
                     val list = it.filter { event ->  event.authorId == id}
                     adapter.submitList(list)

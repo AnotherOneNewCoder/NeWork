@@ -1,7 +1,6 @@
 package ru.netology.nework.viewmodel
 
 import android.net.Uri
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,17 +12,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.netology.nework.api.PostsApiService
 import ru.netology.nework.auth.AppAuth
 import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.MediaUpload
 import ru.netology.nework.dto.Post
 import ru.netology.nework.dto.TypeAttachment
-import ru.netology.nework.errors.UnknownError
 import ru.netology.nework.models.MediaModel
 import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.PostsRepository
-import ru.netology.nework.repository.PostsRepositoryImpl
 import ru.netology.nework.utils.SingleLiveEvent
 import java.io.IOException
 import java.io.InputStream

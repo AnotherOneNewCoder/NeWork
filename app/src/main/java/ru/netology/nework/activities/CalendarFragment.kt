@@ -27,7 +27,7 @@ import ru.netology.nework.handler.CalendarDecorator
 import ru.netology.nework.utils.CommonUtils
 import ru.netology.nework.viewmodel.AuthViewModel
 import ru.netology.nework.viewmodel.CalendarNoteViewModel
-import java.util.Calendar
+
 import java.util.Date
 
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import android.widget.PopupMenu
-import android.widget.Toast
+
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -53,7 +53,7 @@ class EventsViewHolderVersionTwo(
             eventFormat.text = event.type.toString()
             when (event.link) {
                 null -> link.visibility = View.GONE
-                "Not presentated!" -> link.visibility = View.GONE
+                "Not presented!" -> link.visibility = View.GONE
                 else -> link.visibility = View.VISIBLE
             }
             eventLink.text = event.link

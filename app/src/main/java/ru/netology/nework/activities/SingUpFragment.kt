@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,7 +22,7 @@ import ru.netology.nework.auth.AppAuth
 import ru.netology.nework.databinding.FragmentSingUpBinding
 import ru.netology.nework.viewmodel.SingUpViewModel
 import ru.netology.nework.utils.AndroidUtils
-import ru.netology.nework.viewmodel.AuthViewModel
+
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -34,7 +33,7 @@ class SingUpFragment : Fragment() {
     lateinit var appAuth: AppAuth
 
     private val singUpViewModel by viewModels<SingUpViewModel>()
-    private val authViewModel by viewModels<AuthViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -71,10 +71,11 @@ class SingInFragment : Fragment() {
             singInModel.state.observe(viewLifecycleOwner) { state ->
                 when {
                     state.loginError -> {
-                        containerTextLoginFragmentSingIn.error = "Wrong login or password!"
+                        containerTextLoginFragmentSingIn.error =
+                            getString(R.string.wrong_login_or_password)
                     }
                     state.error -> {
-                        Toast.makeText(context, "Check network connection", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show()
                     }
                 }
                 progressBarFragmentSignIn.isVisible = state.loading

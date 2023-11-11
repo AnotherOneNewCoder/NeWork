@@ -1,7 +1,7 @@
 package ru.netology.nework.activities
 
 import android.content.Intent
-import android.net.Uri
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,14 +11,12 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.media3.exoplayer.ExoPlayer
+
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
+
 import ru.netology.nework.R
 import ru.netology.nework.adapters.OnPostInteractionListener
 import ru.netology.nework.adapters.PostsAdapter
@@ -193,10 +191,11 @@ class PostsFragment : Fragment() {
         {
             when {
                 it.error -> {
-                    Toast.makeText(context, "Check internet connection!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, getString(R.string.check_internet_connection), Toast.LENGTH_SHORT)
                         .show()
                 }
             }
+            getString(R.string.check_internet_connection)
             binding.progressBarFragmentPosts.isVisible = it.loading
         }
 

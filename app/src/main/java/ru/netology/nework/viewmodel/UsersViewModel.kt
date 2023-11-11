@@ -5,17 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.netology.nework.api.UsersApiService
 import ru.netology.nework.dto.User
-import ru.netology.nework.entity.UserEntity
 import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.UsersRepository
-import ru.netology.nework.repository.UsersRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel

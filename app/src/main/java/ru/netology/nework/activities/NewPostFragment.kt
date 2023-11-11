@@ -150,7 +150,7 @@ class NewPostFragment : Fragment() {
                         context,
                         getString(R.string.content_must_be_filled), Toast.LENGTH_SHORT
                     ).show()
-                    editTextContentFragmentNewPost.error = "Fill me!"
+                    editTextContentFragmentNewPost.error = getString(R.string.fill_me)
                 } else {
                     postsViewModel.changePostContent(
                         editTextContentFragmentNewPost.text.toString(),

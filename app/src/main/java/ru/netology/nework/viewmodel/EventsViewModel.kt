@@ -4,31 +4,21 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.netology.nework.api.EventsApiService
-import ru.netology.nework.auth.AppAuth
-import ru.netology.nework.db.AppDb
+
 import ru.netology.nework.dto.Coordinates
 import ru.netology.nework.dto.Event
 import ru.netology.nework.dto.MediaUpload
 import ru.netology.nework.dto.TypeAttachment
 import ru.netology.nework.dto.TypeEvent
-import ru.netology.nework.errors.UnknownError
 import ru.netology.nework.models.MediaModel
 import ru.netology.nework.models.StateModel
 import ru.netology.nework.repository.EventsRepository
-import ru.netology.nework.repository.EventsRepositoryImpl
 import ru.netology.nework.utils.SingleLiveEvent
 import java.io.InputStream
 import javax.inject.Inject
@@ -52,7 +42,6 @@ private val emptyMedia = MediaModel()
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val eventsRepository: EventsRepository,
-    private val appAuth: AppAuth,
 ) : ViewModel() {
 
     //    val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
@@ -66,7 +55,7 @@ class EventsViewModel @Inject constructor(
 //
 //        }.asFlow()
 //    }.asLiveData(Dispatchers.Default)
-    @OptIn(ExperimentalCoroutinesApi::class)
+    //@OptIn(ExperimentalCoroutinesApi::class)
 //val data: LiveData<List<Event>> = appAuth.authSateFlow.flatMapLatest { (myId,_) ->
 //        eventsRepository.data.map { events->
 //            events.map { event -> event.copy(
@@ -82,7 +71,7 @@ class EventsViewModel @Inject constructor(
 
     val data: LiveData<List<Event>> = eventsRepository.data.asLiveData(Dispatchers.Default)
 
-//    val userData: MutableLiveData<List<Event>>()
+    //    val userData: MutableLiveData<List<Event>>()
     private val _state = MutableLiveData<StateModel>()
     val state: LiveData<StateModel>
         get() = _state
@@ -95,8 +84,6 @@ class EventsViewModel @Inject constructor(
     private val _eventCreated = SingleLiveEvent<Unit>()
     val eventCreated: LiveData<Unit>
         get() = _eventCreated
-
-
 
 
     init {
@@ -140,7 +127,6 @@ class EventsViewModel @Inject constructor(
     }
 
 
-
     fun changeEventWithContent(
         content: String,
         date: String,
@@ -173,7 +159,6 @@ class EventsViewModel @Inject constructor(
             }
         }
     }
-
 
 
     fun changeMedia(
@@ -247,11 +232,6 @@ class EventsViewModel @Inject constructor(
             _state.postValue(StateModel(loading = true))
         }
     }
-
-
-
-
-
 
 
 }

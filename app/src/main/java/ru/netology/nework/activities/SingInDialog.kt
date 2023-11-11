@@ -11,10 +11,10 @@ class SingInDialog: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.only_for_autorized_users_would_you_like_to_sing_in))
-            .setNegativeButton("Later") { dialog, _ ->
+            .setNegativeButton(getString(R.string.later)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Go") { dialog, _ ->
+            .setPositiveButton(getString(R.string.go)) { dialog, _ ->
                 findNavController().navigate(R.id.singInFragment)
                 dialog.dismiss()
             }
