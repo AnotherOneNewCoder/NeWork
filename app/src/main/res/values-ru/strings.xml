@@ -14,7 +14,7 @@
     <string name="tab_ic_calendar">Календарь</string>
     <string name="user_s_events">Личные события</string>
     <string name="user_s_posts">Личные посты</string>
-    <string name="user_s_jobs">Трудовая деятельность</string>
+    <string name="user_s_jobs">Работа</string>
     <string name="company">"Компания: "</string>
     <string name="position">Должность:</string>
     <string name="started">Начало:</string>
@@ -65,4 +65,10 @@
     <string name="later">Позже</string>
     <string name="go">Вперед</string>
     <string name="wrong_login_or_password">Неправильный логин или пароль!</string>
+    <string name="add_button_event">Добавить событие</string>
+    <string name="format">Формат:</string>
+    <string name="offline">ОФФЛАЙН</string>
+    <string name="post">Пост</string>
+    <string name="job">Работа</string>
+    <string name="authentication">АВТОРИЗАЦИЯ</string>
 </resources>

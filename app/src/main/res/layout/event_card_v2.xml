@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_start_text"
                 android:layout_marginStart="4dp"
-                android:text="Date and time: "
+                android:text="@string/date_and_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/event_content" />
 
@@ -146,7 +146,7 @@
                 style="@style/text_date_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Format: "
+                android:text="@string/format"
                 android:layout_marginStart="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time" />
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_start_text"
-                android:text="Offline"
+                android:text="@string/offline"
                 app:layout_constraintStart_toEndOf="@id/shapka_event_format"
                 app:layout_constraintTop_toBottomOf="@id/shapka_event_date_time" />
 
@@ -166,7 +166,7 @@
                 style="@style/text_date_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Link: "
+                android:text="@string/link"
                 android:layout_marginStart="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shapka_event_format" />

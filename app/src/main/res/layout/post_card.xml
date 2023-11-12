@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Link: "
+                android:text="@string/link"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/post_content" />
 
@@ -209,7 +209,7 @@
 
 
 
->
+
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/video_elements"
